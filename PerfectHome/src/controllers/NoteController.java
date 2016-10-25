@@ -3,12 +3,12 @@ package controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.ToDoDAO;
+import data.NoteDAO;
 
 @RestController
-public class ToDoController {
+public class NoteController {
 	
 	@Autowired
-	private ToDoDAO todoDAO;
+	private NoteDAO todoDAO;
 
 }
