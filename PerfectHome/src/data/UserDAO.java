@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import entities.HomeUser;
 import entities.User;
 
 @Transactional
@@ -29,11 +28,52 @@ public class UserDAO {
 		return users;
 	}
 
-	// Get All Users
-	public List<HomeUser> indexHomeUser() {
-		String query = "Select hu from HomeUser hu";
-		List<HomeUser> homeUsers = em.createQuery(query, HomeUser.class).getResultList();
-
-		return homeUsers;
+	// Get User By ID
+	public User show(int id) {
+		return em.find(User.class, id);
 	}
+
+	// Add New User
+	public User create(User user) {
+		String rawPassword = user.getPassword();
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		user.setPassword(encodedPassword);
+
+		em.persist(user);
+		em.flush();
+
+		return user;
+	}
+
+	// Delete User
+	public void destroy(int id) {
+		User deleteUser = em.find(User.class, id);
+
+		em.remove(deleteUser);
+	}
+
+	// Authenticate User
+	public User authenticateUser(User user) {
+		User managedUser = null;
+
+		List<User> users = index();
+
+		for (User u : users) {
+			if (u.getUsername().equals(user.getUsername())) {
+				managedUser = em.find(User.class, u.getId());
+			}
+		}
+
+		if (managedUser != null) {
+			String rawPassword = user.getPassword();
+			String encodedPassword = managedUser.getPassword();
+
+			if (passwordEncoder.matches(rawPassword, encodedPassword)) {
+				return managedUser;
+			}
+		}
+
+		return managedUser;
+	}
+
 }

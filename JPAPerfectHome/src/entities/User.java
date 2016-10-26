@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User  {
@@ -31,7 +31,7 @@ public class User  {
 
 	//bi-directional many-to-one association to HomeUser
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-	@JsonBackReference
+	@JsonIgnore
 	private Set<HomeUser> homeUsers;
 
 

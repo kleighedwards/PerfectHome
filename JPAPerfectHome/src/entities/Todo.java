@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Todo  {
@@ -30,7 +30,7 @@ public class Todo  {
 	//bi-directional many-to-one association to HomeUser
 	@ManyToOne
 	@JoinColumn(name="home_user_id")
-	@JsonBackReference
+	@JsonIgnore
 	private HomeUser homeUser;
 
 

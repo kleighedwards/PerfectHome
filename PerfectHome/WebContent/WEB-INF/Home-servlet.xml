@@ -18,7 +18,7 @@
 
 	<bean id="homedao" class="data.HomeDAO" />
 	<bean id="userdao" class="data.UserDAO" />
-	<bean id="notedao" class="data.NoteDAO" />
+	<bean id="hudao" class="data.HomeUserDAO" />
 
 	<!-- Inject bCrypt Bean -->
 	<bean id="bCryptPasswordEncoder"
