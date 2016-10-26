@@ -1,7 +1,17 @@
 package entities;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Note  {
@@ -18,6 +28,7 @@ public class Note  {
 	//bi-directional many-to-one association to HomeUser
 	@ManyToOne
 	@JoinColumn(name="home_user_id")
+	@JsonBackReference
 	private HomeUser homeUser;
 
 
