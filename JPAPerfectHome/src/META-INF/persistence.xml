@@ -5,6 +5,10 @@
 	<persistence-unit name="JPAPerfectHome">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
       </provider>
+		<class>entities.Home</class>
+		<class>entities.Note</class>
+		<class>entities.Todo</class>
+		<class>entities.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/homedb" />
 			<property name="javax.persistence.jdbc.user" value="homeuser" />

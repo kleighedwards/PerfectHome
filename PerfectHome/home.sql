@@ -24,7 +24,87 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NULL,
   `password` VARCHAR(255) NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `home`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `home` ;
+
+CREATE TABLE IF NOT EXISTS `home` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `zp_id` INT NULL,
+  `cloud_id` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `note`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `note` ;
+
+CREATE TABLE IF NOT EXISTS `note` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `date` DATETIME NULL,
+  `notes` VARCHAR(500) NULL,
+  `home_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_note_home1_idx` (`home_id` ASC),
+  CONSTRAINT `fk_note_home1`
+    FOREIGN KEY (`home_id`)
+    REFERENCES `home` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `todo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `todo` ;
+
+CREATE TABLE IF NOT EXISTS `todo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `date` DATE NULL,
+  `task` VARCHAR(255) NULL,
+  `completed` TINYINT(1) NULL,
+  `home_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_todo_home1_idx` (`home_id` ASC),
+  CONSTRAINT `fk_todo_home1`
+    FOREIGN KEY (`home_id`)
+    REFERENCES `home` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `home_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `home_user` ;
+
+CREATE TABLE IF NOT EXISTS `home_user` (
+  `home_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`home_id`, `user_id`),
+  INDEX `fk_home_has_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_home_has_user_home1_idx` (`home_id` ASC),
+  CONSTRAINT `fk_home_has_user_home1`
+    FOREIGN KEY (`home_id`)
+    REFERENCES `home` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_home_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -40,7 +120,55 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'homeuser';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `user` (`id`, `username`, `password`) VALUES (1, 'testUser', 'password');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (1, 'testUser', 'password', 'John', 'Doe');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (2, 'anotherUser', 'password', 'Jane', 'Doe');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `home`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (1, 13138711, NULL);
+INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (2, 102995240, NULL);
+INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (3, 13028709, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `note`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `note` (`id`, `date`, `notes`, `home_id`) VALUES (1, '2016-10-30 14:50:00', 'Loved the master bathroom', 1);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_id`) VALUES (2, '2016-10-30 15:00:00', 'Really spacious kitchen', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `todo`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (1, '2016-10-30', 'Call roofer', false, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (2, '2016-10-30', 'Ask about schools in district', false, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (3, '2016-11-04', 'Call painter for living room', false, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `home_user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (1, 1);
+INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (2, 1);
+INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (3, 1);
 
 COMMIT;
 

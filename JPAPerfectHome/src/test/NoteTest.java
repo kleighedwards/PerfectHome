@@ -10,13 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.User;
+import entities.Note;
 
-public class UserTest {
-
+public class NoteTest {
+	
 	private EntityManagerFactory emf;
     private EntityManager em;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		emf = Persistence.
@@ -26,11 +26,10 @@ public class UserTest {
 
 	@Test
 	public void test() {
-		User user = em.find(User.class, 1);
+		Note note = em.find(Note.class, 1);
 		
-		assertEquals("testUser", user.getUsername());
-		assertEquals("John", user.getFirstName());
-		assertEquals(3, user.getHomes().size());
+		assertEquals("Loved the master bathroom", note.getNotes());
+		assertEquals(1, note.getHome().getId());
 	}
 	
 	@After
@@ -38,5 +37,4 @@ public class UserTest {
 		em.close();
         emf.close();
 	}
-
 }

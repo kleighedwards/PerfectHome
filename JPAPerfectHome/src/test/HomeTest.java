@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,13 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.User;
+import entities.Home;
 
-public class UserTest {
-
+public class HomeTest {
+	
 	private EntityManagerFactory emf;
     private EntityManager em;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		emf = Persistence.
@@ -26,17 +26,18 @@ public class UserTest {
 
 	@Test
 	public void test() {
-		User user = em.find(User.class, 1);
+		Home home = em.find(Home.class, 1);
 		
-		assertEquals("testUser", user.getUsername());
-		assertEquals("John", user.getFirstName());
-		assertEquals(3, user.getHomes().size());
+		assertEquals(13138711, home.getZpId());
+		assertEquals(1, home.getUsers().size());
+		assertEquals(2, home.getNotes().size());
+		assertEquals(3, home.getTodos().size());
 	}
+	
 	
 	@After
 	public void tearDown() throws Exception {
 		em.close();
         emf.close();
 	}
-
 }
