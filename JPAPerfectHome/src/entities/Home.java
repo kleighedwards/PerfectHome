@@ -16,36 +16,12 @@ public class Home  {
 	@Column(name="zp_id")
 	private int zpId;
 
-	//bi-directional many-to-many association to User
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(
-		name="home_user"
-		, joinColumns={
-			@JoinColumn(name="home_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="user_id")
-			}
-		)
-	private Set<User> users;
-
-	//bi-directional many-to-one association to Note
+	//bi-directional many-to-one association to HomeUser
 	@OneToMany(mappedBy="home", fetch=FetchType.EAGER)
-	private Set<Note> notes;
-
-	//bi-directional many-to-one association to Todo
-	@OneToMany(mappedBy="home", fetch=FetchType.EAGER)
-	private Set<Todo> todos;
-
-	public Home() {
-	}
+	private Set<HomeUser> homeUsers;
 
 	public int getId() {
 		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getCloudId() {
@@ -64,56 +40,26 @@ public class Home  {
 		this.zpId = zpId;
 	}
 
-	public Set<User> getUsers() {
-		return this.users;
+	public Set<HomeUser> getHomeUsers() {
+		return this.homeUsers;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setHomeUsers(Set<HomeUser> homeUsers) {
+		this.homeUsers = homeUsers;
 	}
 
-	public Set<Note> getNotes() {
-		return this.notes;
+	public HomeUser addHomeUser(HomeUser homeUser) {
+		getHomeUsers().add(homeUser);
+		homeUser.setHome(this);
+
+		return homeUser;
 	}
 
-	public void setNotes(Set<Note> notes) {
-		this.notes = notes;
-	}
+	public HomeUser removeHomeUser(HomeUser homeUser) {
+		getHomeUsers().remove(homeUser);
+		homeUser.setHome(null);
 
-	public Note addNote(Note note) {
-		getNotes().add(note);
-		note.setHome(this);
-
-		return note;
-	}
-
-	public Note removeNote(Note note) {
-		getNotes().remove(note);
-		note.setHome(null);
-
-		return note;
-	}
-
-	public Set<Todo> getTodos() {
-		return this.todos;
-	}
-
-	public void setTodos(Set<Todo> todos) {
-		this.todos = todos;
-	}
-
-	public Todo addTodo(Todo todo) {
-		getTodos().add(todo);
-		todo.setHome(this);
-
-		return todo;
-	}
-
-	public Todo removeTodo(Todo todo) {
-		getTodos().remove(todo);
-		todo.setHome(null);
-
-		return todo;
+		return homeUser;
 	}
 
 }

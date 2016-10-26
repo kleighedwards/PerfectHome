@@ -6,6 +6,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
       </provider>
 		<class>entities.Home</class>
+		<class>entities.HomeUser</class>
 		<class>entities.Note</class>
 		<class>entities.Todo</class>
 		<class>entities.User</class>

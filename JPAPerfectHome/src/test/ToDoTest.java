@@ -29,8 +29,9 @@ public class ToDoTest {
 		Todo todo = em.find(Todo.class, 1);
 		
 		assertEquals("Call roofer", todo.getTask());
-		assertEquals(0, todo.getCompleted());
-		assertEquals(1, todo.getHome().getId());		
+		assertEquals(false, todo.getCompleted());
+		
+		assertEquals(1, todo.getHomeUser().getId());
 	}
 	
 	@After

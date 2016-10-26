@@ -44,6 +44,31 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `home_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `home_user` ;
+
+CREATE TABLE IF NOT EXISTS `home_user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `home_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_home_has_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_home_has_user_home_idx` (`home_id` ASC),
+  CONSTRAINT `fk_home_has_user_home`
+    FOREIGN KEY (`home_id`)
+    REFERENCES `home` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_home_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `note`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `note` ;
@@ -52,12 +77,12 @@ CREATE TABLE IF NOT EXISTS `note` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date` DATETIME NULL,
   `notes` VARCHAR(500) NULL,
-  `home_id` INT NOT NULL,
+  `home_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_note_home1_idx` (`home_id` ASC),
-  CONSTRAINT `fk_note_home1`
-    FOREIGN KEY (`home_id`)
-    REFERENCES `home` (`id`)
+  INDEX `fk_note_home_user1_idx` (`home_user_id` ASC),
+  CONSTRAINT `fk_note_home_user1`
+    FOREIGN KEY (`home_user_id`)
+    REFERENCES `home_user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -73,36 +98,12 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `date` DATE NULL,
   `task` VARCHAR(255) NULL,
   `completed` TINYINT(1) NULL,
-  `home_id` INT NOT NULL,
+  `home_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_todo_home1_idx` (`home_id` ASC),
-  CONSTRAINT `fk_todo_home1`
-    FOREIGN KEY (`home_id`)
-    REFERENCES `home` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `home_user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `home_user` ;
-
-CREATE TABLE IF NOT EXISTS `home_user` (
-  `home_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`home_id`, `user_id`),
-  INDEX `fk_home_has_user_user1_idx` (`user_id` ASC),
-  INDEX `fk_home_has_user_home1_idx` (`home_id` ASC),
-  CONSTRAINT `fk_home_has_user_home1`
-    FOREIGN KEY (`home_id`)
-    REFERENCES `home` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_home_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
+  INDEX `fk_todo_home_user1_idx` (`home_user_id` ASC),
+  CONSTRAINT `fk_todo_home_user1`
+    FOREIGN KEY (`home_user_id`)
+    REFERENCES `home_user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -139,12 +140,24 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `home_user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (1, 1, 1);
+INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (2, 2, 1);
+INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (3, 3, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `note`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `note` (`id`, `date`, `notes`, `home_id`) VALUES (1, '2016-10-30 14:50:00', 'Loved the master bathroom', 1);
-INSERT INTO `note` (`id`, `date`, `notes`, `home_id`) VALUES (2, '2016-10-30 15:00:00', 'Really spacious kitchen', 1);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (1, '2016-10-30 14:50:00', 'Loved the master bathroom', 1);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (2, '2016-10-30 15:00:00', 'Really spacious kitchen', 1);
 
 COMMIT;
 
@@ -154,21 +167,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (1, '2016-10-30', 'Call roofer', false, 1);
-INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (2, '2016-10-30', 'Ask about schools in district', false, 1);
-INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_id`) VALUES (3, '2016-11-04', 'Call painter for living room', false, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `home_user`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `homedb`;
-INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (1, 1);
-INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (2, 1);
-INSERT INTO `home_user` (`home_id`, `user_id`) VALUES (3, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (1, '2016-10-30', 'Call roofer', false, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (2, '2016-10-30', 'Ask about schools in district', false, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (3, '2016-11-04', 'Call painter for living room', false, 1);
 
 COMMIT;
 

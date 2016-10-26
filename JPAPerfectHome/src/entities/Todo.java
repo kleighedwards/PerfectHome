@@ -3,40 +3,35 @@ package entities;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
 public class Todo  {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private byte completed;
+	private boolean completed;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	private String task;
 
-	//bi-directional many-to-one association to Home
+	//bi-directional many-to-one association to HomeUser
 	@ManyToOne
-	private Home home;
+	@JoinColumn(name="home_user_id")
+	private HomeUser homeUser;
 
-	public Todo() {
-	}
 
 	public int getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public byte getCompleted() {
+	public boolean getCompleted() {
 		return this.completed;
 	}
 
-	public void setCompleted(byte completed) {
+	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
 
@@ -56,12 +51,12 @@ public class Todo  {
 		this.task = task;
 	}
 
-	public Home getHome() {
-		return this.home;
+	public HomeUser getHomeUser() {
+		return this.homeUser;
 	}
 
-	public void setHome(Home home) {
-		this.home = home;
+	public void setHomeUser(HomeUser homeUser) {
+		this.homeUser = homeUser;
 	}
 
 }

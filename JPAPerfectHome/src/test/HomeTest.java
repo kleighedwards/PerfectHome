@@ -29,9 +29,8 @@ public class HomeTest {
 		Home home = em.find(Home.class, 1);
 		
 		assertEquals(13138711, home.getZpId());
-		assertEquals(1, home.getUsers().size());
-		assertEquals(2, home.getNotes().size());
-		assertEquals(3, home.getTodos().size());
+		
+		assertEquals(1, home.getHomeUsers().size());
 	}
 	
 	

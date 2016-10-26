@@ -15,12 +15,11 @@ public class Note  {
 
 	private String notes;
 
-	//bi-directional many-to-one association to Home
+	//bi-directional many-to-one association to HomeUser
 	@ManyToOne
-	private Home home;
+	@JoinColumn(name="home_user_id")
+	private HomeUser homeUser;
 
-	public Note() {
-	}
 
 	public int getId() {
 		return this.id;
@@ -46,12 +45,12 @@ public class Note  {
 		this.notes = notes;
 	}
 
-	public Home getHome() {
-		return this.home;
+	public HomeUser getHomeUser() {
+		return this.homeUser;
 	}
 
-	public void setHome(Home home) {
-		this.home = home;
+	public void setHomeUser(HomeUser homeUser) {
+		this.homeUser = homeUser;
 	}
 
 }
