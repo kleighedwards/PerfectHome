@@ -20,19 +20,13 @@ public class User  {
 
 	private String username;
 
-	//bi-directional many-to-many association to Home
-	@ManyToMany(mappedBy="users", fetch=FetchType.EAGER)
-	private Set<Home> homes;
+	//bi-directional many-to-one association to HomeUser
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	private Set<HomeUser> homeUsers;
 
-	public User() {
-	}
 
 	public int getId() {
 		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -67,12 +61,26 @@ public class User  {
 		this.username = username;
 	}
 
-	public Set<Home> getHomes() {
-		return this.homes;
+	public Set<HomeUser> getHomeUsers() {
+		return this.homeUsers;
 	}
 
-	public void setHomes(Set<Home> homes) {
-		this.homes = homes;
+	public void setHomeUsers(Set<HomeUser> homeUsers) {
+		this.homeUsers = homeUsers;
+	}
+
+	public HomeUser addHomeUser(HomeUser homeUser) {
+		getHomeUsers().add(homeUser);
+		homeUser.setUser(this);
+
+		return homeUser;
+	}
+
+	public HomeUser removeHomeUser(HomeUser homeUser) {
+		getHomeUsers().remove(homeUser);
+		homeUser.setUser(null);
+
+		return homeUser;
 	}
 
 }

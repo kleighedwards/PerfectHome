@@ -29,7 +29,8 @@ public class NoteTest {
 		Note note = em.find(Note.class, 1);
 		
 		assertEquals("Loved the master bathroom", note.getNotes());
-		assertEquals(1, note.getHome().getId());
+		
+		assertEquals(1, note.getHomeUser().getId());
 	}
 	
 	@After
