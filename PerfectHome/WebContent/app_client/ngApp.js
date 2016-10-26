@@ -4,7 +4,7 @@ var app = angular.module('ngApp', ['ngRoute'])
 .config(function($routeProvider){
   $routeProvider
     .when('/', {
-       templateUrl: 'public/views/welcome.view.html',
+       templateUrl: 'public/views/welcome.html',
        controller: 'welcomeController'
     })
     .when('/login', {
