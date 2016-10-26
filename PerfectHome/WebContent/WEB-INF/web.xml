@@ -5,7 +5,7 @@
        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
     <welcome-file-list>
-        <welcome-file>/public/views/index.html</welcome-file>
+        <welcome-file>/public/views/login.view.html</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>Home</servlet-name>
