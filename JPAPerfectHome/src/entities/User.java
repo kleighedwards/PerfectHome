@@ -1,7 +1,16 @@
 package entities;
 
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class User  {
@@ -22,6 +31,7 @@ public class User  {
 
 	//bi-directional many-to-one association to HomeUser
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@JsonBackReference
 	private Set<HomeUser> homeUsers;
 
 
