@@ -9,6 +9,7 @@
 		<class>entities.HomeUser</class>
 		<class>entities.Note</class>
 		<class>entities.Todo</class>
+		<class>entities.Image</class>
 		<class>entities.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/homedb" />

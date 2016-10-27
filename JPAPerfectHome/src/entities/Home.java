@@ -19,9 +19,6 @@ public class Home  {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="cloud_id")
-	private String cloudId;
-
 	@Column(name="zp_id")
 	private int zpId;
 
@@ -32,14 +29,6 @@ public class Home  {
 
 	public int getId() {
 		return this.id;
-	}
-
-	public String getCloudId() {
-		return this.cloudId;
-	}
-
-	public void setCloudId(String cloudId) {
-		this.cloudId = cloudId;
 	}
 
 	public int getZpId() {

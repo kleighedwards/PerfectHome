@@ -38,7 +38,6 @@ DROP TABLE IF EXISTS `home` ;
 CREATE TABLE IF NOT EXISTS `home` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `zp_id` INT NULL,
-  `cloud_id` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -108,6 +107,25 @@ CREATE TABLE IF NOT EXISTS `todo` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `image` ;
+
+CREATE TABLE IF NOT EXISTS `image` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(255) NULL,
+  `home_user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_image_home_user1_idx` (`home_user_id` ASC),
+  CONSTRAINT `fk_image_home_user1`
+    FOREIGN KEY (`home_user_id`)
+    REFERENCES `home_user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO homeuser;
  DROP USER homeuser;
@@ -132,9 +150,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (1, 13138711, NULL);
-INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (2, 102995240, NULL);
-INSERT INTO `home` (`id`, `zp_id`, `cloud_id`) VALUES (3, 13028709, NULL);
+INSERT INTO `home` (`id`, `zp_id`) VALUES (1, 13138711);
+INSERT INTO `home` (`id`, `zp_id`) VALUES (2, 102995240);
+INSERT INTO `home` (`id`, `zp_id`) VALUES (3, 13028709);
 
 COMMIT;
 
@@ -170,6 +188,16 @@ USE `homedb`;
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (1, '2016-10-30', 'Call roofer', false, 1);
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (2, '2016-10-30', 'Ask about schools in district', false, 1);
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (3, '2016-11-04', 'Call painter for living room', false, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `image`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homedb`;
+INSERT INTO `image` (`id`, `url`, `home_user_id`) VALUES (1, 'http://res.cloudinary.com/dyllookxn/image/upload/v1477543178/sample.jpg', 1);
 
 COMMIT;
 
