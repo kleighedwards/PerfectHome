@@ -41,7 +41,7 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/users/*/notes/**" />
+			<mvc:mapping path="/user/**" />
 			<bean id="DataSecurityInterceptor" class="security.DataSecurityInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
