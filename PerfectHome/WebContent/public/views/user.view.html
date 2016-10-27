@@ -1,8 +1,13 @@
+  
 <header ng-include="'public/partials/nav.html'"></header>
 
 <!-- create user view page -->
 
-<div ng-include="'public/partials/searchBox.html'"></div>
+    <div id="locationField">
+      <input id="autocomplete" placeholder="Enter your address"
+             onFocus="geolocate()" type="text"></input>
+    </div>
+
 
 
 <div class="contain">
