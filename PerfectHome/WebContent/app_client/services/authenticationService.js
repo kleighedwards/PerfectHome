@@ -24,6 +24,7 @@ app.factory('authenticationService', function($window, $http){
               })
               .then(function(response){
                 saveToken(response.data.jwt);
+                return response;
               });
     };
 
@@ -65,6 +66,7 @@ app.factory('authenticationService', function($window, $http){
       logout : logout,
       isLoggedIn : isLoggedIn,
       currentUser : currentUser,
-      getToken : getToken
+      getToken : getToken,
+      saveToken : saveToken
     }
 })
