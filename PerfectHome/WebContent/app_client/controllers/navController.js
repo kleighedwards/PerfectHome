@@ -2,7 +2,7 @@
 
 var app = angular.module('ngApp');
 
-app.controller("navController", function ($scope) {
+app.controller("navController", function ($scope, $location, authenticationService) {
  
     $scope.submitFeedback = function(action) {
         //good or bad...
@@ -17,6 +17,14 @@ app.controller("navController", function ($scope) {
  
             //submit using $http or service
         }
-    }
+    };
+    
+    $scope.isLoggedIn = authenticationService.isLoggedIn;
+    
+    $scope.logOutUser = function(){
+  	   console.log("Request received to logout user");
+  	   authenticationService.logout();
+  	   $location.path("/login");
+    };
  
 });

@@ -6,15 +6,15 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Perfect Home Logo</a>
+      <a href="#/user" ng-show="isLoggedIn()" class="navbar-brand glyphicon glyphicon-home"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#/user">Home</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#/register" ng-hide="isLoggedIn()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#/login" ng-hide="isLoggedIn()"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+        <li><a ng-click="logOutUser()" ng-show="isLoggedIn()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>
