@@ -15,32 +15,37 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="home_user")
-public class HomeUser  {
+@Table(name = "home_user")
+public class HomeUser {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	//bi-directional many-to-one association to Home
+	// bi-directional many-to-one association to Home
 	@ManyToOne
-	@JsonBackReference(value="huHome")
+	@JsonBackReference(value = "huHome")
 	private Home home;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JsonBackReference(value="huUser")
+	@JsonBackReference(value = "huUser")
 	private User user;
 
-	//bi-directional many-to-one association to Note
-	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference(value="huNotes")
+	// bi-directional many-to-one association to Note
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@JsonManagedReference(value = "huNotes")
 	private Set<Note> notes;
 
-	//bi-directional many-to-one association to Todo
-	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference(value="huTodos")
+	// bi-directional many-to-one association to Todo
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@JsonManagedReference(value = "huTodos")
 	private Set<Todo> todos;
+
+	// bi-directional many-to-one association to Image
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@JsonManagedReference(value = "huImages")
+	private Set<Image> images;
 
 	public int getId() {
 		return this.id;
@@ -53,11 +58,11 @@ public class HomeUser  {
 	public Home getHome() {
 		return this.home;
 	}
-	
-	public int getHomeZpID(){
+
+	public int getHomeZpID() {
 		return this.home.getZpId();
 	}
-	
+
 	public int getHomeId() {
 		return this.home.getId();
 	}
@@ -69,15 +74,15 @@ public class HomeUser  {
 	public User getUser() {
 		return this.user;
 	}
-	
-	public int getUserId(){
+
+	public int getUserId() {
 		return this.user.getId();
 	}
 
-	public String getUserUsername(){
+	public String getUserUsername() {
 		return this.user.getUsername();
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -124,6 +129,28 @@ public class HomeUser  {
 		todo.setHomeUser(null);
 
 		return todo;
+	}
+
+	public Set<Image> getImages() {
+		return this.images;
+	}
+
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
+
+	public Image addImage(Image image) {
+		getImages().add(image);
+		image.setHomeUser(this);
+
+		return image;
+	}
+
+	public Image removeImage(Image image) {
+		getTodos().remove(image);
+		image.setHomeUser(null);
+
+		return image;
 	}
 
 }

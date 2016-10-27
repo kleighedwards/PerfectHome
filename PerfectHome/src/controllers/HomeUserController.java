@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.HomeUserDAO;
 import entities.Home;
 import entities.HomeUser;
+import entities.Image;
 import entities.Note;
 import entities.Todo;
 import entities.User;
@@ -61,6 +62,12 @@ public class HomeUserController {
 	@RequestMapping(path = "homeuser/{id}/notes", method = RequestMethod.GET)
 	public Collection<Note> showNotes(@PathVariable int id) {
 		return huDAO.show(id).getNotes();
+	}
+
+	// Returns Images
+	@RequestMapping(path = "homeuser/{id}/images", method = RequestMethod.GET)
+	public Collection<Image> showImages(@PathVariable int id) {
+		return huDAO.show(id).getImages();
 	}
 
 	// Adds A New HomeUser Relationship
@@ -123,6 +130,26 @@ public class HomeUserController {
 		}
 	}
 
+	// Create An Image
+	@RequestMapping(path = "homeuser/{id}/images", method = RequestMethod.POST)
+	public void createImage(@PathVariable int id, @RequestBody String jsonImage, HttpServletResponse response) {
+		ObjectMapper mapper = new ObjectMapper();
+		Image newImage = null;
+
+		try {
+			newImage = mapper.readValue(jsonImage, Image.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (newImage == null) {
+			response.setStatus(400);
+		} else {
+			response.setStatus(201);
+			huDAO.createImage(id, newImage);
+		}
+	}
+
 	// Delete ToDo
 	@RequestMapping(path = "homeuser/{id}/todos/{t_id}", method = RequestMethod.DELETE)
 	public void deleteTodo(@PathVariable int id, @PathVariable int t_id) {
@@ -140,6 +167,17 @@ public class HomeUserController {
 
 		try {
 			huDAO.destroyNote(id, n_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Delete Image
+	@RequestMapping(path = "homeuser/{id}/images/{i_id}", method = RequestMethod.DELETE)
+	public void deleteImage(@PathVariable int id, @PathVariable int i_id) {
+
+		try {
+			huDAO.destroyImage(id, i_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

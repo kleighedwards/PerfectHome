@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import entities.Home;
 import entities.HomeUser;
+import entities.Image;
 import entities.Note;
 import entities.Todo;
 import entities.User;
@@ -38,10 +39,10 @@ public class HomeUserDAO {
 		System.out.println(hu);
 		User user = em.find(User.class, hu.getUser().getId());
 		Home home = em.find(Home.class, hu.getHome().getId());
-		
+
 		hu.setUser(user);
 		hu.setHome(home);
-		
+
 		em.persist(hu);
 		em.flush();
 
@@ -68,6 +69,16 @@ public class HomeUserDAO {
 		em.flush();
 	}
 
+	// Create A New Image
+	public void createImage(int id, Image newImage) {
+		HomeUser hu = em.find(HomeUser.class, id);
+
+		newImage.setHomeUser(hu);
+
+		em.persist(newImage);
+		em.flush();
+	}
+
 	// Delete ToDo
 	public void destroyTodo(int id, int tId) {
 		HomeUser hu = em.find(HomeUser.class, id);
@@ -76,7 +87,7 @@ public class HomeUserDAO {
 		Collection<Todo> todos = hu.getTodos();
 
 		for (Todo t : todos) {
-			if (t == todo) {
+			if (t.getId() == todo.getId()) {
 				todos.remove(t);
 
 				em.remove(todo);
@@ -92,10 +103,26 @@ public class HomeUserDAO {
 		Collection<Note> notes = hu.getNotes();
 
 		for (Note n : notes) {
-			if (n == note) {
+			if (n.getId() == note.getId()) {
 				notes.remove(n);
 
 				em.remove(note);
+			}
+		}
+	}
+
+	// Delete Image
+	public void destroyImage(int id, int iId) {
+		HomeUser hu = em.find(HomeUser.class, id);
+		Image image = em.find(Image.class, iId);
+
+		Collection<Image> images = hu.getImages();
+
+		for (Image i : images) {
+			if (i.getId() == image.getId()) {
+				images.remove(i);
+
+				em.remove(image);
 			}
 		}
 	}
@@ -112,7 +139,7 @@ public class HomeUserDAO {
 		em.flush();
 	}
 
-	// Update ToDo
+	// Update Note
 	public void updateNote(int id, int nId, Note note) {
 		Note editNote = em.find(Note.class, nId);
 
