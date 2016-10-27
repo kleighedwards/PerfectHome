@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -23,22 +24,22 @@ public class HomeUser  {
 
 	//bi-directional many-to-one association to Home
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference(value="huHome")
 	private Home home;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference(value="huUser")
 	private User user;
 
 	//bi-directional many-to-one association to Note
 	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value="huNotes")
 	private Set<Note> notes;
 
 	//bi-directional many-to-one association to Todo
 	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value="huTodos")
 	private Set<Todo> todos;
 
 	public int getId() {
