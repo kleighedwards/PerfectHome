@@ -21,6 +21,9 @@ app.controller("navController", function ($scope, $location, authenticationServi
     
     $scope.isLoggedIn = authenticationService.isLoggedIn;
     
+    console.log(authenticationService.isLoggedIn());
+    console.log($scope.isLoggedIn());
+    
     $scope.logOutUser = function(){
   	   console.log("Request received to logout user");
   	   authenticationService.logout();
