@@ -3,14 +3,14 @@
 var app = angular.module('ngApp', ['ngRoute'])
 .config(function($routeProvider){
   $routeProvider
-//    .when('/', {
-//       templateUrl: 'public/views/home.view.html',
-//       controller: 'welcomeController'
-//    })
     .when('/', {
-    	templateUrl: 'public/views/login.view.html',
-    	controller: 'loginController'
+       templateUrl: 'public/views/home.view.html',
+       controller: 'welcomeController'
     })
+//    .when('/', {
+//    	templateUrl: 'public/views/login.view.html',
+//    	controller: 'loginController'
+//    })
     .when('/login', {
       templateUrl: 'public/views/login.view.html',
       controller: 'loginController'
