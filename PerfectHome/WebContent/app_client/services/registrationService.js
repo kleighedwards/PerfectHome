@@ -1,17 +1,16 @@
-var app = angular.module('ngTodo');
+var app = angular.module('ngApp');
 
 app.factory('registrationService', function($http){
 
-var createUser = function(data){
-    var createUser ={ task: data, completed: false };
+var createUser = function(user){
 
     return $http({
         method : 'POST',
-        url : 'api/user',
+        url : 'api/auth/signup',
         headers : {
             'Content-Type' : 'application/json'
         },
-        data : createUser
+        data : user
     })
 };
 

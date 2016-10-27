@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -23,22 +24,22 @@ public class HomeUser  {
 
 	//bi-directional many-to-one association to Home
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference(value="huHome")
 	private Home home;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference(value="huUser")
 	private User user;
 
 	//bi-directional many-to-one association to Note
 	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value="huNotes")
 	private Set<Note> notes;
 
 	//bi-directional many-to-one association to Todo
 	@OneToMany(mappedBy="homeUser", fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value="huTodos")
 	private Set<Todo> todos;
 
 	public int getId() {
@@ -52,6 +53,14 @@ public class HomeUser  {
 	public Home getHome() {
 		return this.home;
 	}
+	
+	public int getHomeZpID(){
+		return this.home.getZpId();
+	}
+	
+	public int getHomeId() {
+		return this.home.getId();
+	}
 
 	public void setHome(Home home) {
 		this.home = home;
@@ -60,7 +69,15 @@ public class HomeUser  {
 	public User getUser() {
 		return this.user;
 	}
+	
+	public int getUserId(){
+		return this.user.getId();
+	}
 
+	public String getUserUsername(){
+		return this.user.getUsername();
+	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

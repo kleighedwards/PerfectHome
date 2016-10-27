@@ -27,4 +27,20 @@ public class HomeDAO {
 	public Home show(int id) {
 		return em.find(Home.class, id);
 	}
+
+	// Add New Home
+	public Home create(Home home) {
+
+		em.persist(home);
+		em.flush();
+
+		return home;
+	}
+
+	// Delete Home
+	public void destroy(int id) {
+		Home deleteHome = em.find(Home.class, id);
+
+		em.remove(deleteHome);
+	}
 }

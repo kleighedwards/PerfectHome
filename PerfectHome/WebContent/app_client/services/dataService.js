@@ -1,6 +1,6 @@
 // dataService.js
 
-var app = angular.module('ngTodo');
+var app = angular.module('ngApp');
 
 app.factory('dataService', function($http){
 
