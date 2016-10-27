@@ -2,14 +2,14 @@
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="username">User name:</label>
 		<div class="col-sm-6">
-			<input type="username" class="form-control" id="username"
+			<input type="username" class="form-control" id="username" ng-model="newUser.username"
 				placeholder="Enter your username" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="pwd">Password:</label>
 		<div class="col-sm-6">
-			<input type="password" class="form-control" id="pwd"
+			<input type="password" class="form-control" id="pwd" ng-model="newUser.password"
 				placeholder="Enter password" />
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 		<label class="control-label col-sm-4" for="first_name">First
 			Name:</label>
 		<div class="col-sm-6">
-			<input type="first_name" class="form-control" id="first_name"
+			<input type="first_name" class="form-control" id="first_name" ng-model="newUser.firstName"
 				placeholder="Enter your First Name" />
 		</div>
 	</div>
@@ -25,13 +25,13 @@
 		<label class="control-label col-sm-4" for="last_name">Last
 			Name:</label>
 		<div class="col-sm-6">
-			<input type="last_name" class="form-control" id="Last_name"
+			<input type="last_name" class="form-control" id="last_name" ng-model="newUser.lastName"
 				placeholder="Enter your Last Name" />
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default" ng-click="makeUser(newUser)">Submit</button>
 		</div>
 	</div>
 </form>
