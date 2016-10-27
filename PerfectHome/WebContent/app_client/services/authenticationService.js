@@ -1,15 +1,15 @@
 // authenticationService.js
 
-var app = angular.module('ngTodo')
+var app = angular.module('ngApp')
 app.factory('authenticationService', function($window, $http){
     // Place JWT into local storage
     var saveToken = function(token){
-      $window.localStorage['todo-token'] = token;
+      $window.localStorage['token'] = token;
     };
 
     // Retrieve JWT from local storage
     var getToken = function() {
-      return $window.localStorage['todo-token'];
+      return $window.localStorage['token'];
     };
 
     // Contact the server, authenticate user credentials
@@ -23,13 +23,13 @@ app.factory('authenticationService', function($window, $http){
                 data : user
               })
               .then(function(response){
-                saveToken(response.data.token);
+                saveToken(response.data.jwt);
               });
     };
 
     // Remove JWT from local storage
     var logout = function() {
-      $window.localStorage.removeItem('todo-token');
+      $window.localStorage.removeItem('token');
     };
 
     // Check that a user's login is valid (present AND not expired)

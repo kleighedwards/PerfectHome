@@ -1,4 +1,4 @@
-var app = angular.module('ngTodo');
+var app = angular.module('ngApp');
 
 app.factory('registrationService', function($http){
 

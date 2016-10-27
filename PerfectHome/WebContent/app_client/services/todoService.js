@@ -1,8 +1,8 @@
 // todoService.js 
 
-var app = angular.module("ngTodo");
+var app = angular.module("ngApp");
 
-app.factory('todoService', function($http,authenicationService){
+app.factory('dataService', function($http,authenicationService){
 
     var todos = [];
 
