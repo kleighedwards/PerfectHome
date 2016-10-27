@@ -48,7 +48,7 @@ public class UserDAO {
 	// Delete User
 	public void destroy(int id) {
 		User deleteUser = em.find(User.class, id);
-
+				
 		em.remove(deleteUser);
 	}
 
