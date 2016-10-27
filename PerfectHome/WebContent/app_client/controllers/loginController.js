@@ -1,3 +1,5 @@
+// loginController.js
+
 var app = angular.module('ngApp');
 
 app.controller('loginController', function($scope){
