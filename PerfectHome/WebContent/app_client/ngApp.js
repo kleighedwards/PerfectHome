@@ -7,6 +7,10 @@ var app = angular.module('ngApp', ['ngRoute'])
        templateUrl: 'public/views/home.view.html',
        controller: 'welcomeController'
     })
+//    .when('/', {
+//    	templateUrl: 'public/views/login.view.html',
+//    	controller: 'loginController'
+//    })
     .when('/login', {
       templateUrl: 'public/views/login.view.html',
       controller: 'loginController'
