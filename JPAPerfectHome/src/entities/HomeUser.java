@@ -53,6 +53,14 @@ public class HomeUser  {
 	public Home getHome() {
 		return this.home;
 	}
+	
+	public int getHomeZpID(){
+		return this.home.getZpId();
+	}
+	
+	public int getHomeId() {
+		return this.home.getId();
+	}
 
 	public void setHome(Home home) {
 		this.home = home;
@@ -61,7 +69,15 @@ public class HomeUser  {
 	public User getUser() {
 		return this.user;
 	}
+	
+	public int getUserId(){
+		return this.user.getId();
+	}
 
+	public String getUserUsername(){
+		return this.user.getUsername();
+	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

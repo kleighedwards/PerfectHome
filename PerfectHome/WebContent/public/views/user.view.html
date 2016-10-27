@@ -1,4 +1,4 @@
-<header ng-include="'public/partials/nav.html'"></header>
+<!-- create user view page -->
 
 <div class="contain">
 	<div class="col-sm-9">
@@ -46,13 +46,13 @@
 		<div class="well">
 			<p>Home description:</p>
 			<ul>
-				<li>Single Family:{{ }}</li>
-				<li>Bedrooms:</li>
-				<li>Bathroom:</li>
-				<li>Square Footage:</li>
-				<li>Lot Size:</li>
-				<li>Year Built:</li>
-				<li>Number of Floors</li>
+				<li>Single Family:{{useCode}}</li>
+				<li>Bedrooms: {{bedrooms}}</li>
+				<li>Bathroom: {{bathrooms}}</li>
+				<li>Square Footage: {{finishedSqFt}}</li>
+				<li>Lot Size: {{lotSizeSqFt}}</li>
+				<li>Year Built: {{yearBuilt}}</li>
+				<li>Number of Floors: {{numFloors}}</li>
 				<li></li>
 			</ul>
 		</div>
@@ -67,44 +67,44 @@
 				<p>stuffffffffffferewrtwertdfgkdsfgnksdnfgjdsfgkjdsnfjgnsdgfkndsfg</p>
 			</div>
 		</div>
-		</div>
-		</div>
-		<hr>
+	</div>
+</div>
+<hr>
 
 
-		<div class="container-fluid text-center bg-grey">
-			<hr>
-			<h2>Housing chooses</h2>
-			<h4>Homes you have viewed...</h4>
-			<div class="row text-center">
-				<div class="col-sm-4">
-					<div class="thumbnail">
-						<img src="https://placehold.it/150x80?text=IMAGE"
-							class="img-responsive" style="width: 100%" alt="Image">
-						<p>
-							<strong>Address 1</strong>
-						</p>
-						<p>User note 1</p>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="thumbnail">
-						<img src="https://placehold.it/150x80?text=IMAGE"
-							class="img-responsive" style="width: 100%" alt="Image">
-						<p>
-							<strong>Address 2</strong>
-						</p>
-						<p>User note 2</p>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="thumbnail">
-						<img src="https://placehold.it/150x80?text=IMAGE"
-							class="img-responsive" style="width: 100%" alt="Image">
-						<p>
-							<strong>Address 3</strong>
-						</p>
-						<p>User note 3</p>
-					</div>
-				</div>
+<div class="container-fluid text-center bg-grey">
+	<hr>
+	<h2>Housing chooses</h2>
+	<h4>Homes you have viewed...</h4>
+	<div class="row text-center">
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="https://placehold.it/150x80?text=IMAGE"
+					class="img-responsive" style="width: 100%" alt="Image">
+				<p>
+					<strong>Address 1</strong>
+				</p>
+				<p>User note 1</p>
 			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="https://placehold.it/150x80?text=IMAGE"
+					class="img-responsive" style="width: 100%" alt="Image">
+				<p>
+					<strong>Address 2</strong>
+				</p>
+				<p>User note 2</p>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="https://placehold.it/150x80?text=IMAGE"
+					class="img-responsive" style="width: 100%" alt="Image">
+				<p>
+					<strong>Address 3</strong>
+				</p>
+				<p>User note 3</p>
+			</div>
+		</div>
+	</div>
