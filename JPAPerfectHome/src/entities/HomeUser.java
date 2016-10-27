@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,17 +34,20 @@ public class HomeUser {
 	private User user;
 
 	// bi-directional many-to-one association to Note
-	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REMOVE},
+			orphanRemoval=true)
 	@JsonManagedReference(value = "huNotes")
 	private Set<Note> notes;
 
 	// bi-directional many-to-one association to Todo
-	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REMOVE},
+			orphanRemoval=true)
 	@JsonManagedReference(value = "huTodos")
 	private Set<Todo> todos;
 
 	// bi-directional many-to-one association to Image
-	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "homeUser", fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REMOVE},
+			orphanRemoval=true)
 	@JsonManagedReference(value = "huImages")
 	private Set<Image> images;
 

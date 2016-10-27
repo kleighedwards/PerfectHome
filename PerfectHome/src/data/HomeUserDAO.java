@@ -2,6 +2,7 @@ package data;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,6 +48,19 @@ public class HomeUserDAO {
 		em.flush();
 
 		return hu;
+	}
+
+	// Delete HomeUser
+	public void destroy(int id) {
+		HomeUser deleteHu = em.find(HomeUser.class, id);
+		User u = em.find(User.class, deleteHu.getUser().getId());
+		
+		Set<HomeUser> hus = u.getHomeUsers();
+		
+		hus.remove(deleteHu);
+		u.setHomeUsers(hus);
+		
+		em.persist(u);
 	}
 
 	// Create A New ToDo

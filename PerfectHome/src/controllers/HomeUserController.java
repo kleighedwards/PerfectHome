@@ -90,6 +90,17 @@ public class HomeUserController {
 		}
 	}
 
+	// Delete A HomeUser Relationship
+	@RequestMapping(path = "homeuser/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable int id) {
+
+		try {
+			huDAO.destroy(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// Create A ToDo
 	@RequestMapping(path = "homeuser/{id}/todos", method = RequestMethod.POST)
 	public void createTodo(@PathVariable int id, @RequestBody String jsonTodo, HttpServletResponse response) {

@@ -23,7 +23,7 @@ public class Home  {
 	private int zpId;
 
 	//bi-directional many-to-one association to HomeUser
-	@OneToMany(mappedBy="home", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="home", fetch=FetchType.EAGER, orphanRemoval=true)
 	@JsonManagedReference(value="huHome")
 	private Set<HomeUser> homeUsers;
 

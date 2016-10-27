@@ -54,7 +54,7 @@ public class HomeController {
 		}
 	}
 
-	// Delete A Home
+	// Delete A Home Not Needed
 	@RequestMapping(path = "home/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) {
 
