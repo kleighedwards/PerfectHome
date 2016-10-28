@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import data.HomeDAO;
+import data.ZillowDTO;
 import entities.Home;
 
 @RestController
@@ -63,6 +64,18 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// Zillow Request
+	@RequestMapping(path = "home/zillow", method = RequestMethod.POST)
+	public ZillowDTO zillow(@RequestBody String zillowUrl) {
+		System.out.println("In Controller " + zillowUrl);
+		try {
+			return homeDAO.zillow(zillowUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
