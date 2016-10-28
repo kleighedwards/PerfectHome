@@ -1,6 +1,66 @@
-<!-- creates table of homes -->
+<!-- table.html -->
 
-<div>
+<div id="ngApp" ng-controller="tableController">
+        
+        <div id="AddHome">
+             <h3>Home listing</h3>
+              
+            <input value="Home type" type="text" placeholder="Type of home" ng-model="useCode"><br>
+            <input value="number of bedrooms" type="text" placeholder="Bedrooms" ng-model="bedrooms"><br>
+            <input value="Number of bathrooms" type="text" placeholder="Bathrooms" ng-model="bathrooms"><br>
+            <input value="Sq. footage" type="text" placeholder="SqFt" ng-model="finishedSqFt"><br>
+            <input value="Lot size" type="text" placeholder="Lot Size" ng-model="lotSizeSqFt"><br>
+            <input value="Year built" type="text" placeholder="year Built" ng-model="yearbuilt"><br>
+            <input value="Number of floors" type="text" placeholder="Levels" ng-model="numFloor">
+            <br/>
+            <button ng-click="addHome()">Add to list</button>
+        </div>
+        
+        <!-- begin: LIST OF VISITED HOMES -->
+        <div id="VisitedList">
+             <h3>Visited Homes: {{getTotalVisitedHomes()}}</h3>
+                    
+             <h4>Visited:</h4>
+            <table>
+                <tr ng-repeat="home in homes" class="homes-checked">
+                    <td> {{item.useCode}} </td>
+                    <td> {{item.bedrooms}} </td>
+                    <td> {{item.bathroom}} </td>
+                    <td> {{item.finishedSqFt}} </td>
+                    <td> {{item.yearBuilt}} </td>
+                    <td> {{item.numFloors}} </td>
+                    <td> <i>this home was visited.</i></td>
+                </tr>
+            </table>
+        </div>
+        <!-- end: LIST OF VISITED HOMES -->
+        
+        <!-- begin: LIST OF NOT VISITED HOMES -->
+        <div id="NotVisited">
+             <h3>Not Visited Homes: {{getTotalUnvisitedHomes()}}</h3>
+             <h4>Not Visited Homes:</h4>
+            <table>
+                <tr ng-repeat="home in homes" class="homes-unchecked">
+                    <td> {{item.useCode}} </td>
+                    <td> {{item.bedrooms}} </td>
+                    <td> {{item.bathroom}} </td>
+                    <td> {{item.finishedSqFt}} </td>
+                    <td> {{item.yearBuilt}} </td>
+                    <td> {{item.numFloors}} </td>
+                    <td> <i>this home has not been visited.</i></td>
+                    <td>
+                        <button ng-click="toggleChecked($index)">check item</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- end: LIST OF NOT VISITED HOMES -->
+     </div>
+
+
+
+
+<!-- <div>
 <h2>Table</h2>
   <p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>
   <div class="table-responsive">
@@ -26,4 +86,7 @@
       </tr>
     </tbody>
   </table>
-  </div>
+  </div> -->
+  
+  
+  

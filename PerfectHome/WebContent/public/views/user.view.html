@@ -54,13 +54,13 @@
 		<div class="well">
 			<p>Home description:</p>
 			<ul>
-				<li>Single Family:{{useCode}}</li>
-				<li>Bedrooms: {{bedrooms}}</li>
-				<li>Bathroom: {{bathrooms}}</li>
-				<li>Square Footage: {{finishedSqFt}}</li>
-				<li>Lot Size: {{lotSizeSqFt}}</li>
-				<li>Year Built: {{yearBuilt}}</li>
-				<li>Number of Floors: {{numFloors}}</li>
+				<li>Single Family:{{zillowResult.data.useCode}}</li>
+				<li>Bedrooms: {{zillowResult.data.bedrooms}}</li>
+				<li>Bathroom: {{zillowResult.data.bathrooms}}</li>
+				<li>Square Footage: {{zillowResult.data.finishedSqFt}}</li>
+				<li>Lot Size: {{zillowResult.data.lotSizeSqFt}}</li>
+				<li>Year Built: {{zillowResult.data.yearBuilt}}</li>
+				<li>Number of Floors: {{zillowResult.data.numFloors}}</li>
 				<li></li>
 			</ul>
 		</div>
@@ -119,4 +119,7 @@
 				<p>User note 3</p>
 			</div>
 		</div>
+		<hr>
+		<div ng-include="'public/partials/table.html'"></div>
+		
 	</div>
