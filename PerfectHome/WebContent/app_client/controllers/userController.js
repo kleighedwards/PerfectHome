@@ -2,12 +2,7 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location, userService){
+app.controller('userController', function($scope, $location){
 	console.log('User controller');
-	
-	$scope.geolocate = userService.geolocate;
-	console.log($scope.geolocate);
-	console.log(userService.geolocate);
-	$scope.initAutocomplete = userService.initAutocomplete
 
 });
