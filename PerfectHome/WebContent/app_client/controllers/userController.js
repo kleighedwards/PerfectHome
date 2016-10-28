@@ -2,7 +2,7 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location){
+app.controller('userController', function($scope, $location, userService){
 	console.log('User controller');
 	
 	var placeSearch, autocomplete, address, zillowSearchAddress;
@@ -60,6 +60,7 @@ app.controller('userController', function($scope, $location){
       '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
+      userService.getHomeZpid(string);
       return string;
     }	
 	
