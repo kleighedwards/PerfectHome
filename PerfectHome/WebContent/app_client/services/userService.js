@@ -2,7 +2,7 @@
 
 var app = angular.module('ngApp')
 app.factory('userService', function($window, $http, authenticationService){
-
+	console.log("Here in userService");
 	var userService = {};
 	
 	userService.getHomeZpid = function (url) {
@@ -14,11 +14,7 @@ app.factory('userService', function($window, $http, authenticationService){
 			},
 			data : url
 		})
-		.then(function(response){
-			console.log(response);
-		})
 	}
-	
 	return userService;
 	
 	

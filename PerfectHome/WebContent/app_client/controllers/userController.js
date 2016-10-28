@@ -60,8 +60,11 @@ app.controller('userController', function($scope, $location, userService){
       '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
-      userService.getHomeZpid(string);
-      return string;
+      userService.getHomeZpid(string)
+      		.then(function(response){
+      			console.log(response)
+      			$scope.zillowResult = response;
+      			});
     }	
 	
     $scope.autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),{types: ['geocode']});
