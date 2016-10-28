@@ -178,6 +178,14 @@ START TRANSACTION;
 USE `homedb`;
 INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (1, '2016-10-30 14:50:00', 'Loved the master bathroom', 1);
 INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (2, '2016-10-30 15:00:00', 'Really spacious kitchen', 1);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (3, '2016-10-31 16:05:00', 'Great patio. Lots of room for parties.', 2);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (4, '2016-11-01 13:44:00', 'Love the vaulted ceilings!', 3);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (5, '2016-11-01 14:13:00', 'Beautiful stained glass on front door', 3);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (6, '2016-11-10 13:32:00', 'All new stainless appliances in the kitchen!', 4);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (7, '2016-11-10 14:28:00', 'Bathrooms recently remodeled', 4);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (8, '2016-11-13 12:43:00', 'Fantastic view of the mountains!', 5);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (9, '2016-11-13 13:36:00', 'Close to work', 5);
+INSERT INTO `note` (`id`, `date`, `notes`, `home_user_id`) VALUES (10, '2016-11-14 15:17:00', 'Neighbors seem lovely!', 5);
 
 COMMIT;
 
@@ -190,6 +198,12 @@ USE `homedb`;
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (1, '2016-10-30', 'Call roofer', false, 1);
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (2, '2016-10-30', 'Ask about schools in district', false, 1);
 INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (3, '2016-11-04', 'Call painter for living room', false, 1);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (4, '2016-11-03', 'See about carpools in neighborhood', false, 2);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (5, '2016-11-02', 'Call about hot water heater', false, 2);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (6, '2016-11-18', 'See about installing central air', false, 3);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (7, '2016-11-10', 'Compare pricing for carpet', false, 4);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (8, '2016-11-11', 'Call painter for master bedroom', false, 4);
+INSERT INTO `todo` (`id`, `date`, `task`, `completed`, `home_user_id`) VALUES (9, '2016-11-12', 'Price new hot water heater', false, 5);
 
 COMMIT;
 

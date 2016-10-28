@@ -35,6 +35,15 @@ public class HomeUserDAO {
 		return em.find(HomeUser.class, id);
 	}
 
+	// Get HomeUser By User ID and Home ID
+	public HomeUser showByIds(int uId, int hId) {
+		String query = "SELECT hu FROM HomeUser hu WHERE hu.user.id = ?1 AND hu.home.id = ?2";
+
+		HomeUser hu = em.createQuery(query, HomeUser.class).setParameter(1, uId).setParameter(2, hId).getSingleResult();
+
+		return hu;
+	}
+
 	// Add New HomeUser Relationship
 	public HomeUser create(HomeUser hu) {
 		System.out.println(hu);
@@ -54,13 +63,28 @@ public class HomeUserDAO {
 	public void destroy(int id) {
 		HomeUser deleteHu = em.find(HomeUser.class, id);
 		User u = em.find(User.class, deleteHu.getUser().getId());
-		
+
 		Set<HomeUser> hus = u.getHomeUsers();
-		
+
 		hus.remove(deleteHu);
 		u.setHomeUsers(hus);
-		
+
 		em.persist(u);
+	}
+
+	// Delete HomeUser By User ID and Home ID
+	public void destroyByIds(int uId, int hId) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
+
+		Set<HomeUser> hus = user.getHomeUsers();
+
+		hus.remove(hu);
+		user.setHomeUsers(hus);
+
+		em.persist(user);
 	}
 
 	// Create A New ToDo
@@ -73,9 +97,35 @@ public class HomeUserDAO {
 		em.flush();
 	}
 
-	// Create A New ToDo
+	// Create A New ToDo By User ID and Home ID
+	public void createTodoByIds(int uId, int hId, Todo newTodo) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
+
+		newTodo.setHomeUser(hu);
+
+		em.persist(newTodo);
+		em.flush();
+	}
+
+	// Create A New Note
 	public void createNote(int id, Note newNote) {
 		HomeUser hu = em.find(HomeUser.class, id);
+
+		newNote.setHomeUser(hu);
+
+		em.persist(newNote);
+		em.flush();
+	}
+
+	// Create A New Note By User ID and Home ID
+	public void createNoteByIds(int uId, int hId, Note newNote) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
 
 		newNote.setHomeUser(hu);
 
@@ -93,9 +143,41 @@ public class HomeUserDAO {
 		em.flush();
 	}
 
+	// Create A New Note By User ID and Home ID
+	public void createImageByIds(int uId, int hId, Image newImage) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
+
+		newImage.setHomeUser(hu);
+
+		em.persist(newImage);
+		em.flush();
+	}
+
 	// Delete ToDo
 	public void destroyTodo(int id, int tId) {
 		HomeUser hu = em.find(HomeUser.class, id);
+		Todo todo = em.find(Todo.class, tId);
+
+		Collection<Todo> todos = hu.getTodos();
+
+		for (Todo t : todos) {
+			if (t.getId() == todo.getId()) {
+				todos.remove(t);
+
+				em.remove(todo);
+			}
+		}
+	}
+
+	// Delete ToDo By User ID and Home ID
+	public void destroyTodoByIds(int uId, int hId, int tId) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
 		Todo todo = em.find(Todo.class, tId);
 
 		Collection<Todo> todos = hu.getTodos();
@@ -125,6 +207,25 @@ public class HomeUserDAO {
 		}
 	}
 
+	// Delete Note By User ID and Home ID
+	public void destroyNoteByIds(int uId, int hId, int nId) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
+		Note note = em.find(Note.class, nId);
+
+		Collection<Note> notes = hu.getNotes();
+
+		for (Note n : notes) {
+			if (n.getId() == note.getId()) {
+				notes.remove(n);
+
+				em.remove(note);
+			}
+		}
+	}
+
 	// Delete Image
 	public void destroyImage(int id, int iId) {
 		HomeUser hu = em.find(HomeUser.class, id);
@@ -141,8 +242,27 @@ public class HomeUserDAO {
 		}
 	}
 
+	// Delete Image By User ID and Home ID
+	public void destroyImageByIds(int uId, int hId, int iId) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+		
+		HomeUser hu = showByIds(user.getId(), home.getId());
+		Image image = em.find(Image.class, iId);
+
+		Collection<Image> images = hu.getImages();
+
+		for (Image i : images) {
+			if (i.getId() == image.getId()) {
+				images.remove(i);
+
+				em.remove(image);
+			}
+		}
+	}
+
 	// Update ToDo
-	public void updateTodo(int id, int tId, Todo todo) {
+	public void updateTodo(int tId, Todo todo) {
 		Todo editTodo = em.find(Todo.class, tId);
 
 		editTodo.setTask(todo.getTask());
@@ -154,7 +274,7 @@ public class HomeUserDAO {
 	}
 
 	// Update Note
-	public void updateNote(int id, int nId, Note note) {
+	public void updateNote(int nId, Note note) {
 		Note editNote = em.find(Note.class, nId);
 
 		editNote.setNotes(note.getNotes());
