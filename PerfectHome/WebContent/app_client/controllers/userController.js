@@ -30,6 +30,9 @@ app.controller('userController', function($scope, $location, userService){
         var street = address[1].long_name;
         var city = address[2].long_name;
         var state = address[4].short_name;
+        if (state.length > 2) {
+        	state = address[5].short_name;
+        }
 
         zillowSearchAddress = makeApiString(addressNum, street, city, state);
 
@@ -54,8 +57,10 @@ app.controller('userController', function($scope, $location, userService){
     }
 
     var makeApiString = function(number, street, city, state) {
+      number = number.replace(/ /g , '+');
+      state = state.replace(/ /g , '+');
       street = street.replace(/ /g , '+');
-      city = city.replace(/ /g , "+");
+      city = city.replace(/ /g , '+');
       var string = 'http://www.zillow.com/webservice/GetDeepSearchResults' +
       '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
