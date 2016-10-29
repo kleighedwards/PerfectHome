@@ -2,19 +2,23 @@
 
 <div ng-include="'public/partials/carousel.html'"></div>
 <div id="locationField">
-      <input id="autocomplete" placeholder="Enter your address"
-             type="text"></input>
+	<input id="autocomplete" placeholder="Enter your address" type="text"></input>
 </div>
 <hr>
-<div ng-include="'public/partials/homeDescription.html'"></div>
-<div ng-include="'public/partials/userToDo.html'"></div>
-<div ng-include="'public/partials/userNotes.html'"></div>
+<div class="row">
+	<div class="col-sm-offset-1 col-sm-10">
+		<div ng-include="'public/partials/homeDescription.html'"></div>
+		<div ng-include="'public/partials/userToDo.html'"></div>
+		<div ng-include="'public/partials/userNotes.html'"></div>
+	</div>
+</div>
+<hr>
 
 <div class="container-fluid text-center bg-grey">
 	<h2>Housing chooses</h2>
 	<h4>Homes you have viewed...</h4>
 	<div class="row center">
-	<div ng-include="'public/partials/thumbpics.html'"></div>
+		<div ng-include="'public/partials/thumbpics.html'"></div>
 	</div>
 </div>
 
