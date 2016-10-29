@@ -1,6 +1,6 @@
 // tableController.js
 
-var app = angular.module(ngApp, []);
+var app = angular.module('ngApp');
 
 app.controller("tableController", function($scope) {
     $scope.useCode = [];
@@ -31,7 +31,7 @@ app.controller("tableController", function($scope) {
     $scope.numFloor = ""
 	});
     
-    // get count of home in list from the number of useCodes
-    $scope.getTotalItems = function () {
-        return $scope.useCode.length;
-    };
+//    // get count of home in list from the number of useCodes
+//    $scope.getTotalItems = function () {
+//        return $scope.useCode.length;
+//    };

@@ -5,7 +5,7 @@
         <div id="AddHome">
              <h3>Home listing</h3>
               
-            <input value="Home type" type="text" placeholder="Type of home" ng-model="useCode"><br>
+            <input value={{zillowResult.data.useCode}} type="text" placeholder="Type of home" ng-model="useCode"><br>
             <input value="number of bedrooms" type="text" placeholder="Bedrooms" ng-model="bedrooms"><br>
             <input value="Number of bathrooms" type="text" placeholder="Bathrooms" ng-model="bathrooms"><br>
             <input value="Sq. footage" type="text" placeholder="SqFt" ng-model="finishedSqFt"><br>
@@ -62,7 +62,6 @@
 
 <!-- <div>
 <h2>Table</h2>
-  <p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>
   <div class="table-responsive">
   <table class="table">
     <thead>
