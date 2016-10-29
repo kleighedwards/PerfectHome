@@ -5,15 +5,6 @@
         <div id="AddHome">
              <h3>Home listing</h3>
               
-            <input value={{zillowResult.data.useCode}} type="text" placeholder="Type of home" ng-model="useCode"><br>
-            <input value="number of bedrooms" type="text" placeholder="Bedrooms" ng-model="bedrooms"><br>
-            <input value="Number of bathrooms" type="text" placeholder="Bathrooms" ng-model="bathrooms"><br>
-            <input value="Sq. footage" type="text" placeholder="SqFt" ng-model="finishedSqFt"><br>
-            <input value="Lot size" type="text" placeholder="Lot Size" ng-model="lotSizeSqFt"><br>
-            <input value="Year built" type="text" placeholder="year Built" ng-model="yearbuilt"><br>
-            <input value="Number of floors" type="text" placeholder="Levels" ng-model="numFloor">
-            <br/>
-            <button ng-click="addHome()">Add to list</button>
         </div>
         
         <!-- begin: LIST OF VISITED HOMES -->
@@ -23,13 +14,8 @@
              <h4>Visited:</h4>
             <table>
                 <tr ng-repeat="home in homes" class="homes-checked">
-                    <td> {{item.useCode}} </td>
-                    <td> {{item.bedrooms}} </td>
-                    <td> {{item.bathroom}} </td>
-                    <td> {{item.finishedSqFt}} </td>
-                    <td> {{item.yearBuilt}} </td>
-                    <td> {{item.numFloors}} </td>
-                    <td> <i>this home was visited.</i></td>
+                    <td> {{item.useCode}} {{item.bedrooms}} {{item.bathroom}} {{item.finishedSqFt}} {{item.yearBuilt}} {{item.numFloors}} 
+                    <i>this home was visited.</i></td>
                 </tr>
             </table>
         </div>
@@ -41,13 +27,8 @@
              <h4>Not Visited Homes:</h4>
             <table>
                 <tr ng-repeat="home in homes" class="homes-unchecked">
-                    <td> {{item.useCode}} </td>
-                    <td> {{item.bedrooms}} </td>
-                    <td> {{item.bathroom}} </td>
-                    <td> {{item.finishedSqFt}} </td>
-                    <td> {{item.yearBuilt}} </td>
-                    <td> {{item.numFloors}} </td>
-                    <td> <i>this home has not been visited.</i></td>
+                    <td> {{item.useCode}} {{item.bedrooms}} {{item.bathroom}} {{item.finishedSqFt}} {{item.yearBuilt}} {{item.numFloors}} 
+                    <i>this home has not been visited.</i></td>
                     <td>
                         <button ng-click="toggleChecked($index)">check item</button>
                     </td>
