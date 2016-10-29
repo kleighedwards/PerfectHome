@@ -30,7 +30,16 @@ public class UserDAO {
 
 	// Get User By ID
 	public User show(int id) {
-		return em.find(User.class, id);
+		
+		User user =  em.find(User.class, id);
+		if (user.getPassword().length() < 25){
+			String rawPassword = user.getPassword();
+			String encodedPassword = passwordEncoder.encode(rawPassword);
+			user.setPassword(encodedPassword);
+			em.persist(user);
+		}
+		
+		return user;
 	}
 
 	// Add New User

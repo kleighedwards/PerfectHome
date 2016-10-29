@@ -15,6 +15,17 @@ app.factory('userService', function($window, $http, authenticationService){
 			data : url
 		})
 	}
+	
+	userService.getUser = function (id) {
+		return $http({
+			method: 'GET',	
+			url : 'api/user/' + id 
+			})
+	}
+	
+	
+	
+	
 	return userService;
 	
 	
