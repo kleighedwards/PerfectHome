@@ -53,7 +53,6 @@ public class HomeDAO {
 
 	public ZillowDTO zillowFirstCall(String zillowUrl) throws Exception {
 		URL url = new URL(zillowUrl);
-//		System.out.println("In DAO before xml " + url);
 		URLConnection conn = url.openConnection();
 
 		Document doc = parseXML(conn.getInputStream());
@@ -66,31 +65,146 @@ public class HomeDAO {
 			if (descNode.item(i).getFirstChild().toString().contains("zpid")) {
 				zillow.setZillowId(Integer.parseInt(descNode.item(i).getFirstChild().getTextContent()));
 			}
+			// Street Address
+			if (descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild().toString()
+					.contains("street")) {
+
+				zillow.setStreet(descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild()
+						.getTextContent());
+			}
+			// Zip Code
+			if (descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild().getNextSibling()
+					.toString().contains("zipcode")) {
+
+				zillow.setZip(Integer.parseInt((descNode.item(i).getFirstChild().getNextSibling().getNextSibling()
+						.getFirstChild().getNextSibling().getTextContent())));
+			}
+			// City
+			if ((descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild().getNextSibling()
+					.getNextSibling().toString().contains("city"))) {
+
+				zillow.setCity(descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild()
+						.getNextSibling().getNextSibling().getTextContent());
+			}
+			// State
+			if (descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild().getNextSibling()
+					.getNextSibling().getNextSibling().toString().contains("state")) {
+
+				zillow.setState(descNode.item(i).getFirstChild().getNextSibling().getNextSibling().getFirstChild()
+						.getNextSibling().getNextSibling().getNextSibling().getTextContent());
+			}
 		}
 
 		System.out.println(zillow);
-		
-		zillow = zillowSecondCall(zillow.getZillowId());
-		
+
+		zillow = zillowSecondCall(zillow);
+
 		return zillow;
 	}
-	
-	public ZillowDTO zillowSecondCall(int zillowID) throws Exception {
-		URL url = new URL("http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&zpid=" + zillowID);
+
+	public ZillowDTO zillowSecondCall(ZillowDTO zillow) throws Exception {
+		URL url = new URL(
+				"http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&zpid="
+						+ zillow.getZillowId());
 		System.out.println(url);
 		URLConnection conn = url.openConnection();
 
 		Document doc = parseXML(conn.getInputStream());
-		NodeList descNode = doc.getElementsByTagName("address");
+		
+		// Set Address if Jumping to Second Call
+		NodeList addressNode = doc.getElementsByTagName("address");
+		
+		for (int i = 0; i < addressNode.getLength(); i++) {
+			
+			if (addressNode.item(i).getFirstChild().toString().contains("street") && zillow.getStreet() == null) {
+				System.out.println("in set street");
+				zillow.setStreet(addressNode.item(i).getFirstChild().getTextContent());
+			}
+			
+			if (addressNode.item(i).getFirstChild().getNextSibling().toString().contains("zipcode") && zillow.getZip() == 0) {
+				System.out.println("in set zip");
+				zillow.setZip(Integer.parseInt(addressNode.item(i).getFirstChild().getNextSibling().getTextContent()));
+			}
+			
+			if (addressNode.item(i).getFirstChild().getNextSibling().getNextSibling().toString().contains("city") && zillow.getCity() == null) {
+				System.out.println("in set city");
+				zillow.setCity(addressNode.item(i).getFirstChild().getNextSibling().getNextSibling().getTextContent());
+			}
+			
+			if (addressNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling().toString().contains("state") && zillow.getState() == null) {
+				System.out.println("in set state");
+				zillow.setState(addressNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling().getTextContent());
+			}
 
-		ZillowDTO zillow = new ZillowDTO();
-		System.out.println("In Zillow Second Call Before Loop");
-		for (int i = 0; i < descNode.getLength(); i++) {
-			System.out.println("In Zillow Second Call for loop");
-			System.out.println(descNode.item(i).getFirstChild());
-			System.out.println(descNode.item(i).getFirstChild().getTextContent());
 		}
 		
+		NodeList imageNode = doc.getElementsByTagName("images");
+
+		for (int i = 0; i < imageNode.getLength(); i++) {
+			// Image URL
+			if (imageNode.item(i).getFirstChild().getNextSibling().getFirstChild().toString().contains("url")) {
+				zillow.setImageUrl(imageNode.item(i).getFirstChild().getNextSibling().getFirstChild().getTextContent());
+			}
+		}
+
+		NodeList editedFactsNode = doc.getElementsByTagName("editedFacts");
+
+		for (int i = 0; i < editedFactsNode.getLength(); i++) {
+			// Use Code
+			if (editedFactsNode.item(i).getFirstChild().toString().contains("useCode")) {
+				zillow.setUseCode(editedFactsNode.item(i).getFirstChild().getTextContent());
+			}
+			// Bedrooms
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().toString().contains("bedroom")) {
+				zillow.setBedrooms(
+						Integer.parseInt(editedFactsNode.item(i).getFirstChild().getNextSibling().getTextContent()));
+			}
+			// Bathrooms
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().toString()
+					.contains("bathroom")) {
+				zillow.setBathrooms(Double.parseDouble(
+						editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getTextContent()));
+			}
+			// Finished Sq Foot
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling().toString()
+					.contains("finishedSqFt")) {
+				zillow.setFinishedSqFoot(Integer.parseInt(editedFactsNode.item(i).getFirstChild().getNextSibling()
+						.getNextSibling().getNextSibling().getTextContent()));
+			}
+			// Total Sq Foot
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling()
+					.getNextSibling().toString().contains("lotSizeSqFt")) {
+				zillow.setTotalSqFoot(Integer.parseInt(editedFactsNode.item(i).getFirstChild().getNextSibling()
+						.getNextSibling().getNextSibling().getNextSibling().getTextContent()));
+			}
+			// Year Built
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling()
+					.getNextSibling().getNextSibling().toString().contains("yearBuilt")) {
+				zillow.setYearBuilt(Integer.parseInt(editedFactsNode.item(i).getFirstChild().getNextSibling()
+						.getNextSibling().getNextSibling().getNextSibling().getNextSibling().getTextContent()));
+			}
+			// Number of Floors
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling()
+					.getNextSibling().getNextSibling().getNextSibling().getNextSibling().toString()
+					.contains("numFloors")) {
+				zillow.setFloors(Integer.parseInt(
+						editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling()
+								.getNextSibling().getNextSibling().getNextSibling().getNextSibling().getTextContent()));
+			}
+			// Finished Basement
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling().getNextSibling()
+					.getNextSibling().getNextSibling().getNextSibling().getNextSibling().getNextSibling().toString()
+					.contains("basement")) {
+				zillow.setFinishedBasement(editedFactsNode.item(i).getFirstChild().getNextSibling().getNextSibling()
+						.getNextSibling().getNextSibling().getNextSibling().getNextSibling().getNextSibling()
+						.getNextSibling().getTextContent());
+			}
+
+		}
+
+		System.out.println("Zillow Object Printout in Second Call");
+		System.out.println(zillow);
+
 		return zillow;
 	}
 
