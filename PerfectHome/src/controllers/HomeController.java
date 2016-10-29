@@ -69,9 +69,9 @@ public class HomeController {
 	// Zillow Request
 	@RequestMapping(path = "home/zillow", method = RequestMethod.POST)
 	public ZillowDTO zillow(@RequestBody String zillowUrl) {
-		System.out.println("In Controller " + zillowUrl);
+//		System.out.println("In Controller " + zillowUrl);
 		try {
-			return homeDAO.zillow(zillowUrl);
+			homeDAO.zillowFirstCall(zillowUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
