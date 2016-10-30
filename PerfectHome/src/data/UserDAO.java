@@ -84,5 +84,35 @@ public class UserDAO {
 
 		return managedUser;
 	}
+	
+	// Authenticate User
+	public User hasAccount(User user) {
+		System.out.println("Checking for user Account");
+		User managedUser = null;
+		
+		List<User> users = index();
+		
+		for (User u : users) {
+			if (u.getUsername().equals(user.getUsername())) {
+				managedUser = em.find(User.class, u.getId());
+			}
+		}
+		
+		if (managedUser != null){
+			String rawPassword = user.getPassword();
+			String encodedPassword = user.getPassword();
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if(encoder.matches(rawPassword,encodedPassword)){
+				return managedUser;
+			} else {
+				User userExists = new User();
+				userExists.setPassword("User Exists");
+				userExists.setUsername(user.getUsername());
+				return userExists;
+			}
+		}
+		
+		return managedUser;
+	}
 
 }
