@@ -13,7 +13,7 @@ app.factory('authenticationService', function($window, $http){
     };
 
     // Contact the server, authenticate user credentials
-    var login = function(user) {
+    var login = function(user) {    	
       return $http({
                 method : 'POST',
                 url : 'api/auth/login',
