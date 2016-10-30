@@ -21,6 +21,11 @@ public class Home  {
 
 	@Column(name="zp_id")
 	private int zpId;
+	
+	private String address;
+	
+	@Column(name="zillow_image")
+	private String zillowImage;
 
 	//bi-directional many-to-one association to HomeUser
 	@OneToMany(mappedBy="home", fetch=FetchType.EAGER, orphanRemoval=true)
@@ -37,6 +42,22 @@ public class Home  {
 
 	public void setZpId(int zpId) {
 		this.zpId = zpId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZillowImage() {
+		return zillowImage;
+	}
+
+	public void setZillowImage(String zillowImage) {
+		this.zillowImage = zillowImage;
 	}
 
 	public Set<HomeUser> getHomeUsers() {

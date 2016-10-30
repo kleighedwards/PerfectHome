@@ -66,12 +66,33 @@ public class HomeController {
 		}
 	}
 
-	// Zillow Request
+	// First Zillow Request
 	@RequestMapping(path = "home/zillow", method = RequestMethod.POST)
 	public ZillowDTO zillow(@RequestBody String zillowUrl) {
-		System.out.println("In Controller " + zillowUrl);
+
 		try {
-			return homeDAO.zillow(zillowUrl);
+			return homeDAO.zillowFirstCall(zillowUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// Second Zillow Request
+	@RequestMapping(path = "home/zillow/second", method = RequestMethod.POST)
+	public ZillowDTO zillowSecond(@RequestBody String zillow) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		ZillowDTO z = null;
+		
+		try {
+			z = mapper.readValue(zillow, ZillowDTO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			return homeDAO.zillowSecondCall(z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
