@@ -156,5 +156,13 @@ public class HomeUser {
 
 		return image;
 	}
+	
+	public String getHomePicture() {
+		return this.home.getZillowImage();
+	}
+	
+	public String getHomeAddress() {
+		return this.home.getAddress();
+	}
 
 }
