@@ -38,6 +38,8 @@ DROP TABLE IF EXISTS `home` ;
 CREATE TABLE IF NOT EXISTS `home` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `zp_id` INT NULL,
+  `address` VARCHAR(255) NULL,
+  `zillow_image` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -150,9 +152,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `home` (`id`, `zp_id`) VALUES (1, 13138711);
-INSERT INTO `home` (`id`, `zp_id`) VALUES (2, 102995240);
-INSERT INTO `home` (`id`, `zp_id`) VALUES (3, 13028709);
+INSERT INTO `home` (`id`, `zp_id`, `address`, `zillow_image`) VALUES (1, 7796919, '6303 N 15th St', 'http://photos.zillowstatic.com/p_d/IS2ny0atnkvzz90000000000.jpg');
+INSERT INTO `home` (`id`, `zp_id`, `address`, `zillow_image`) VALUES (2, 48749425, '2114 Bigelow Ave N', 'http://photos.zillowstatic.com/p_d/ISxb3qa8s1cwx01000000000.jpg');
+INSERT INTO `home` (`id`, `zp_id`, `address`, `zillow_image`) VALUES (3, 113218284, '1235 Sunset Rd SW', 'http://photos.zillowstatic.com/p_d/ISe8jcpydjedym1000000000.jpg');
 
 COMMIT;
 
