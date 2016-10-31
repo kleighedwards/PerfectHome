@@ -11,6 +11,7 @@
 			</div>
 			<div ng-include="'public/partials/homeDescription.html'"></div>
 			<button ng-click="addHome(newHome)">Add home</button>
+			<div ng-repeat="homes in user.data.homeUsers">{{homes.homeAddress}}</div>
 		</div>
 	</div>
 </div>
@@ -29,6 +30,7 @@
 </div>
 
 <hr>
+
 
 <div class="row">
 	<div class="col-sm-offset-1 col-sm-12"></div>

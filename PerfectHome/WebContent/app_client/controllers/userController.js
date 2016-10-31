@@ -2,9 +2,20 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location, userService, $rootScope){
+app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService){
 	console.log('User controller');
 	$rootScope.bodyClass = 'container';
+	$scope.user = {};
+	
+	
+    if (authenticationService.isLoggedIn()){
+       userService.getUser(authenticationService.currentUser().id)
+       .then(function(response){
+           $scope.user =  response;
+           console.log($scope.user)
+         });
+        
+       }
 	
 	var placeSearch, autocomplete, address, zillowSearchAddress;
     
