@@ -1,71 +1,53 @@
 <!-- table.html -->
 
 <div class="container">
-<h2>User Stored Homes</h2>
-  <div class="table-responsive">
-  <table class="table table-striped ">
-    <thead>
-      <tr>
-        <th>Address</th>
-        <th>Ranking</th>     
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-      <li ng-repeat="homes in user.data.homeUsers">{{homes.homeAddress}}</li>
-      </tr>
-    </tbody>
-    <tbody>
-      <tr>
-      <li ng-repeat="homes in user.data.homeUsers">{{user.data.homeUsers.notes[0]}}</li>
-      </tr>
-    </tbody>
-    <tbody>
-        <button ng-click="ranking()">Add home</button>
-        <td>
-        <button ng-click="addHome(newHome)">Add home</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+	<h2>User Stored Homes</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Home Address</th>
+					<th>Ranking</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody ng-repeat="homes in user.data.homeUsers">
+				<td>{{homes.homeAddress}}</td>
+				<td><button ng-click="ranking(id)">Add Ranking</button></td>
+				<td><button ng-click="removeHome(id)">Delete Home</button></td>
+			</tbody>
+		</table>
+	</div>
 
-<div id="ngApp" ng-controller="tableController">
-        
-        <div id="AddHome">
-             <h3>Home listing</h3>
-              
-        </div>
-        
-        <!-- begin: LIST OF VISITED HOMES -->
-        <div id="VisitedList">
-             <h3>Visited Homes: {{getTotalVisitedHomes()}}</h3>
-                    
-             <h4>Visited:</h4>
-            <table>
-                <tr ng-repeat="home in homes" class="homes-checked">
-                    <td> {{home.useCode}} {{home.bedrooms}} {{home.bathroom}} {{home.finishedSqFt}} {{home.yearBuilt}} {{home.numFloors}} 
-                    <i>this home was visited.</i></td>
-                </tr>
-            </table>
-        </div>
-        <!-- end: LIST OF VISITED HOMES -->
-        
-        <!-- begin: LIST OF NOT VISITED HOMES -->
-        <div id="NotVisited">
-             <h3>Not Visited Homes: {{getTotalUnvisitedHomes()}}</h3>
-             <h4>Not Visited Homes:</h4>
-            <table>
-                <tr ng-repeat="home in homes" class="homes-unchecked">
-                    <td> {{home.useCode}} {{home.bedrooms}} {{home.bathroom}} {{home.finishedSqFt}} {{home.yearBuilt}} {{home.numFloors}} 
-                    <i>this home has not been visited.</i></td>
-                    <td>
-                        <button ng-click="toggleChecked($index)">check home</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <!-- end: LIST OF NOT VISITED HOMES -->
-    <!--  </div> -->
- </div> 
-  
+	<div id="ngApp" ng-controller="tableController">
+		<!-- begin: LIST OF VISITED HOMES -->
+		<div id="VisitedList">
+			<h3>Visited Homes: {{getTotalVisitedHomes()}}</h3>
+			
+			<h4>Visited:</h4>
+			<table>
+				<tr ng-repeat="homes in user.data.homeUsers class="homes-checked">
+					<td>{{homes.homeAddress}} <i>this home was visited.</i>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- end: LIST OF VISITED HOMES -->
+
+		<!-- begin: LIST OF NOT VISITED HOMES -->
+		<div id="NotVisited">
+			<h3>Not Visited Homes: {{getTotalUnvisitedHomes()}}</h3>
+			<h4>Not Visited Homes:</h4>
+			<table>
+				<tr ng-repeat="homes in user.data.homeUsers class="homes-unchecked">
+					<td>{{homes.homeAddress}} <i>this home has not been
+							visited.</i>
+					</td>
+					<td>
+						<button ng-click="toggleChecked($index)">check home</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- end: LIST OF NOT VISITED HOMES -->
+	</div>
