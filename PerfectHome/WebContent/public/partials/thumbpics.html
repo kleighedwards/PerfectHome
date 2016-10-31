@@ -1,28 +1,11 @@
 
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{d.$$state.value.data.homeUser.images[0].images}}" class="img-responsive"
+<div class="col-sm-4" ng-repeat="homes in user.data.homeUsers">
+	<div class="thumbnail" ng-click="click(homes.homeZpID)">
+		<img  src="{{homes.homePicture}}" class="img-responsive"
 			style="width: 100%" alt="Image" width="400" height="300">
 		<p>
-			<strong>{{d.$$state.value.data.homeUser.homeAddress[0]}}</strong>
+			<strong>{{homes.homeAddress}}</strong>
 		</p>
 	</div>
 </div>
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{d.$$state.value.data.homeUser.homePicture[1]}}" class="img-responsive"
-			style="width: 100%" alt="Image" width="400" height="300">
-		<p>
-			<strong>{{d.$$state.value.data.homeUser.homeAddress[1]}}</strong>
-		</p>
-	</div>
-</div>
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{d.$$state.value.data.homeUser.homePicture[2]}}" class="img-responsive"
-			style="width: 100%" alt="Image" width="400" height="300">
-		<p>
-			<strong>{{d.$$state.value.data.homeUser.homeAddress[2]}}</strong>
-		</p>
-	</div>
-</div>
+

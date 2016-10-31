@@ -3,11 +3,12 @@
 <div class="container">
 	<h2>User Stored Homes</h2>
 	<div class="table-responsive">
-		<table class="table table-striped ">
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Address</th>
+					<th>Home Address</th>
 					<th>Ranking</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody ng-repeat="homes in user.data.homeUsers">
@@ -19,16 +20,10 @@
 	</div>
 
 	<div id="ngApp" ng-controller="tableController">
-
-		<div id="AddHome">
-			<h3>Home listing</h3>
-
-		</div>
-
 		<!-- begin: LIST OF VISITED HOMES -->
 		<div id="VisitedList">
 			<h3>Visited Homes: {{getTotalVisitedHomes()}}</h3>
-
+			
 			<h4>Visited:</h4>
 			<table>
 				<tr ng-repeat="homes in user.data.homeUsers class="homes-checked">
@@ -55,5 +50,4 @@
 			</table>
 		</div>
 		<!-- end: LIST OF NOT VISITED HOMES -->
-		<!--  </div> -->
 	</div>

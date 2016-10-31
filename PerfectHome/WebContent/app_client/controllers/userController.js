@@ -2,10 +2,19 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService){
+app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService, zillowService){
 	console.log('User controller');
 	$rootScope.bodyClass = 'container';
 	$scope.user = {};
+	$scope.activeHome = {};
+	
+	$scope.click = function(zillowId){
+		zillowService.getZillowInfo(zillowId)
+		.then(function(response){
+			console.log(response)
+			$scope.activeHome = response;
+		})
+	}
 	
 	
     if (authenticationService.isLoggedIn()){
@@ -81,6 +90,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
       		.then(function(response){
       			console.log(response)
       			$scope.zillowResult = response;
+      			$scope.activeHome = response;
       			});
     }	
 	
