@@ -64,7 +64,7 @@ footer {
 .carousel-inner img {
 	width: 100%; /* Set width to 100% */
 	min-height: 600px;
-	max-height: 12800px;
+	max-height: 1280px;
 }
 
 /* Hide the carousel text when the screen is less than 600 pixels wide */
@@ -265,4 +265,10 @@ form.login a {
 
 form.login a:hover {
 	color: #2ecc71;
+}
+
+.link {
+    width: 20%;
+    float: left;
+    text-align: center;
 }

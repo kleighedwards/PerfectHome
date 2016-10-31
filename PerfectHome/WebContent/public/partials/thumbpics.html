@@ -1,16 +1,28 @@
 
 <div class="col-sm-4">
 	<div class="thumbnail">
-		<img src="{{zillowResult.data.imageUrl}}"
-			class="img-responsive" style="width: 100%" alt="Image">
+		<img src="{{data.homeUser.homePicture[0]}}" class="img-responsive"
+			style="width: 100%" alt="Image" width="400" height="300">
 		<p>
-			<strong>{{zillowResult.data.street}}</strong>
+			<strong>"{{data.homeUser.homeAddress[0]}}"</strong>
 		</p>
-	
 	</div>
-	<div>
-	<img src="{{zillowResult.data.imageUrl}}" class="centerImage" alt="what image shows" height="320" width="350">
-	<img src="{{zillowResult.data.imageUrl}}" class="centerImage" alt="what image shows" height="320" width="350">
-	<img src="{{zillowResult.data.imageUrl}}" class="centerImage" alt="what image shows" height="320" width="350">
+</div>
+<div class="col-sm-4">
+	<div class="thumbnail">
+		<img src="{{data.homeUser.homePicture[1]}}" class="img-responsive"
+			style="width: 100%" alt="Image" width="400" height="300">
+		<p>
+			<strong>"{{data.homeUser.homeAddress[1]}}"</strong>
+		</p>
+	</div>
+</div>
+<div class="col-sm-4">
+	<div class="thumbnail">
+		<img src="{{data.homeUser.homePicture[2]}}" class="img-responsive"
+			style="width: 100%" alt="Image" width="400" height="300">
+		<p>
+			<strong>"{{data.homeUser.homeAddress[2]}}"</strong>
+		</p>
 	</div>
 </div>

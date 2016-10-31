@@ -1,7 +1,6 @@
 
 <!--adds a new home to array-->
 
-<div ng-include="'public/partials/carousel.html'"></div>
 <div id="locationField">
 	<label> New home: 
 	<input id="autocomplete" placeholder="Enter your address" type="text" />
@@ -9,36 +8,3 @@
 	<button ng-click="addHome(newHome)">Add home</button>
 	
 </div>
-
-<div ng-include="'public/partials/carousel.html'"></div>
-<div id="locationField">
-	<input id="autocomplete" placeholder="Enter your address" type="text"></input>
-</div>
-
-<div class="container">
-<h2>Table</h2>
-  <div class="table-responsive">
-  <table class="table table-striped ">
-    <thead>
-      <tr>
-        <th>Housing type</th>
-        <th>Bedrooms</th>
-        <th>Bathrooms</th>
-        <th>Sq.Footage</th>
-        <th>Lot Size (Sq.Ft.)</th>
-        <th>Year Built</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{zillowResult.data.useCode}}</td>
-        <td>{{zillowResult.data.bedrooms}}</td>
-        <td>{{zillowResult.data.bathrooms}}</td>
-        <td>{{zillowResult.data.finishedSqFoot}}</td>
-        <td>{{zillowResult.data.lotSizeSqFoot}}</td>
-        <td>{{zillowResult.data.yearBuilt}}</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-<hr>
