@@ -6,24 +6,21 @@
   <table class="table table-striped ">
     <thead>
       <tr>
-        <th>Housing type</th>
-        <th>Bedrooms</th>
-        <th>Bathrooms</th>
-        <th>Sq.Footage</th>
-        <th>Lot Size (Sq.Ft.)</th>
-        <th>Year Built</th>
-        <th>Number of floors</th>        
+        <th>Address</th>
+        <th>Ranking</th>     
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>{{zillowResult.data.useCode}}</td>
-        <td>{{zillowResult.data.bedrooms}}</td>
-        <td>{{zillowResult.data.bathrooms}}</td>
-        <td>{{zillowResult.data.finishedSqFoot}}</td>
-        <td>{{zillowResult.data.totalSqFoot}}</td>
-        <td>{{zillowResult.data.yearBuilt}}</td>
-        <td>{{zillowResult.data.floors}}</td>
+      <li ng-repeat="homes in user.data.homeUsers">{{homes.homeAddress}}</li>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+      <li ng-repeat="homes in user.data.homeUsers">{{user.data.homeUsers.notes[0]}}</li>
+      </tr>
+    </tbody>
+    <tbody>
         <button ng-click="ranking()">Add home</button>
         <td>
         <button ng-click="addHome(newHome)">Add home</button>
@@ -70,8 +67,5 @@
         </div>
         <!-- end: LIST OF NOT VISITED HOMES -->
     <!--  </div> -->
-
-
-  
  </div> 
   
