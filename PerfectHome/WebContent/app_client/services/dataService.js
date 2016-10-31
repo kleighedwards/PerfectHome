@@ -4,6 +4,9 @@ var app = angular.module('ngApp');
 
 app.factory('dataService', function($http){
 
+	
+	
+	
     var getData = function(){
         return $http({
              method : 'GET',
@@ -32,6 +35,8 @@ var deleteData = function(id) {
 };
 
     return {
+    	
+    	getZillowInfo : getZillowInfo,
         getData: getData,
         createTodo: createTodo, 
         deleteData: deleteData
