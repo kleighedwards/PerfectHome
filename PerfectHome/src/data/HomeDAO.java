@@ -15,6 +15,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import entities.Home;
+import entities.HomeUser;
+import entities.User;
 
 @Transactional
 public class HomeDAO {
@@ -42,6 +44,26 @@ public class HomeDAO {
 		em.flush();
 
 		return home;
+	}
+
+	// Add New Home and HomeUser
+	public User createHomeToPass(Home home, int id) {
+		// Create New Home Home
+		em.persist(home);
+		em.flush();
+		
+		Home managedHome = em.find(Home.class, home.getId());
+		User user = em.find(User.class, id);
+		
+		HomeUser hu = new HomeUser();
+		
+		hu.setHome(managedHome);
+		hu.setUser(user);
+		
+		em.persist(user);		
+		em.persist(hu);
+
+		return user;
 	}
 
 	// Delete Home
@@ -216,7 +238,8 @@ public class HomeDAO {
 				zillow.setUseCode(editedFactsNode.item(i).getFirstChild().getTextContent());
 			}
 			// Bedrooms
-			if (editedFactsNode.item(i).getFirstChild().getNextSibling().toString().contains("bedroom") && zillow.getBedrooms() == 0) {
+			if (editedFactsNode.item(i).getFirstChild().getNextSibling().toString().contains("bedroom")
+					&& zillow.getBedrooms() == 0) {
 				zillow.setBedrooms(
 						Integer.parseInt(editedFactsNode.item(i).getFirstChild().getNextSibling().getTextContent()));
 			}
