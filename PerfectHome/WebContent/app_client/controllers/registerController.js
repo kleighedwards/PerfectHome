@@ -2,8 +2,9 @@
 
 var app = angular.module('ngApp');
 
-app.controller('registerController', function($scope, $location, registrationService, authenticationService){
-	console.log('Register controller');
+app.controller('registerController', function($scope, $location, registrationService, authenticationService, $rootScope){
+	console.log('Register Controller');
+	$rootScope.bodyClass = 'windowImg';
 	
 	$scope.makeUser = function(user){
 		console.log(user);
@@ -11,12 +12,23 @@ app.controller('registerController', function($scope, $location, registrationSer
 		.then(function(response){
 			console.log(response)
 			if (response.status === 201) {
-				authenticationService.saveToken(response.data.jwt)
+				authenticationService.saveToken(response.data.jwt);
 				return response;
 			}
 		})
 		.then(function(response) {
 			$location.path('/user')
+		})
+		.catch(function(response){
+			console.log(response)
+			if (response.status === 400){
+				alert("This user name is not available");
+			}
+			if (response.status >= 500){
+				alert("Server is offline, please try again later");
+				$location.path('/')
+			}
+			return response;
 		})
 	}
 });

@@ -2,24 +2,15 @@
 
 var app = angular.module('ngApp');
 
-app.controller("navController", function ($scope, $location, authenticationService) {
- 
-    $scope.submitFeedback = function(action) {
-        //good or bad...
-        if (action) {
-            //good
- 
-            //submit using $http or service
- 
-        }
-        else {
-            //bad
- 
-            //submit using $http or service
-        }
-    };
-    
+app.controller("navController", function ($scope, $location, authenticationService, userService, $rootScope) {
+	console.log('Nav Controller');
     $scope.isLoggedIn = authenticationService.isLoggedIn;
+    
+    if ($scope.isLoggedIn()){
+     var userId = authenticationService.currentUser().id;
+     $scope.user = userService.getUser(userId);
+     console.log($scope.user)
+    }
     
     console.log(authenticationService.isLoggedIn());
     console.log($scope.isLoggedIn());

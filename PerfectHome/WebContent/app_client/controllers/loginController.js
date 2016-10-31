@@ -2,8 +2,10 @@
 
 var app = angular.module('ngApp');
 
-app.controller('loginController', function($scope, authenticationService, $location){
-	console.log('Login controller');
+
+app.controller('loginController', function($scope, authenticationService, $location, $rootScope){
+	console.log('Login Controller');
+	$rootScope.bodyClass = 'tinyHomeImg';
 	
 	$scope.authenticate = function(user) {
 		console.log(user);
@@ -16,6 +18,18 @@ app.controller('loginController', function($scope, authenticationService, $locat
 		})
 		.then(function(response) {
 			$location.path('/user')
+		})
+		.catch(function(response){
+			console.log(response)
+			if ((response.status === 400) || (response.status === 401)){
+				alert("Error, please provide correct account data");
+				$location.path('/login')
+			}
+			if (response.status >= 500){
+				alert("Server is offline, please try again later");
+				$location.path('/')
+			}
+			return response;
 		})
 	}
 });

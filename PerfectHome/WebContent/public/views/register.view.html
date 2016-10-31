@@ -1,11 +1,20 @@
-<!-- create registration page-->
+<!-- register.view.html page-->
 
+<header ng-include="'public/partials/nav.html'"></header>
+<!-- <div class="container"> <img class="img-responsive" src="./public/image/home.jpg" class="img-rounded" alt="home" width="100%" height="100%"></div> -->
 <div class="container">
-	<div ng-include="'public/partials/carousel.html'"></div>
-</div>
-<hr>
-
-
-<div class="container text-center">
-	<form ng-include="'public/partials/registrationForm.html'"></form>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="wrap">
+				<p class="form-title">Create New Account</p>
+				<form class="login">
+					<input type="text" id="first_name" ng-model="newUser.firstName" placeholder="Enter your First Name" ng-required="true"/>
+					<input type="text" id="last_name" ng-model="newUser.lastName" placeholder="Enter your Last Name" ng-required="true"/>
+					<input type="text" id="username" ng-model="newUser.username" placeholder="Enter your username" ng-required="true"/>
+						<input type="password" id="pwd" ng-model="newUser.password" placeholder="Enter password" ng-required="true"/>
+					<input ng-click="makeUser(newUser)" type="submit" value="Submit" class="btn btn-success btn-sm" />
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

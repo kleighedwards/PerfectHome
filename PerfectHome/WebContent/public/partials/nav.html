@@ -1,27 +1,22 @@
-<!-- // nav.html -->
+<!-- nav.html page-->
 
-<nav class="navbar navbar-default navbar-inverse" ng-controller="navController" role="navigation">
+<nav class="navbar navbar-inverse" ng-controller="navController">
 	<div class="container-fluid">
 		<div class="navbar-header">
-		<a class="navbar-brand" href="#">Perfect Home Logo</a>
+			<span class="icon-bar">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"></button> 
+<!-- 				<a href="#/user" class="navbar-brand glyphicon glyphicon-home" ng-show="isLoggedIn()"></a> -->
+				<h2 style="color: gray;">Perfect Home</h2>
+			</span>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-		<a href="#/user" class="navbar-brand glyphicon glyphicon-home" ng-show="isLoggedIn()"></a>
+			<ul class="nav navbar-nav">
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li ng-hide="isLoggedIn()"><p class="navbar-text">Already have an account?</p></li>
-				<form class="navbar-form navbar-right" ng-hide="isLoggedIn()">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="username" ng-model="user.username" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="pwd" ng-model="user.password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default" ng-click="authenticate(user)">Sign In</button>
-                </form>
-			<<ul class="nav navbar-nav navbar-right">
-        			<li><a href="#/register" ng-hide="isLoggedIn()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        			<li><a ng-click="logOutUser()" ng-show="isLoggedIn()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-      			</ul>
+				<li><a href="" ng-hide="isLoggedIn()"><span></span> Need an Account?</a></li>
+				<li><a href="#/register" ng-hide="isLoggedIn()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#/login" ng-hide="isLoggedIn()"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+				<li><a ng-click="logOutUser()" ng-show="isLoggedIn()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 			</ul>
 		</div>
 	</div>

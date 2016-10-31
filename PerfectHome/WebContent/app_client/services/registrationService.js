@@ -6,12 +6,25 @@ var createUser = function(user){
 
     return $http({
         method : 'POST',
-        url : 'api/auth/signup',
+        url : 'api/auth/account',
         headers : {
-            'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json'
         },
         data : user
-    })
+      })
+      .then(function(response){
+        if (response.status == 200){
+        	return $http({
+                method : 'POST',
+                url : 'api/auth/signup',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                data : user
+            })
+        }
+        return response;
+      });
 };
 
 var deleteUser = function(id) {

@@ -30,7 +30,16 @@ public class UserDAO {
 
 	// Get User By ID
 	public User show(int id) {
-		return em.find(User.class, id);
+		
+		User user =  em.find(User.class, id);
+		if (user.getPassword().length() < 25){
+			String rawPassword = user.getPassword();
+			String encodedPassword = passwordEncoder.encode(rawPassword);
+			user.setPassword(encodedPassword);
+			em.persist(user);
+		}
+		
+		return user;
 	}
 
 	// Add New User
@@ -51,28 +60,41 @@ public class UserDAO {
 				
 		em.remove(deleteUser);
 	}
-
+	
 	// Authenticate User
-	public User authenticateUser(User user) {
+	public User hasAccount(User user) {
+		System.out.println("UserDAO: hasAccount");
 		User managedUser = null;
-
+		
 		List<User> users = index();
-
+		
 		for (User u : users) {
 			if (u.getUsername().equals(user.getUsername())) {
 				managedUser = em.find(User.class, u.getId());
+				System.out.println(user);
+				System.out.println(managedUser);
 			}
 		}
-
-		if (managedUser != null) {
+		
+		if (managedUser != null){
 			String rawPassword = user.getPassword();
+			System.out.println("rawPW: " + rawPassword);
 			String encodedPassword = managedUser.getPassword();
-
-			if (passwordEncoder.matches(rawPassword, encodedPassword)) {
+			System.out.println("encPW: " + encodedPassword);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if(encoder.matches(rawPassword,encodedPassword)){
+				System.out.println("UserDAO - returning managedUser ie. user with correct password: " + managedUser);
 				return managedUser;
+			} else {
+				User userExists = new User();
+				userExists.setPassword("User Exists");
+				userExists.setUsername(user.getUsername());
+				System.out.println("UserDAO - returning userExists ie. user with incorrect password: " + userExists);
+				return userExists;
 			}
 		}
-
+		
+		System.out.println("UserDAO - returning null managedUser ie. user does not exist: " + managedUser);
 		return managedUser;
 	}
 
