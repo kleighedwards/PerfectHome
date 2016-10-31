@@ -7,12 +7,14 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	$rootScope.bodyClass = 'container';
 	$scope.user = {};
 	$scope.activeHome = {};
+	$scope.currentHomeUserId = null;
 	
-	$scope.click = function(zillowId){
+	$scope.click = function(zillowId, HomeUserId){
 		zillowService.getZillowInfo(zillowId)
 		.then(function(response){
 			console.log(response)
 			$scope.activeHome = response;
+			$scope.currentHomeUserId = HomeUserId;
 		})
 	}
 	
@@ -91,6 +93,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
       			console.log(response)
       			$scope.zillowResult = response;
       			$scope.activeHome = response;
+      			$scope.currentHomeUserId = null;
       			});
     }	
 	
