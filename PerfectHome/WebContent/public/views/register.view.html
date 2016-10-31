@@ -8,10 +8,10 @@
 			<div class="wrap">
 				<p class="form-title">Create New Account</p>
 				<form class="login">
-					<input type="text" id="first_name" ng-model="newUser.firstName" placeholder="Enter your First Name" />
-					<input type="text" id="last_name" ng-model="newUser.lastName" placeholder="Enter your Last Name" />
-					<input type="text" id="username" ng-model="newUser.username" placeholder="Enter your username" />
-						<input type="password" id="pwd" ng-model="newUser.password" placeholder="Enter password" />
+					<input type="text" id="first_name" ng-model="newUser.firstName" placeholder="Enter your First Name" ng-required="true"/>
+					<input type="text" id="last_name" ng-model="newUser.lastName" placeholder="Enter your Last Name" ng-required="true"/>
+					<input type="text" id="username" ng-model="newUser.username" placeholder="Enter your username" ng-required="true"/>
+						<input type="password" id="pwd" ng-model="newUser.password" placeholder="Enter password" ng-required="true"/>
 					<input ng-click="makeUser(newUser)" type="submit" value="Submit" class="btn btn-success btn-sm" />
 				</form>
 			</div>

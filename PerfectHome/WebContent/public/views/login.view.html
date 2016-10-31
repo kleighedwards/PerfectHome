@@ -8,8 +8,8 @@
 			<div class="wrap">
 				<p class="form-title">Login</p>
 				<form class="login">
-					<input id="username" ng-model="user.username" type="text" placeholder="Username" />
-					<input id="pwd" ng-model="user.password" type="password" placeholder="Password" />
+					<input id="username" ng-model="user.username" type="text" placeholder="Username" ng-required="true"/>
+					<input id="pwd" ng-model="user.password" type="password" placeholder="Password" ng-required="true"/>
 					<input ng-click="authenticate(user)" type="submit" value="Submit" class="btn btn-success btn-sm" />
 				</form>
 			</div>
