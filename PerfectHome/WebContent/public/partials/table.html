@@ -1,5 +1,34 @@
 <!-- table.html -->
 
+<div class="container">
+<h2>Table</h2>
+  <div class="table-responsive">
+  <table class="table table-striped ">
+    <thead>
+      <tr>
+        <th>Housing type</th>
+        <th>Bedrooms</th>
+        <th>Bathrooms</th>
+        <th>Sq.Footage</th>
+        <th>Lot Size (Sq.Ft.)</th>
+        <th>Year Built</th>
+        <th>Number of floors</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{zillowResult.data.useCode}}</td>
+        <td>{{zillowResult.data.bedrooms}}</td>
+        <td>{{zillowResult.data.bathrooms}}</td>
+        <td>{{zillowResult.data.finishedSqFoot}}</td>
+        <td>{{zillowResult.data.totalSqFoot}}</td>
+        <td>{{zillowResult.data.yearBuilt}}</td>
+        <td>{{zillowResult.data.floor}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
 <div id="ngApp" ng-controller="tableController">
         
         <div id="AddHome">
@@ -38,32 +67,7 @@
         <!-- end: LIST OF NOT VISITED HOMES -->
     <!--  </div> -->
 
-<div class="container">
-<h2>Table</h2>
-  <div class="table-responsive">
-  <table class="table table-striped ">
-    <thead>
-      <tr>
-        <th>Housing type</th>
-        <th>Bedrooms</th>
-        <th>Bathrooms</th>
-        <th>Sq.Footage</th>
-        <th>Lot Size (Sq.Ft.)</th>
-        <th>Year Built</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{zillowResult.data.useCode}}</td>
-        <td>{{zillowResult.data.bedrooms}}</td>
-        <td>{{zillowResult.data.bathrooms}}</td>
-        <td>{{zillowResult.data.finishedSqFoot}}</td>
-        <td>{{zillowResult.data.lotSizeSqFoot}}</td>
-        <td>{{zillowResult.data.yearBuilt}}</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+
   
  </div> 
   
