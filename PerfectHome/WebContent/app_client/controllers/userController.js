@@ -4,7 +4,7 @@ var app = angular.module('ngApp');
 
 app.controller('userController', function($scope, $location, userService, $rootScope){
 	console.log('User controller');
-	$rootScope.bodyClass = 'userImg';
+	$rootScope.bodyClass = 'container';
 	
 	var placeSearch, autocomplete, address, zillowSearchAddress;
     
