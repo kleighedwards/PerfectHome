@@ -2,9 +2,8 @@
 
 var app = angular.module('ngApp');
 
-app.controller("navController", function ($scope, $location, authenticationService, userService) {
-
-    
+app.controller("navController", function ($scope, $location, authenticationService, userService, $rootScope) {
+	console.log('Nav Controller');
     $scope.isLoggedIn = authenticationService.isLoggedIn;
     
     if ($scope.isLoggedIn()){

@@ -60,34 +60,10 @@ public class UserDAO {
 				
 		em.remove(deleteUser);
 	}
-
-	// Authenticate User
-	public User authenticateUser(User user) {
-		User managedUser = null;
-
-		List<User> users = index();
-
-		for (User u : users) {
-			if (u.getUsername().equals(user.getUsername())) {
-				managedUser = em.find(User.class, u.getId());
-			}
-		}
-
-		if (managedUser != null) {
-			String rawPassword = user.getPassword();
-			String encodedPassword = managedUser.getPassword();
-
-			if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-				return managedUser;
-			}
-		}
-
-		return managedUser;
-	}
 	
 	// Authenticate User
 	public User hasAccount(User user) {
-		System.out.println("Checking for user Account");
+		System.out.println("UserDAO: hasAccount");
 		User managedUser = null;
 		
 		List<User> users = index();
@@ -95,23 +71,30 @@ public class UserDAO {
 		for (User u : users) {
 			if (u.getUsername().equals(user.getUsername())) {
 				managedUser = em.find(User.class, u.getId());
+				System.out.println(user);
+				System.out.println(managedUser);
 			}
 		}
 		
 		if (managedUser != null){
 			String rawPassword = user.getPassword();
-			String encodedPassword = user.getPassword();
+			System.out.println("rawPW: " + rawPassword);
+			String encodedPassword = managedUser.getPassword();
+			System.out.println("encPW: " + encodedPassword);
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			if(encoder.matches(rawPassword,encodedPassword)){
+				System.out.println("UserDAO - returning managedUser ie. user with correct password: " + managedUser);
 				return managedUser;
 			} else {
 				User userExists = new User();
 				userExists.setPassword("User Exists");
 				userExists.setUsername(user.getUsername());
+				System.out.println("UserDAO - returning userExists ie. user with incorrect password: " + userExists);
 				return userExists;
 			}
 		}
 		
+		System.out.println("UserDAO - returning null managedUser ie. user does not exist: " + managedUser);
 		return managedUser;
 	}
 

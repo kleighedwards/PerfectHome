@@ -33,34 +33,8 @@ public class AuthenticationController {
 	// Login
 	@RequestMapping(value = "/auth/login", method = RequestMethod.POST)
 	public Map<String, String> login(HttpServletRequest req, HttpServletResponse res,
-			@RequestBody String userJsonString) {
-
-		ObjectMapper mapper = new ObjectMapper();
-		User user = null;
-
-		try {
-			user = mapper.readValue(userJsonString, User.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			user = userDAO.authenticateUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		String jws = jwtGen.generateUserJwt(user);
-		Map<String, String> responseJson = new HashMap<>();
-		responseJson.put("jwt", jws);
-		return responseJson;
-	}
-	
-	// Check for existing user account
-	@RequestMapping(value = "/auth/account", method = RequestMethod.POST)
-	public User hasAccount(HttpServletRequest req, HttpServletResponse res,
 			@RequestBody String userJSON) {
-		System.out.println("call to DAO: /auth/account");
+		System.out.println("AuthenticationCtroller: /auth/login");
 		ObjectMapper mapper = new ObjectMapper();
 		User user = null;
 		
@@ -76,6 +50,52 @@ public class AuthenticationController {
 			e.printStackTrace();
 		}
 		
+		System.out.println("User before DAO:" + user);
+		user = userDAO.hasAccount(user);
+		System.out.println("User after DAO#1:" + user);
+		
+		if(user == null){
+			res.setStatus(400);
+		}
+		else {
+			
+			if (user.getPassword().equals("User Exists")){
+				res.setStatus(401);
+			}
+			else {
+					res.setStatus(200);
+					String jws = jwtGen.generateUserJwt(user);
+					Map<String, String> responseJson = new HashMap<>();
+					responseJson.put("jwt", jws);
+					System.out.println("User after DAO#2: returning jwt");
+					return responseJson;
+			}
+		}
+		System.out.println("User after DAO#2: returning null");
+		return null;
+	}
+	
+	// Check for existing user account
+	@RequestMapping(value = "/auth/account", method = RequestMethod.POST)
+	public User hasAccount(HttpServletRequest req, HttpServletResponse res,
+			@RequestBody String userJSON) {
+		System.out.println("AuthenticationCtroller: /auth/account");
+		ObjectMapper mapper = new ObjectMapper();
+		User user = null;
+		
+		try {
+			
+			user = mapper.readValue(userJSON, User.class);
+			
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("User before DAO:" + user);
 		user = userDAO.hasAccount(user);
 		
 		if(user == null){
@@ -85,7 +105,7 @@ public class AuthenticationController {
 			res.setStatus(400);
 		}
 		
-		System.out.println("Checking this user for a previous account: " + user);
+		System.out.println("User after DAO:" + user);
 		return user;
 	}
 

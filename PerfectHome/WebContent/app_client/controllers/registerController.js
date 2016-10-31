@@ -2,8 +2,9 @@
 
 var app = angular.module('ngApp');
 
-app.controller('registerController', function($scope, $location, registrationService, authenticationService){
-	console.log('Register controller');
+app.controller('registerController', function($scope, $location, registrationService, authenticationService, $rootScope){
+	console.log('Register Controller');
+	$rootScope.bodyClass = 'windowImg';
 	
 	$scope.makeUser = function(user){
 		console.log(user);
@@ -24,7 +25,8 @@ app.controller('registerController', function($scope, $location, registrationSer
 				alert("This user name is not available");
 			}
 			if (response.status >= 500){
-				alert("System ofline, please thr");
+				alert("Server is offline, please try again later");
+				$location.path('/')
 			}
 			return response;
 		})
