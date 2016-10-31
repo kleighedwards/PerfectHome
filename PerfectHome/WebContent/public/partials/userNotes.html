@@ -1,6 +1,5 @@
 
 <h4>Property Notes</h4>
 <ul>
-	<li>{{data.homeUsers.toDos}}</li>
+	<li ng-repeat="note in user.data.homeUsers[currentHomeUserId].notes">{{note.notes}}</li>
 </ul>
-</div>

@@ -64,7 +64,7 @@ footer {
 .carousel-inner img {
 	width: 100%; /* Set width to 100% */
 	min-height: 600px;
-	max-height: 1280px;
+	max-height: 600px;
 }
 
 /* Hide the carousel text when the screen is less than 600 pixels wide */

@@ -2,9 +2,31 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location, userService, $rootScope){
+app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService, zillowService){
 	console.log('User controller');
 	$rootScope.bodyClass = 'container';
+	$scope.user = {};
+	$scope.activeHome = {};
+	$scope.currentHomeUserId = null;
+	
+	$scope.click = function(zillowId, HomeUserId){
+		zillowService.getZillowInfo(zillowId)
+		.then(function(response){
+			console.log(response)
+			$scope.activeHome = response;
+			$scope.currentHomeUserId = HomeUserId;
+		})
+	}
+	
+	
+    if (authenticationService.isLoggedIn()){
+       userService.getUser(authenticationService.currentUser().id)
+       .then(function(response){
+           $scope.user =  response;
+           console.log($scope.user)
+         });
+        
+       }
 	
 	var placeSearch, autocomplete, address, zillowSearchAddress;
     
@@ -70,6 +92,8 @@ app.controller('userController', function($scope, $location, userService, $rootS
       		.then(function(response){
       			console.log(response)
       			$scope.zillowResult = response;
+      			$scope.activeHome = response;
+      			$scope.currentHomeUserId = null;
       			});
     }	
 	

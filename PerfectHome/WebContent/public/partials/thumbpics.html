@@ -1,28 +1,11 @@
 
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{data.homeUser.homePicture[0]}}" class="img-responsive"
+<div class="col-sm-4" ng-repeat="homes in user.data.homeUsers">
+	<div id=user.data.homeUsers[?] class="thumbnail" ng-click="click(homes.homeZpID, $index)">
+		<img  src="{{homes.homePicture}}" class="img-responsive"
 			style="width: 100%" alt="Image" width="400" height="300">
 		<p>
-			<strong>"{{data.homeUser.homeAddress[0]}}"</strong>
+			<strong>{{homes.homeAddress}}</strong>
 		</p>
 	</div>
 </div>
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{data.homeUser.homePicture[1]}}" class="img-responsive"
-			style="width: 100%" alt="Image" width="400" height="300">
-		<p>
-			<strong>"{{data.homeUser.homeAddress[1]}}"</strong>
-		</p>
-	</div>
-</div>
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{data.homeUser.homePicture[2]}}" class="img-responsive"
-			style="width: 100%" alt="Image" width="400" height="300">
-		<p>
-			<strong>"{{data.homeUser.homeAddress[2]}}"</strong>
-		</p>
-	</div>
-</div>
+
