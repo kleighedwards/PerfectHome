@@ -18,36 +18,3 @@
 			</tbody>
 		</table>
 	</div>
-
-	<div id="ngApp" ng-controller="tableController">
-		<!-- begin: LIST OF VISITED HOMES -->
-		<div id="VisitedList">
-			<h3>Visited Homes: {{getTotalVisitedHomes()}}</h3>
-			
-			<h4>Visited:</h4>
-			<table>
-				<tr ng-repeat="homes in user.data.homeUsers class="homes-checked">
-					<td>{{homes.homeAddress}} <i>this home was visited.</i>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<!-- end: LIST OF VISITED HOMES -->
-
-		<!-- begin: LIST OF NOT VISITED HOMES -->
-		<div id="NotVisited">
-			<h3>Not Visited Homes: {{getTotalUnvisitedHomes()}}</h3>
-			<h4>Not Visited Homes:</h4>
-			<table>
-				<tr ng-repeat="homes in user.data.homeUsers class="homes-unchecked">
-					<td>{{homes.homeAddress}} <i>this home has not been
-							visited.</i>
-					</td>
-					<td>
-						<button ng-click="toggleChecked($index)">check home</button>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<!-- end: LIST OF NOT VISITED HOMES -->
-	</div>
