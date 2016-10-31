@@ -13,7 +13,11 @@
 			</thead>
 			<tbody ng-repeat="homes in user.data.homeUsers">
 				<td>{{homes.homeAddress}}</td>
-				<td><button ng-click="ranking(id)">Add Ranking</button></td>
+				<td>
+				<div class="rating">
+					<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+				</div>
+				</td>
 				<td><button ng-click="removeHome(id)">Delete Home</button></td>
 			</tbody>
 		</table>
