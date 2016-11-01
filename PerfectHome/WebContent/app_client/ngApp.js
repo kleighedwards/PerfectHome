@@ -1,6 +1,6 @@
 // ngApp.js
 
-var app = angular.module('ngApp', ['ngRoute'])
+var app = angular.module('ngApp', ['ngRoute','ngAnimate'])
 .config(function($routeProvider){
   $routeProvider
     .when('/', {

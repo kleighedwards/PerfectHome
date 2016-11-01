@@ -2,7 +2,7 @@
 
 var app = angular.module('ngApp')
 app.factory('userService', function($window, $http, authenticationService){
-	console.log("Here in userService");
+	console.log("userService");
 	var userService = {};
 	
 	userService.getHomeZpid = function (url) {
@@ -23,7 +23,27 @@ app.factory('userService', function($window, $http, authenticationService){
 			})
 	}
 	
+	userService.addHome = function (userId, home) {
+		console.log(home)
+		console.log(home.zillowId)
+		var newHome = {'zpId' : home.zillowId, 'address' : home.street, 'zillowImage' : home.imageUrl}
+		console.log(newHome)
+		return $http({
+			method: 'POST' ,
+			url : 'api/home/user/' + userId,
+			headers : {
+				'Content-Type' : 'text/plain'
+			},
+			data : newHome
+		})
+	}
 	
+	userService.deleteHome = function (homeUserId){
+		return $http({
+			method: 'DELETE',	
+			url : 'api/homeuser/' + homeUserId
+			})
+	}
 	
 	
 	return userService;

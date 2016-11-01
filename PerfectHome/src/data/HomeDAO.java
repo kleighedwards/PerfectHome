@@ -3,6 +3,7 @@ package data;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -48,17 +49,27 @@ public class HomeDAO {
 
 	// Add New Home and HomeUser
 	public User createHomeToPass(Home home, int id) {
-		// Create New Home Home
-		em.persist(home);
-		em.flush();
-		
-		Home managedHome = em.find(Home.class, home.getId());
-		User user = em.find(User.class, id);
-		
 		HomeUser hu = new HomeUser();
-		
-		hu.setHome(managedHome);
+		User user = em.find(User.class, id);
+			
 		hu.setUser(user);
+		
+		Collection<Home> homes = index();
+		
+		for (Home h : homes) {
+			if (h.getZpId() == home.getZpId()) {
+				hu.setHome(h);
+			}
+		}
+		
+		if (hu.getHome() == null) {
+			em.persist(home);
+			em.flush();	
+			
+			Home managedHome = em.find(Home.class, home.getId());
+			hu.setHome(managedHome);
+		}
+		
 		
 		em.persist(user);		
 		em.persist(hu);

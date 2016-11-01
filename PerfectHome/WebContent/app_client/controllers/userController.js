@@ -4,10 +4,35 @@ var app = angular.module('ngApp');
 
 app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService, zillowService){
 	console.log('User controller');
-	$rootScope.bodyClass = 'container';
+	$rootScope.bodyClass = 'cd-fixed-bg cd-bg-3';
 	$scope.user = {};
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
+	
+	$scope.remove = function(homeUserId) {
+		console.log(homeUserId)
+		userService.deleteHome(homeUserId)
+		.then(function(){
+			userService.getUser(authenticationService.currentUser().id)
+			.then(function(response){
+				$scope.user =  response;
+				console.log($scope.user)
+			})
+		})
+	}
+	
+	$scope.addHome = function(home){
+		console.log(home)
+		userService.addHome(authenticationService.currentUser().id, home)
+		.then(function(){
+			userService.getUser(authenticationService.currentUser().id)
+			.then(function(response){
+				$scope.user =  response;
+				console.log($scope.user)
+			})
+		})
+	}
+	
 	
 	$scope.click = function(zillowId, HomeUserId){
 		zillowService.getZillowInfo(zillowId)

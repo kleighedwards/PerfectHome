@@ -246,7 +246,7 @@ public class HomeUserDAO {
 	public void destroyImageByIds(int uId, int hId, int iId) {
 		User user = em.find(User.class, uId);
 		Home home = em.find(Home.class, hId);
-		
+
 		HomeUser hu = showByIds(user.getId(), home.getId());
 		Image image = em.find(Image.class, iId);
 
@@ -280,6 +280,29 @@ public class HomeUserDAO {
 		editNote.setNotes(note.getNotes());
 
 		em.persist(editNote);
+		em.flush();
+	}
+
+	// Update Rating
+	public void updateRating(int id, int rating) {
+		HomeUser hu = em.find(HomeUser.class, id);
+
+		hu.setRating(rating);
+
+		em.persist(hu);
+		em.flush();
+	}
+
+	// Update Rating By IDs
+	public void updateRatingByIds(int uId, int hId, int rating) {
+		User user = em.find(User.class, uId);
+		Home home = em.find(Home.class, hId);
+
+		HomeUser hu = showByIds(user.getId(), home.getId());
+		
+		hu.setRating(rating);
+
+		em.persist(hu);
 		em.flush();
 	}
 

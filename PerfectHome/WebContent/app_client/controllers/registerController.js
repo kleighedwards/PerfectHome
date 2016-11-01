@@ -4,7 +4,7 @@ var app = angular.module('ngApp');
 
 app.controller('registerController', function($scope, $location, registrationService, authenticationService, $rootScope){
 	console.log('Register Controller');
-	$rootScope.bodyClass = 'windowImg';
+	$rootScope.bodyClass = 'cd-fixed-bg cd-bg-2';
 	
 	$scope.makeUser = function(user){
 		console.log(user);
