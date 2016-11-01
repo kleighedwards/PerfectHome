@@ -46,6 +46,18 @@ public class HomeUserController {
 		return huDAO.showByIds(u_Id, h_Id);
 	}
 
+	// Returns Rating
+	@RequestMapping(path = "homeuser/{id}/rating", method = RequestMethod.GET)
+	public int showRating(@PathVariable int id) {
+		return huDAO.show(id).getRating();
+	}
+
+	// Returns Returns Rating Using Home and User IDs
+	@RequestMapping(path = "homeuser/user/{u_Id}/home/{h_Id}/rating", method = RequestMethod.GET)
+	public int showRatingByIds(@PathVariable int u_Id, @PathVariable int h_Id) {
+		return huDAO.showByIds(u_Id, h_Id).getRating();
+	}
+
 	// Returns A User
 	@RequestMapping(path = "homeuser/{id}/user", method = RequestMethod.GET)
 	public User showUser(@PathVariable int id) {
@@ -353,5 +365,27 @@ public class HomeUserController {
 		}
 
 		huDAO.updateNote(n_id, editNote);
+	}
+
+	// Update Rating
+	@RequestMapping(path = "homeuser/{id}/rating/{rating}", method = RequestMethod.PUT)
+	public void updateRating(@PathVariable int id, @PathVariable int rating) {
+
+		try {
+			huDAO.updateRating(id, rating);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Update Rating Using IDs
+	@RequestMapping(path = "homeuser/user/{u_Id}/home/{h_Id}/rating/{rating}", method = RequestMethod.PUT)
+	public void updateRatingByIds(@PathVariable int u_Id, @PathVariable int h_Id, @PathVariable int rating) {
+
+		try {
+			huDAO.updateRatingByIds(u_Id, h_Id, rating);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

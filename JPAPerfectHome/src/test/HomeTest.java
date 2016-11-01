@@ -32,6 +32,7 @@ public class HomeTest {
 		assertEquals("6303 N 15th St", home.getAddress());
 		assertEquals("http://photos.zillowstatic.com/p_d/IS2ny0atnkvzz90000000000.jpg", home.getZillowImage());
 		
+		
 //		assertEquals(1, home.getHomeUsers().size());
 	}
 	

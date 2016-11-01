@@ -22,6 +22,8 @@ public class HomeUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	private int rating;
 
 	// bi-directional many-to-one association to Home
 	@ManyToOne
@@ -57,6 +59,14 @@ public class HomeUser {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	public Home getHome() {

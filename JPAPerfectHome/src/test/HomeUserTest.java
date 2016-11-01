@@ -29,9 +29,10 @@ public class HomeUserTest {
 		HomeUser homeUser = em.find(HomeUser.class, 1);
 		
 		assertEquals("John", homeUser.getUser().getFirstName());
-		assertEquals(13138711, homeUser.getHome().getZpId());
-		assertEquals(2, homeUser.getNotes().size());
-		assertEquals(3, homeUser.getTodos().size());
+//		assertEquals(13138711, homeUser.getHome().getZpId());
+//		assertEquals(2, homeUser.getNotes().size());
+//		assertEquals(3, homeUser.getTodos().size());
+		assertEquals(4, homeUser.getRating());
 	}
 	
 	@After
