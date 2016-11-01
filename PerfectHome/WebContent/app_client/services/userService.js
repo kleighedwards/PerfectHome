@@ -38,6 +38,12 @@ app.factory('userService', function($window, $http, authenticationService){
 		})
 	}
 	
+	userService.deleteHome = function (homeUserId){
+		return $http({
+			method: 'DELETE',	
+			url : 'api/homeuser/' + homeUserId
+			})
+	}
 	
 	
 	return userService;

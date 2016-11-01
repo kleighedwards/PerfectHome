@@ -9,6 +9,18 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
 	
+	$scope.remove = function(homeUserId) {
+		console.log(homeUserId)
+		userService.deleteHome(homeUserId)
+		.then(function(){
+			userService.getUser(authenticationService.currentUser().id)
+			.then(function(response){
+				$scope.user =  response;
+				console.log($scope.user)
+			})
+		})
+	}
+	
 	$scope.addHome = function(home){
 		console.log(home)
 		userService.addHome(authenticationService.currentUser().id, home)
