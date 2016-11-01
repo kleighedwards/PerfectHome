@@ -2,7 +2,7 @@
 
 var app = angular.module("ngApp");
 
-app.factory('dataService', function($http,authenicationService){
+app.factory('dataService', function($http,authenticationService){
 
     var todos = [];
 

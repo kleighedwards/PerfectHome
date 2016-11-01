@@ -1,11 +1,11 @@
 
-<div class="col-sm-4">
-	<div class="thumbnail">
-		<img src="{{zillowResult.data.imageUrl}}"
-			class="img-responsive" style="width: 100%" alt="Image">
+<div class="col-sm-4" ng-repeat="homes in user.data.homeUsers">
+	<div id=user.data.homeUsers[?] class="thumbnail" ng-click="click(homes.homeZpID, $index)">
+		<img  src="{{homes.homePicture}}" class="img-responsive"
+			style="width: 100%" alt="Image" width="400" height="300">
 		<p>
-			<strong>{{zillowResult.data.street}}</strong>
+			<strong>{{homes.homeAddress}}</strong>
 		</p>
-	
 	</div>
 </div>
+

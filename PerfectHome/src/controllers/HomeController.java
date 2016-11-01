@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.HomeDAO;
 import data.ZillowDTO;
 import entities.Home;
+import entities.User;
 
 @RestController
 public class HomeController {
@@ -55,6 +56,29 @@ public class HomeController {
 		}
 	}
 
+	// Adds A New Home Then Passes to HomeUser
+	@RequestMapping(path = "home/user/{id}", method = RequestMethod.POST)
+	public User createHomePassToHomeUser(@RequestBody String jsonHome, @PathVariable int id, HttpServletResponse response) {
+		ObjectMapper mapper = new ObjectMapper();
+		Home newHome = null;
+		User updatedUser = null;
+
+		try {
+			newHome = mapper.readValue(jsonHome, Home.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (newHome == null) {
+			response.setStatus(400);
+		} else {
+			response.setStatus(201);
+			updatedUser = homeDAO.createHomeToPass(newHome, id);
+		}
+		
+		return updatedUser;
+	}
+
 	// Delete A Home Not Needed
 	@RequestMapping(path = "home/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) {
@@ -84,13 +108,13 @@ public class HomeController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ZillowDTO z = null;
-		
+
 		try {
 			z = mapper.readValue(zillow, ZillowDTO.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			return homeDAO.zillowSecondCall(z);
 		} catch (Exception e) {
