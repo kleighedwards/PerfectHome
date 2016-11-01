@@ -23,6 +23,20 @@ app.factory('userService', function($window, $http, authenticationService){
 			})
 	}
 	
+	userService.addHome = function (userId, home) {
+		console.log(home)
+		console.log(home.zillowId)
+		var newHome = {'zpId' : home.zillowId, 'address' : home.street, 'zillowImage' : home.imageUrl}
+		console.log(newHome)
+		return $http({
+			method: 'POST' ,
+			url : 'api/home/user/' + userId,
+			headers : {
+				'Content-Type' : 'text/plain'
+			},
+			data : newHome
+		})
+	}
 	
 	
 	

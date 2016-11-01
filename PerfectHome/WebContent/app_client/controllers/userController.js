@@ -9,6 +9,19 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
 	
+	$scope.addHome = function(home){
+		console.log(home)
+		userService.addHome(authenticationService.currentUser().id, home)
+		.then(function(){
+			userService.getUser(authenticationService.currentUser().id)
+			.then(function(response){
+				$scope.user =  response;
+				console.log($scope.user)
+			})
+		})
+	}
+	
+	
 	$scope.click = function(zillowId, HomeUserId){
 		zillowService.getZillowInfo(zillowId)
 		.then(function(response){
