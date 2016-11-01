@@ -1,5 +1,9 @@
 
 <h4>Property Notes</h4>
 <ul>
-	<li ng-repeat="note in user.data.homeUsers[currentHomeUserId-1].notes">{{note.notes}}</li>
+	<li ng-repeat="note in user.data.homeUsers[currentHomeUserId-1].notes">{{note.notes}}
+	<button ng-click="editNote()">Edit</button>
+	<button ng-click="deleteNote()">Delete</button>
+	</li>
+	<button ng-click="addNote()">Add Note</button>
 </ul>
