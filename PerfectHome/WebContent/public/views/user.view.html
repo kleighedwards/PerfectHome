@@ -3,23 +3,23 @@
 
 <div class="container-fluid">
 	<div class="row text-center">
-		<div ng-include="'public/partials/carousel.html'"></div>
-<hr>
+		<div class="col-sm-3 well well-sm">
+			<div ng-include="'public/partials/userToDo.html'"></div>
+		</div>
+		<div ng-include="'public/partials/carousel.html'" class="col-sm-9"></div>
+		<hr>
 		<div class="row text-center">
 			<div id="locationField" class="col-xs-12">
-				<label>New home:  </label> <input id="autocomplete"
+				<label>New home: </label> <input id="autocomplete"
 					placeholder="Enter your address" type="text" width="80%"></input>
 				<button ng-click="addHome(newHome)">Add home</button>
 			</div>
 		</div>
-			<br>
-			<div ng-include="'public/partials/homeDescription.html'"></div>
+		<br>
+		<div ng-include="'public/partials/homeDescription.html'"></div>
 
 		<div class="row">
-			<div class="col-sm-6 well well-sm">
-				<div ng-include="'public/partials/userToDo.html'"></div>
-			</div>
-			<div class="col-sm-6 well well-sm">
+			<div class="col-sm-12 well well-sm">
 				<div ng-include="'public/partials/userNotes.html'"></div>
 			</div>
 		</div>
@@ -32,8 +32,13 @@
 	<div class="row center">
 		<div class="row text-center">
 			<div ng-include="'public/partials/thumbpics.html'"></div>
+			<h4>Next/Previous buttons:</h4>
 		</div>
 	</div>
+	<ul class="pagination">
+		<li><a href="#">❮</a></li>
+		<li><a href="#">❯</a></li>
+	</ul>
 </div>
 <div class="row">
 	<div class="col-sm-12"></div>
