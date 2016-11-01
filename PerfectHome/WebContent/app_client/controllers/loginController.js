@@ -5,7 +5,7 @@ var app = angular.module('ngApp');
 
 app.controller('loginController', function($scope, authenticationService, $location, $rootScope){
 	console.log('Login Controller');
-	$rootScope.bodyClass = 'tinyHomeImg';
+	$rootScope.bodyClass = 'cd-fixed-bg cd-bg-1';
 	
 	$scope.authenticate = function(user) {
 		console.log(user);
