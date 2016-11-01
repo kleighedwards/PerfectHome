@@ -9,6 +9,20 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
 	
+    if (authenticationService.isLoggedIn()){
+        userService.getUser(authenticationService.currentUser().id)
+        .then(function(response){
+            $scope.user =  response;
+         // $scope.user =  response.data;
+            zillowService.getZillowInfo($scope.user.data.homeUsers[0].homeZpID)
+           .then(function(response){
+         	  $scope.activeHome = response;
+           })
+            
+        });
+         
+     }
+	
 	$scope.remove = function(homeUserId) {
 		console.log(homeUserId)
 		userService.deleteHome(homeUserId)
@@ -68,17 +82,6 @@ app.controller('userController', function($scope, $location, userService, $rootS
 			$scope.currentHomeUserId = HomeUserId;
 		})
 	}
-	
-	
-    if (authenticationService.isLoggedIn()){
-       userService.getUser(authenticationService.currentUser().id)
-       .then(function(response){
-           $scope.user =  response;
-        // $scope.user =  response.data;
-           console.log($scope.user)
-         });
-        
-       }
 	
 	var placeSearch, autocomplete, address, zillowSearchAddress;
     
