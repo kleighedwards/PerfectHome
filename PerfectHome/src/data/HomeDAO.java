@@ -62,7 +62,7 @@ public class HomeDAO {
 			}
 		}
 		
-		if (home.getId() == 0) {
+		if (hu.getHome() == null) {
 			em.persist(home);
 			em.flush();	
 			
