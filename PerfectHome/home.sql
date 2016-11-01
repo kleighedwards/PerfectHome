@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS `home_user` ;
 
 CREATE TABLE IF NOT EXISTS `home_user` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `rating` INT NULL,
   `home_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -164,11 +165,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (1, 1, 1);
-INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (2, 2, 1);
-INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (3, 3, 1);
-INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (4, 1, 2);
-INSERT INTO `home_user` (`id`, `home_id`, `user_id`) VALUES (5, 2, 2);
+INSERT INTO `home_user` (`id`, `rating`, `home_id`, `user_id`) VALUES (1, 4, 1, 1);
+INSERT INTO `home_user` (`id`, `rating`, `home_id`, `user_id`) VALUES (2, 5, 2, 1);
+INSERT INTO `home_user` (`id`, `rating`, `home_id`, `user_id`) VALUES (3, 3, 3, 1);
+INSERT INTO `home_user` (`id`, `rating`, `home_id`, `user_id`) VALUES (4, 4, 1, 2);
+INSERT INTO `home_user` (`id`, `rating`, `home_id`, `user_id`) VALUES (5, 4, 2, 2);
 
 COMMIT;
 
