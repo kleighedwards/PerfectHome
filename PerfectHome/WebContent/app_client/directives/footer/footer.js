@@ -1,12 +1,33 @@
-// footer.js
+// myFooter.js
 
-angular.module("ngApp").directive("footer", function() {
-  return {
-    restrict: 'A',
-    templateUrl: 'partials/footer.html',
-    scope: true,
-    transclude : false,
-    controller: 'footerController'
-  };
-});
+  var app = angular.module('ngApp');
+
+  app.directive('footDirective', function(){
+      return {
+        restrict: 'E',
+        template: `
+        <footer>
+          <div>
+            <h4>Todos Completed: <span ng-class="stylefunc(countComplete())">{{countComplete()}}</span></h4>
+          </div>
+        </footer>
+        `,
+        scope : {
+          todos : '=',
+          stylefunc : '=',
+        },
+        link : function($scope,$element,$attr) {
+          $scope.countComplete = function(){
+            var count = 0;
+            if($scope.todos === undefined) $scope.todos = [];
+            $scope.todos.forEach(function(todo){
+              if (todo.completed) {
+                count++;
+              }
+            });
+            return count;
+          }
+        }
+      }
+    });
  

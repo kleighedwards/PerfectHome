@@ -1,78 +1,83 @@
-// todoService.js 
+// todoService.js
 
-var app = angular.module("ngApp");
+var app = angular.module('ngApp');
 
-app.factory('dataService', function($http,authenticationService){
+app.factory('todoService', function($http, authenticationService) {
 
-    var todos = [];
+	var todoService = {};
 
-    var getTodos = function(){
-        var userId = null;
-        if (authenticationService.isLoggedIn()) {
-            userId = authenticationService.currentUser().id;
-        }
-        return $http({
-            method : 'GET',
-            url : 'api/users/' + userId + '/todos',
-            headers : {
-                'x-access-token' : authenticationService.getToken()
-            }
-        })
-    };
+	var getTodos = function(homeuserId) {
+		var userId = null;
+		console.log(homeuserId);
+		if (authenticationService.isLoggedIn()) {
+			userId = authenticationService.currentUser().id;
+		}
+		return $http({
+			method : 'GET',
+			url : 'api/homeuser/' + homeuserId + '/todos',
+			headers : {
+				'x-access-token' : authenticationService.getToken()
+			}
+		})
+	};
 
-    var createTodo = function(todo) {
-        var userId = null;
-        if (authenticationService.isLoggedIn()) {
-            userId = authenticationService.currentUser().id;
-        }
-        return $http({
-            method : 'POST',
-            url : 'api/users/' + userId + '/todos',
-            headers : {
-                'Content-Type': 'application/json',
-                'x-access-token' : authenticationService.getToken()
-            },
-            data : todo
-        })
-    };
+	var createTodo = function(todo,homeuserId) {
+		var userId = null;
+		if (authenticationService.isLoggedIn()) {
+			userId = authenticationService.currentUser().id;
+		}
+		console.log(userId);
+		console.log(todo);
+		return $http({
+			method : 'POST',
+			url : 'api/homeuser/' + homeuserId + '/todos',
+			headers : {
+				'Content-Type' : 'application/json',
+				'x-access-token' : authenticationService.getToken()
+			},
+			data : todo
+		})
+	};
 
-    var deleteTodo = function(todo) {
-        var userId = null;
-        if (authenticationService.isLoggedIn()) {
-            userId = authenticationService.currentUser().id;
-        }
-        return $http({
-            method : 'DELETE',
-            url : 'api/users/' + userId + '/todos/' + todo._id,
-            headers : {
-                'x-access-token' : authenticationService.getToken()
-            }
-        })
-    };
+	var removeTodo = function(todo) {
+		var userId = null;
+		if (authenticationService.isLoggedIn()) {
+			userId = authenticationService.currentUser().id;
+		}
+		console.log(userId);
+		console.log(todo);
+		return $http({
+			method : 'DELETE',
+			url : 'api/todos/' + todo.id,
+			headers : {
+				'x-access-token' : authenticationService.getToken()
+			}
+		})
+	};
 
-    var updateTodo = function(todo) {
-        var userId = null;
-        if (authenticationService.isLoggedIn()) {
-            userId = authenticationService.currentUser().id;
-        }
-        return $http({
-            method : 'PUT',
-            url : 'api/users/' + userId + '/todos/' + todo._id,
-            headers : {
-                'Content-Type' : 'application/json',
-                'x-access-token' : authenticationService.getToken()
-            },
-            data : todo
-        })
-    };
-    
+	var editTodo = function(todo) {
+		var userId = null;
+		if (authenticationService.isLoggedIn()) {
+			userId = authenticationService.currentUser().id;
+		}
+		console.log(userId);
+		console.log(todo);
+		
+		return $http({
+			method : 'PUT',
+			url : 'api/users/' + userId + '/todos/' + todo.id,
+			headers : {
+				'Content-Type' : 'application/json',
+				'x-access-token' : authenticationService.getToken()
+			},
+			data : todo
+		})
+	};
 
-    return {
-        getTodos: getTodos,
-        createTodo : createTodo,
-        deleteTodo : deleteTodo,
-        updateTodo : updateTodo
-    }
-    
+	return {
+		getTodos   : getTodos,
+		createTodo : createTodo,
+		removeTodo : removeTodo,
+		editTodo   : editTodo
+	};
 });
-

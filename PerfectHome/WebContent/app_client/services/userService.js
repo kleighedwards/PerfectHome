@@ -45,7 +45,6 @@ app.factory('userService', function($window, $http, authenticationService){
 			})
 	}
 	
-	
 	return userService;
 	
 	

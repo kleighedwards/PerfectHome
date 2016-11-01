@@ -1,5 +1,58 @@
+<div ng-controller="todosController">
+<style>
+  .green {
+      color: white;
+      background-color: green;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+  }
 
-<h4>Property To Do List</h4>
-<ul>
-	<li ng-repeat="todo in user.data.homeUsers[currentHomeUserId-1].todos">{{todo.task}}</li>
-</ul>
+  .yellow {
+      color: black;
+      background-color: yellow;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+  }
+
+  #table1, #th1, #td1 {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+  }
+
+  #tr1:nth-child(odd) {
+      background-color: #f2f2f2;
+  }
+  .inline{
+      display: inline;
+  }
+ </style>
+
+	<h4>Home ToDo List <span ng-class="styleTooMany((user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:false).length)">{{(user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:false).length}}</span></h4>
+	<div class="input-group">
+		<input type="text" class="form-control" ng-model="input.task" placeholder="Enter a new Todo" /> <span
+			class="input-group-btn">
+			<button ng-click="submit(input,user.data.homeUsers[currentHomeUserId-1].id)" class="form-control btn btn-primary">Add</button>
+		</span>
+	</div>
+	<table id="table1">
+		<thead>
+			<th id="th1">Task</th>
+			<th id="th1">Due Date</th>
+			<th id="th1">Done</th>
+			<th colspan="2" id="th1">Update  <span><input type="checkbox" ng-model="showCompleted" /></span>
+		</thead>
+		<tbody>
+			<tr id="tr1" ng-repeat="todo in todos | todosFilter:showCompleted | orderBy:'task'" attr-directive todo='todo' delete='removeTodo' edit='editTodo'></tr>
+		</tbody>
+	</table>
+	</div>
+		<foot-directive todos='user.data.homeUsers[currentHomeUserId-1].todos' stylefunc='styleTooMany'></foot-directive>
+	</div>
+</div>

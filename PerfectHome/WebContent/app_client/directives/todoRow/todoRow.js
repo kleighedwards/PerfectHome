@@ -1,61 +1,77 @@
-// table.js
+// todoRow.js
 
-var app = angular.module("ngTodo");
+var app = angular.module('ngApp');
 
-app.directive('todoRow', function($compile, todoService){
-      return {
+app.directive('attrDirective', function($compile) {
+    return {
         restrict: 'A',
-        template: `<td ng-class="todo.completed ? 'strike' : 'clean'">{{todo.task}}</td>
-          <td><input type="checkbox" ng-model="todo.completed" /></td>
-          <td><button ng-click="update(todo)" class="btn btn-warning">Edit</button></td>
-          <td><button ng-click="remove(todo)" >Delete</button></td>
-        `,
-        scope : {
-          todo : '=',
-          remove : '=',
-          edit : "="
+        template: `
+                    <td id="td1">{{todo.task}}</td>
+        			<td id="td1">{{todo.date}}</td>
+                    <td id="td1"><input type="checkbox" ng-model="todo.completed" ng-class="strike(todo.completed)" ng-change="edit(todo)"/></td>
+                    <td id="td1">{{todo.completed}}</td>
+                    <td id="td1"><button id="todo.id" class="btn btn-primary" name="submit" ng-click="update(todo)">Edit</button></td>
+                    <td id="td1"><button id="todo.id" class="btn btn-primary" name="submit" ng-click="delete(todo)">Delete</button></td>
+                  `,
+        scope: {
+            todo: "=",
+            visible: "=",
+            edit: "=",
+            delete: "=",
         },
-        link : function($scope, $element, $attr){
-          $scope.todoCopy = {};
-          var editForm = null;
-
-          $scope.update = function(todo) {
-            if (editForm === null) {
-              $scope.todoCopy = angular.copy(todo);
-              var $inputRow = 
-              '<table class="table">' +
-              '<tr>' +
-                '<td>' + 
-                  '<input type="text" class="form-control" ng-model="todoCopy.task" />' +
-                '</td>' +
-                '<td>' + 
-                  '<button ng-click="save(todoCopy)" class="btn btn-primary">Save</button>' +
-                '</td>' +
-                '<td>' + 
-                  '<button ng-click="cancel()" class="btn btn-primary">Cancel</button>' +
-                '</td>' +
-              '</tr>'+
-              '</table>'
-
-              var compiledRow = $compile($inputRow)($scope);
-              editForm = compiledRow;
-              $element.after(compiledRow);
+        link: function($scope, $element, $attr) {
+            $scope.strike = function(completed) {
+                if (completed) {
+                    $element.css('text-decoration', 'line-through');
+                    $element.css('color', 'grey');
+                } else {
+                    $element.css('text-decoration', 'none');
+                    $element.css('color', 'black');
+                }
             }
-          }
 
-          $scope.cancel = function(){
-            if (editForm != null) {
-              editForm.remove(editForm);
-              editForm = null;
-            }
-          }
-
-          $scope.save = function(todo){
-            $scope.edit(todo); //todoService.updateTodo(todo);
-            editForm.remove();
-            editForm = null;
             $scope.todoCopy = {};
-          }
+            var editForm = null;
+
+            $scope.update = function(todo) {
+                if (editForm === null) {
+                    $scope.todoCopy = angular.copy(todo);
+                    var $inputRow =
+                        '<tr id="tr1">' +
+                        '<td id="td1">' +
+                        '<input type="text" class="form-control" ng-model="todoCopy.task" />' +
+                        '</td>' +
+                        '<td id="td1" colspan="3">' +
+                        '<input type="text" class="form-control" ng-model="todoCopy.date" />' +
+                        '</td>' +
+                        '<td id="td1">' +
+                        '<button ng-click="save(todoCopy)" class="btn btn-primary">Save</button>' +
+                        '</td>' +
+                        '<td id="td1">' +
+                        '<button ng-click="cancel()" class="btn btn-primary">Cancel</button>' +
+                        '</td>' +
+                        '</tr>'
+
+                    var compiledRow = $compile($inputRow)($scope);
+                    editForm = compiledRow;
+                    $element.after(compiledRow);
+                }
+            }
+
+            $scope.cancel = function() {
+                if (editForm != null) {
+                    editForm.remove();
+                    editForm = null;
+                }
+            }
+ 
+
+            $scope.save = function(todo) {
+                $scope.edit(todo); //todoService.updateTodo(todo);
+                editForm.remove();
+                editForm = null;
+                $scope.todoCopy = {};
+            }
         }
-      }
-    });
+    }
+});

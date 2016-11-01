@@ -21,6 +21,32 @@ app.controller('userController', function($scope, $location, userService, $rootS
 		})
 	}
 	
+    //	Cloudinary Upload Widget API call
+	$scope.uploadImage = function() {
+		var results;
+		var errors;
+		$.cloudinary.init();
+		$.cloudinary.config({ cloud_name: 'dyllookxn', api_key: '392338393876672'});
+		cloudinary.openUploadWidget({ cloud_name: 'dyllookxn', upload_preset: 'perfectHome', form: '#my_image', cropping: 'server'}, 
+				function(error, result) 
+				{ 
+				    if (error != null) {
+				    	console.log(error, result);
+				    	console.log(error);
+				    	errors = error;
+				    	console.log(errors.message);
+				    }
+				    else if (error === null) {
+						results = result[0];
+						console.log(results);
+						console.log(result[0].url);
+						console.log(result[0].secure_url);
+						console.log(result[0].signature);
+						$("#my_image").attr("src",results.secure_url);
+				    }
+	            });
+	}
+	
 	$scope.addHome = function(home){
 		console.log(home)
 		userService.addHome(authenticationService.currentUser().id, home)
@@ -48,6 +74,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
        userService.getUser(authenticationService.currentUser().id)
        .then(function(response){
            $scope.user =  response;
+        // $scope.user =  response.data;
            console.log($scope.user)
          });
         
