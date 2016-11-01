@@ -47,9 +47,13 @@ app.controller('userController', function($scope, $location, userService, $rootS
     if (authenticationService.isLoggedIn()){
        userService.getUser(authenticationService.currentUser().id)
        .then(function(response){
-           $scope.user =  response;
-           console.log($scope.user)
-         });
+           	$scope.user =  response;
+           	zillowService.getZillowInfo($scope.user.data.homeUsers[0].homeZpID)
+          .then(function(response){
+        	  $scope.activeHome = response;
+          })
+           
+       });
         
        }
 	
