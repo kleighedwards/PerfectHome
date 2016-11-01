@@ -4,25 +4,28 @@
 <div class="container-fluid">
 	<div class="row text-center">
 		<div ng-include="'public/partials/carousel.html'"></div>
-		<div id="locationField">
-			<label> New home: </label> <input id="autocomplete"
-				placeholder="Enter your address" type="text"></input>
+<hr>
+		<div class="row text-center">
+			<div id="locationField" class="col-xs-12">
+				<label>New home:  </label> <input id="autocomplete"
+					placeholder="Enter your address" type="text" width="80%"></input>
+				<button ng-click="addHome(newHome)">Add home</button>
+			</div>
 		</div>
-		<div ng-include="'public/partials/homeDescription.html'"></div>
-		<button ng-click="addHome(newHome)">Add home</button>
-		<br>
+			<br>
+			<div ng-include="'public/partials/homeDescription.html'"></div>
 
 		<div class="row">
 			<div class="col-sm-6 well well-sm">
-					<div ng-include="'public/partials/userToDo.html'"></div>
+				<div ng-include="'public/partials/userToDo.html'"></div>
 			</div>
 			<div class="col-sm-6 well well-sm">
-					<div ng-include="'public/partials/userNotes.html'"></div>
+				<div ng-include="'public/partials/userNotes.html'"></div>
 			</div>
 		</div>
 	</div>
 </div>
-		
+
 <div class="container-fluid text-center bg-grey">
 	<h2>User store images</h2>
 	<h4>Homes you have added...</h4>
@@ -32,13 +35,13 @@
 		</div>
 	</div>
 </div>
-		<div class="row">
-			<div class="col-sm-12"></div>
-			<div class="row text-center">
-				<div ng-include="'public/partials/table.html'"></div>
-			</div>
-		</div>
+<div class="row">
+	<div class="col-sm-12"></div>
+	<div class="row text-center">
+		<div ng-include="'public/partials/table.html'"></div>
 	</div>
+</div>
+</div>
 </div>
 
 <hr>
