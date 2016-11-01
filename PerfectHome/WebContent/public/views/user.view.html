@@ -9,14 +9,14 @@
 				placeholder="Enter your address" type="text"></input>
 		</div>
 		<div ng-include="'public/partials/homeDescription.html'"></div>
-		<button ng-click="addHome(newHome)">Add home</button>
+		<button ng-hide=currentHomeUserId ng-click="addHome(activeHome.data)">Add home</button>
 		<br>
 
 		<div class="row">
-			<div class="col-sm-6 well well-sm">
+			<div class="col-sm-6 well well-sm" ng-show=currentHomeUserId>
 					<div ng-include="'public/partials/userToDo.html'"></div>
 			</div>
-			<div class="col-sm-6 well well-sm">
+			<div class="col-sm-6 well well-sm" ng-show=currentHomeUserId>
 					<div ng-include="'public/partials/userNotes.html'"></div>
 			</div>
 		</div>
