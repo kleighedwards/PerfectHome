@@ -4,7 +4,7 @@ var app = angular.module('ngApp');
 
 app.controller('userController', function($scope, $location, userService, $rootScope, authenticationService, zillowService){
 	console.log('User controller');
-	$rootScope.bodyClass = 'container';
+	$rootScope.bodyClass = 'cd-fixed-bg cd-bg-3';
 	$scope.user = {};
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
