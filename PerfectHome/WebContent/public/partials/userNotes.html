@@ -1,21 +1,24 @@
 <h4 style="text-align: center" >Property Notes</h4>
 <div class="input-group">
-	<input type="textarea" class="form-control" ng-model="note.note" placeholder="Enter a new Note" />
-	<span class="input-group-btn">
-		<button ng-click="createNote(note.note)" class="form-control btn btn-primary">Add</button>
-	</span>
+    <input type="textarea" class="form-control" ng-model="note.note"
+        placeholder="Enter a new Note" /> <span class="input-group-btn">
+        <button ng-click="createNote(note.note)"
+            class="form-control btn btn-primary">Add</button>
+    </span>
 </div>
 <table id="table1">
-	<thead>
-		<th id="th1" >Thoughts & Things</th>
-		<th id="th1" colspan="2">Update</th>
-	</thead>
-	<tbody>
-		<tr id="tr1" ng-repeat="note in user.data.homeUsers[currentHomeUserId-1].notes">
-			<td style="text-align: left" id="td1">{{note.notes}}</td>
-			<td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="editNote(note)">Edit</button></td>
-			<td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="removeNote(note)">Delete</button></td>
-		</tr>
-	</tbody>
+    <thead>
+        <th id="th1" >Thoughts & Things</th>
+        <th id="th1" colspan="2">Update</th>
+    </thead>
+    <tbody>
+        <tr id="tr1" ng-repeat="note in notes">
+            <td ng-hide="edit" style="text-align: left" id="td1">{{note.notes}}</td>
+            <td ng-show="edit" style="text-align: left" id="td1"><input class="col-sm-5" ng-model="note.notes" type="text" value={{note.notes}}></input>
+            <button ng-click="edit = false; editNote(note)">Save</button>       
+            <td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="edit = true">Edit</button></td>
+            <td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="removeNote(note)">Delete</button></td>
+        </tr>
+    </tbody>
 </table>
 </div>
