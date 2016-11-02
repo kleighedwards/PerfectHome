@@ -2,7 +2,7 @@
 
 var app = angular.module('ngApp');
 
-app.controller('userController', function($scope, $location, userService, $rootScope, todoService, authenticationService, zillowService){
+app.controller('userController', function($scope, $location, $compile, userService, $rootScope, todoService, authenticationService, zillowService, noteService){
 	console.log('User controller');
 	$rootScope.bodyClass = 'cd-fixed-bg cd-bg-3';
 	
@@ -26,7 +26,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	       	$scope.loadData();
 //            $scope.todos = $scope.user.data.homeUsers[0].todos;
             console.log($scope.todos);
-//            $scope.notes = $scope.user.data.homeUsers[0].notes;
+            $scope.notes = $scope.user.data.homeUsers[0].notes;
             $scope.rating = $scope.user.data.homeUsers[0].rating;
             zillowService.getZillowInfo($scope.user.data.homeUsers[0].homeZpID)
            .then(function(response){
@@ -97,7 +97,8 @@ app.controller('userController', function($scope, $location, userService, $rootS
 			.then(function(response){
 				$scope.todos = response.data;
 				console.log($scope.todos);
-			});
+			})
+			$scope.loadNotes();
 		})
 	}
 	
@@ -188,7 +189,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
      $scope.createTodo = function(todo){
   	   console.log("Request received to create selected Task");
        console.log(homeuserId);
-         todoService.createTodo(todo,homeuserId)
+       todoService.createTodo(todo,homeuserId)
   	   .then(function(response){
   		   $scope.loadData(homeuserId);
   	   })
@@ -204,7 +205,7 @@ app.controller('userController', function($scope, $location, userService, $rootS
           	 console.log($scope.todos);
          });
      }
-
+     
      $scope.removeTodo = function(todo){
         console.log("Request received to remove selected Task");
         console.log(homeuserId);
@@ -222,7 +223,50 @@ app.controller('userController', function($scope, $location, userService, $rootS
             $scope.loadData(homeuserId);
         });
     }
+     
+     
+     $scope.loadNotes = function(){
+         console.log("Reloading Note's");
+         console.log(homeuserId);
+    	   noteService.getNotes(homeuserId)
+             .then(function(response){
+            	 console.log(response);
+            	 $scope.notes = response.data;
+            	 console.log($scope.notes);
+           });
+       }
 
+     $scope.createNote = function(note) {
+    	 console.log(note)
+    	 noteService.createNote(note, homeuserId)
+    	 .then(function(response){
+    		 console.log('Created Note')
+    		 $scope.loadNotes();
+    		 
+    	 })
+     }
+     
+     $scope.editNote = function(note) {
+    	 console.log(note)
+    	 noteService.editNote(note, homeuserId)
+    	  .then(function(response){
+    		 console.log(response)
+    		 $scope.loadNotes();
+    	 })
+              
+     }
+     
+     $scope.removeNote = function(note) {
+    	 console.log(note)
+    	 noteService.removeNote(note, homeuserId)
+    	 .then(function(response){
+    		 console.log(response)
+    		 $scope.loadNotes();
+    	 })
+     }
+     
+     
+     
      $scope.styleTooMany = function(tasks) {
        return (tasks > 3) ? "yellow" : "green";
      }
