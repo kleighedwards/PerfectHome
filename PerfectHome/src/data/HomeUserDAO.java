@@ -158,6 +158,7 @@ public class HomeUserDAO {
 
 	// Delete ToDo
 	public void destroyTodo(int id, int tId) {
+		System.out.println("HomeUSerDAO - Delete ToDo: ");
 		HomeUser hu = em.find(HomeUser.class, id);
 		Todo todo = em.find(Todo.class, tId);
 

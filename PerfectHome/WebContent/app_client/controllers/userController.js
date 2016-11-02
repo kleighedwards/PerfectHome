@@ -12,15 +12,21 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	$scope.todos = [];
 	$scope.notes = [];
 	$scope.rating;
+	var homeuserId ;
 	
     if (authenticationService.isLoggedIn()){
         userService.getUser(authenticationService.currentUser().id)
         .then(function(response){
-            $scope.user = response;
-            console.log($scope.user);
-            $scope.currentHomeUserId = $scope.user.data.homeUsers[0].id;
-            $scope.todos = $scope.user.data.homeUsers[0].todos;
-            $scope.notes = $scope.user.data.homeUsers[0].notes;
+        	$scope.user = response;
+        	console.log($scope.user);
+        	$scope.currentHomeUserId = $scope.user.data.homeUsers[0].id;
+        	homeuserId = $scope.currentHomeUserId;
+    	    console.log($scope.currentHomeUserId);
+	       	console.log(homeuserId);
+	       	$scope.loadData();
+//            $scope.todos = $scope.user.data.homeUsers[0].todos;
+            console.log($scope.todos);
+//            $scope.notes = $scope.user.data.homeUsers[0].notes;
             $scope.rating = $scope.user.data.homeUsers[0].rating;
             zillowService.getZillowInfo($scope.user.data.homeUsers[0].homeZpID)
            .then(function(response){
@@ -86,9 +92,10 @@ app.controller('userController', function($scope, $location, userService, $rootS
 			console.log(response)
 			$scope.activeHome = response;
 			$scope.currentHomeUserId = HomeUserId;
+			homeuserId = $scope.currentHomeUserId;
 			todoService.getTodos(HomeUserId)
 			.then(function(response){
-				$scope.todos = response.data
+				$scope.todos = response.data;
 				console.log($scope.todos);
 			});
 		})
@@ -163,5 +170,61 @@ app.controller('userController', function($scope, $location, userService, $rootS
 	
     $scope.autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),{types: ['geocode']});
     $scope.autocomplete.addListener('place_changed', fillInAddress);
+
+    $scope.submit = function(task){
+        console.log("Task Received");
+        console.log(homeuserId);
+        if (task.task){
+          var newTask = {};
+          newTask.task = task.task;
+          newTask.date = task.date;
+          newTask.completed =  false;
+          $scope.createTodo(newTask,homeuserId);
+          task.task = undefined;
+          homeuserId = homeuserId;
+        }
+     }
+     
+     $scope.createTodo = function(todo){
+  	   console.log("Request received to create selected Task");
+       console.log(homeuserId);
+         todoService.createTodo(todo,homeuserId)
+  	   .then(function(response){
+  		   $scope.loadData(homeuserId);
+  	   })
+     }
+     
+     $scope.loadData = function(){
+       console.log("Reloading Todo's");
+       console.log(homeuserId);
+  	   todoService.getTodos(homeuserId)
+           .then(function(response){
+          	 console.log(response);
+          	 $scope.todos = response.data;
+          	 console.log($scope.todos);
+         });
+     }
+
+     $scope.removeTodo = function(todo){
+        console.log("Request received to remove selected Task");
+        console.log(homeuserId);
+        todoService.removeTodo(todo,homeuserId)
+        .then(function(response){
+            $scope.loadData(homeuserId);
+        });
+    }
+
+     $scope.editTodo = function(todo){
+        console.log("Request received to edit selected Task");
+        console.log(homeuserId);
+        todoService.editTodo(todo,homeuserId)
+        .then(function(response){
+            $scope.loadData(homeuserId);
+        });
+    }
+
+     $scope.styleTooMany = function(tasks) {
+       return (tasks > 3) ? "yellow" : "green";
+     }
 
 });
