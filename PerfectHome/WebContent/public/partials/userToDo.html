@@ -34,11 +34,11 @@
   }
  </style>
 
-	<h4>Home ToDo List <span ng-class="styleTooMany((user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:false).length)">{{(user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:false).length}}</span></h4>
+	<h4>Home ToDo List <span ng-class="styleTooMany((todos | todosFilter:false).length)">{{(todos | todosFilter:false).length}}</span></h4>
 	<div class="input-group">
 		<input type="text" class="form-control" ng-model="input.task" placeholder="Enter a new Todo" /> <span
 			class="input-group-btn">
-			<button ng-click="submit(input,user.data.homeUsers[currentHomeUserId-1].id)" class="form-control btn btn-primary">Add</button>
+			<button ng-click="submit(input)" class="form-control btn btn-primary">Add</button>
 		</span>
 	</div>
 	<table id="table1">
@@ -49,10 +49,10 @@
 			<th colspan="2" id="th1">Update  <span><input type="checkbox" ng-model="showCompleted" /></span>
 		</thead>
 		<tbody>
-			<tr id="tr1" ng-repeat="todo in user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:showCompleted | orderBy:'task'" attr-directive todo='user.data.homeUsers[currentHomeUserId-1].todos' delete='removeTodo' edit='editTodo'></tr>
+			<tr id="tr1" ng-repeat="todo in todos | todosFilter:showCompleted | orderBy:'task'" attr-directive todo='todo' delete='removeTodo' edit='editTodo'></tr>
 		</tbody>
 	</table>
 	</div>
-		<foot-directive todos='user.data.homeUsers[currentHomeUserId-1].todos' stylefunc='styleTooMany'></foot-directive>
+		<foot-directive todos='todos' stylefunc='styleTooMany'></foot-directive>
 	</div>
 </div>

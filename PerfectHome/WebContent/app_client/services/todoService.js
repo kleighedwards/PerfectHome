@@ -7,11 +7,7 @@ app.factory('todoService', function($http, authenticationService) {
 	var todoService = {};
 
 	var getTodos = function(homeuserId) {
-		var userId = null;
 		console.log(homeuserId);
-		if (authenticationService.isLoggedIn()) {
-			userId = authenticationService.currentUser().id;
-		}
 		return $http({
 			method : 'GET',
 			url : 'api/homeuser/' + homeuserId + '/todos',
@@ -22,12 +18,9 @@ app.factory('todoService', function($http, authenticationService) {
 	};
 
 	var createTodo = function(todo,homeuserId) {
-		var userId = null;
-		if (authenticationService.isLoggedIn()) {
-			userId = authenticationService.currentUser().id;
-		}
-		console.log(userId);
 		console.log(todo);
+		console.log(todo.id);
+		console.log(homeuserId);
 		return $http({
 			method : 'POST',
 			url : 'api/homeuser/' + homeuserId + '/todos',
@@ -39,33 +32,26 @@ app.factory('todoService', function($http, authenticationService) {
 		})
 	};
 
-	var removeTodo = function(todo) {
-		var userId = null;
-		if (authenticationService.isLoggedIn()) {
-			userId = authenticationService.currentUser().id;
-		}
-		console.log(userId);
+	var removeTodo = function(todo,homeuserId) {
 		console.log(todo);
+		console.log(todo.id);
+		console.log(homeuserId);
 		return $http({
 			method : 'DELETE',
-			url : 'api/todos/' + todo.id,
+			url : 'api/homeuser/'+homeuserId+'/todos/'+todo.id,
 			headers : {
 				'x-access-token' : authenticationService.getToken()
 			}
 		})
 	};
 
-	var editTodo = function(todo) {
-		var userId = null;
-		if (authenticationService.isLoggedIn()) {
-			userId = authenticationService.currentUser().id;
-		}
-		console.log(userId);
+	var editTodo = function(todo,homeuserId) {
 		console.log(todo);
-		
+		console.log(todo.id);
+		console.log(homeuserId);
 		return $http({
 			method : 'PUT',
-			url : 'api/users/' + userId + '/todos/' + todo.id,
+			url : 'api/homeuser/todos/' + todo.id,
 			headers : {
 				'Content-Type' : 'application/json',
 				'x-access-token' : authenticationService.getToken()

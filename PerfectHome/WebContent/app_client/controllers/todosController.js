@@ -5,8 +5,23 @@ var app = angular.module('ngApp');
 
 app.controller('todosController', function($location, $scope, todoService, authenticationService, userService){
    $scope.todos = [];
+   var homeuserId = $scope.currentHomeUserId;
+   
+   if (authenticationService.isLoggedIn()){
+       userService.getUser(authenticationService.currentUser().id)
+       .then(function(response){
+	       	console.log(response);    
+	       	console.log($scope.user);
+    	    console.log($scope.currentHomeUserId);
+	       	homeuserId = $scope.currentHomeUserId;
+	       	console.log(homeuserId)
+	       	console.log($scope.activeHome)
+	       	$scope.loadData(homeuserId);
+	       	console.log($scope.todos);
+        });
+   };
 	
-   $scope.submit = function(task,homeuserId){
+   $scope.submit = function(task){
       console.log("Task Received");
       console.log(homeuserId);
       if (task.task){
@@ -20,7 +35,7 @@ app.controller('todosController', function($location, $scope, todoService, authe
       }
    }
    
-   $scope.createTodo = function(todo,homeuserId){
+   $scope.createTodo = function(todo){
 	   console.log("Request received to create selected Task");
        todoService.createTodo(todo,homeuserId)
 	   .then(function(response){
@@ -28,15 +43,16 @@ app.controller('todosController', function($location, $scope, todoService, authe
 	   })
    }
    
-   $scope.loadData = function(homeuserId){
+   $scope.loadData = function(){
 	   todoService.getTodos(homeuserId)
          .then(function(response){
-           $scope.todos = response.data;
-           console.log($scope.todos);
+        	 console.log(response);
+        	 $scope.todos = response.data;
+        	 console.log($scope.todos);
        });
    }
 
-   $scope.removeTodo = function(todo,homeuserId){
+   $scope.removeTodo = function(todo){
       console.log("Request received to remove selected Task");
       todoService.removeTodo(todo,homeuserId)
       .then(function(response){
@@ -44,7 +60,7 @@ app.controller('todosController', function($location, $scope, todoService, authe
       });
   }
 
-   $scope.editTodo = function(todo,homeuserId){
+   $scope.editTodo = function(todo){
       console.log("Request received to edit selected Task");
       todoService.editTodo(todo,homeuserId)
       .then(function(response){
@@ -55,6 +71,5 @@ app.controller('todosController', function($location, $scope, todoService, authe
    $scope.styleTooMany = function(tasks) {
      return (tasks > 3) ? "yellow" : "green";
    }
-
+   
 });
-

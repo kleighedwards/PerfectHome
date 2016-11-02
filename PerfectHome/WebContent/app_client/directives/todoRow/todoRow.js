@@ -66,8 +66,8 @@ app.directive('attrDirective', function($compile) {
             }
  
 
-            $scope.save = function(todo) {
-                $scope.edit(todo); //todoService.updateTodo(todo);
+            $scope.save = function(todo,homeuserId) {
+                $scope.edit(todo,homeuserId); //todoService.updateTodo(todo);
                 editForm.remove();
                 editForm = null;
                 $scope.todoCopy = {};
