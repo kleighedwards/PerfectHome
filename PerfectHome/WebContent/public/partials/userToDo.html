@@ -49,7 +49,7 @@
 			<th colspan="2" id="th1">Update  <span><input type="checkbox" ng-model="showCompleted" /></span>
 		</thead>
 		<tbody>
-			<tr id="tr1" ng-repeat="todo in todos | todosFilter:showCompleted | orderBy:'task'" attr-directive todo='todo' delete='removeTodo' edit='editTodo'></tr>
+			<tr id="tr1" ng-repeat="todo in user.data.homeUsers[currentHomeUserId-1].todos | todosFilter:showCompleted | orderBy:'task'" attr-directive todo='user.data.homeUsers[currentHomeUserId-1].todos' delete='removeTodo' edit='editTodo'></tr>
 		</tbody>
 	</table>
 	</div>
