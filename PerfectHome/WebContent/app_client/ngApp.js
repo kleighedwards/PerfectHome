@@ -24,6 +24,6 @@ var app = angular.module('ngApp', ['ngRoute','ngAnimate'])
       controller: 'userController'
     })
     .otherwise({
-
+      templateUrl: 'public/views/_404_error.html'
     })
 });

@@ -1,9 +1,21 @@
-
-<h4>Property Notes</h4>
-<ul>
-	<li ng-repeat="note in user.data.homeUsers[currentHomeUserId-1].notes">{{note.notes}}
-	<button ng-click="editNote()">Edit</button>
-	<button ng-click="deleteNote()">Delete</button>
-	</li>
-	<button ng-click="addNote()">Add Note</button>
-</ul>
+<h4 style="text-align: center" >Property Notes</h4>
+<div class="input-group">
+	<input type="textarea" class="form-control" ng-model="note.note" placeholder="Enter a new Note" />
+	<span class="input-group-btn">
+		<button ng-click="createNote(note.note)" class="form-control btn btn-primary">Add</button>
+	</span>
+</div>
+<table id="table1">
+	<thead>
+		<th id="th1" >Thoughts & Things</th>
+		<th id="th1" colspan="2">Update</th>
+	</thead>
+	<tbody>
+		<tr id="tr1" ng-repeat="note in user.data.homeUsers[currentHomeUserId-1].notes">
+			<td style="text-align: left" id="td1">{{note.notes}}</td>
+			<td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="editNote(note)">Edit</button></td>
+			<td id="td1"><button id="note.id" class="btn btn-primary" name="submit" ng-click="removeNote(note)">Delete</button></td>
+		</tr>
+	</tbody>
+</table>
+</div>

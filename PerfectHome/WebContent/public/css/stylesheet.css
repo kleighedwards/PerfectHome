@@ -3,6 +3,11 @@
 	min-width: 100%
 }
 
+  div.my_image
+{
+    display: none;
+}
+
 body::after {
     content: "";
     background-size: cover;
