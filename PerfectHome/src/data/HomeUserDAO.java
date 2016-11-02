@@ -1,6 +1,5 @@
 package data;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -161,15 +160,23 @@ public class HomeUserDAO {
 		HomeUser hu = em.find(HomeUser.class, id);
 		Todo todo = em.find(Todo.class, tId);
 
-		Collection<Todo> todos = hu.getTodos();
+		Set<Todo> todos = hu.getTodos();
+		
+		Todo deleteTodo = new Todo();
 
 		for (Todo t : todos) {
 			if (t.getId() == todo.getId()) {
-				todos.remove(t);
-
-				em.remove(todo);
+				deleteTodo = t;
+				break;
 			}
 		}
+		
+		if (deleteTodo != null) {	
+			todos.remove(deleteTodo);
+		}
+		
+		hu.setTodos(todos);
+		em.persist(hu);
 	}
 
 	// Delete ToDo By User ID and Home ID
@@ -179,16 +186,25 @@ public class HomeUserDAO {
 
 		HomeUser hu = showByIds(user.getId(), home.getId());
 		Todo todo = em.find(Todo.class, tId);
+		Todo deleteTodo = new Todo();
 
-		Collection<Todo> todos = hu.getTodos();
+
+		Set<Todo> todos = hu.getTodos();
 
 		for (Todo t : todos) {
 			if (t.getId() == todo.getId()) {
-				todos.remove(t);
-
-				em.remove(todo);
+				deleteTodo = t;
+				break;
 			}
 		}
+		
+		if (deleteTodo != null) {	
+			todos.remove(deleteTodo);
+		}
+		
+		hu.setTodos(todos);
+		em.persist(hu);
+
 	}
 
 	// Delete Note
@@ -196,15 +212,22 @@ public class HomeUserDAO {
 		HomeUser hu = em.find(HomeUser.class, id);
 		Note note = em.find(Note.class, nId);
 
-		Collection<Note> notes = hu.getNotes();
+		Set<Note> notes = hu.getNotes();
+		Note deleteNote = new Note();
 
 		for (Note n : notes) {
 			if (n.getId() == note.getId()) {
-				notes.remove(n);
-
-				em.remove(note);
+				deleteNote = n;
+				break;
 			}
 		}
+		
+		if (deleteNote != null) {
+			notes.remove(deleteNote);
+		}
+		
+		hu.setNotes(notes);
+		em.persist(hu);
 	}
 
 	// Delete Note By User ID and Home ID
@@ -214,16 +237,24 @@ public class HomeUserDAO {
 
 		HomeUser hu = showByIds(user.getId(), home.getId());
 		Note note = em.find(Note.class, nId);
+		Note deleteNote = new Note();
 
-		Collection<Note> notes = hu.getNotes();
+		Set<Note> notes = hu.getNotes();
 
 		for (Note n : notes) {
 			if (n.getId() == note.getId()) {
-				notes.remove(n);
-
-				em.remove(note);
+				deleteNote = n;
+				
+				break;
 			}
 		}
+		
+		if (deleteNote != null) {	
+			notes.remove(deleteNote);
+		}
+		
+		hu.setNotes(notes);
+		em.persist(hu);
 	}
 
 	// Delete Image
@@ -231,15 +262,23 @@ public class HomeUserDAO {
 		HomeUser hu = em.find(HomeUser.class, id);
 		Image image = em.find(Image.class, iId);
 
-		Collection<Image> images = hu.getImages();
+		Set<Image> images = hu.getImages();
+		Image deleteImage = new Image();
 
 		for (Image i : images) {
 			if (i.getId() == image.getId()) {
-				images.remove(i);
+				deleteImage = i;
 
-				em.remove(image);
+				break;
 			}
 		}
+		
+		if (deleteImage != null) {
+			images.remove(deleteImage);
+		}
+		
+		hu.setImages(images);
+		em.persist(hu);
 	}
 
 	// Delete Image By User ID and Home ID
@@ -249,16 +288,24 @@ public class HomeUserDAO {
 
 		HomeUser hu = showByIds(user.getId(), home.getId());
 		Image image = em.find(Image.class, iId);
+		Image deleteImage = new Image();
 
-		Collection<Image> images = hu.getImages();
+		Set<Image> images = hu.getImages();
 
 		for (Image i : images) {
 			if (i.getId() == image.getId()) {
-				images.remove(i);
+				deleteImage = i;
 
-				em.remove(image);
+				break;
 			}
 		}
+		
+		if (deleteImage != null) {
+			images.remove(deleteImage);
+		}
+		
+		hu.setImages(images);
+		em.persist(hu);
 	}
 
 	// Update ToDo
