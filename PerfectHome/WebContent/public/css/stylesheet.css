@@ -109,19 +109,6 @@ footer {
 	padding: 25px;
 }
 
-.carousel-inner img {
-	width: 100%; /* Set width to 100% */
-	min-height: 600px;
-	max-height: 600px;
-}
-
-/* Hide the carousel text when the screen is less than 600 pixels wide */
-@media ( max-width : 600px) {
-	.carousel-caption {
-		display: none;
-	}
-}
-
 #login-dp {
 	min-width: 250px;
 	padding: 14px 14px 0;
@@ -142,17 +129,6 @@ footer {
 
 #login-dp .form-group {
 	margin-bottom: 10px;
-}
-
-@media ( max-width :768px) {
-	#login-dp {
-		background-color: inherit;
-		color: #fff;
-	}
-	#login-dp .bottom {
-		background-color: inherit;
-		border-top: 0 none;
-	}
 }
 
 .wrap {
@@ -324,3 +300,5 @@ body{ margin: 20px; }
   .inline{
       display: inline;
   }
+  
+  /* ====================================== */

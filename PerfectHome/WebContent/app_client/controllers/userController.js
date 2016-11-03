@@ -10,10 +10,13 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	$scope.activeHome = {};
 	$scope.currentHomeUserId = null;
 	$scope.todos = [];
+	$scope.photos = [];
 	$scope.notes = [];
 	$scope.rating;
-	var homeuserId ;
+	var homeuserId;
 	
+	$scope.myInterval = 3000;
+
     if (authenticationService.isLoggedIn()){
         userService.getUser(authenticationService.currentUser().id)
         .then(function(response){
@@ -23,7 +26,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
         	homeuserId = $scope.currentHomeUserId;
     	    console.log($scope.currentHomeUserId);
 	       	console.log(homeuserId);
-	       	$scope.loadData();
 //            $scope.todos = $scope.user.data.homeUsers[0].todos;
             console.log($scope.todos);
             $scope.notes = $scope.user.data.homeUsers[0].notes;
@@ -32,6 +34,8 @@ app.controller('userController', function($scope, $location, $compile, userServi
            .then(function(response){
          	  $scope.activeHome = response;
          	  console.log($scope.activeHome);
+         	  $scope.loadTodos();
+         	  $scope.loadPhotos();
            })
         });
      }
@@ -48,8 +52,25 @@ app.controller('userController', function($scope, $location, $compile, userServi
 		})
 	}
 	
-    //	Cloudinary Upload Widget API call
-	$scope.uploadImage = function() {
+	$scope.loadPhotos = function(){
+	    console.log("Reloading Photo's");
+	    console.log(homeuserId);
+		   userService.getPhotos(homeuserId)
+	         .then(function(response){
+	        	 console.log(response);
+				 console.log($scope.activeHome.data.imageUrl);
+	        	 var photos = [];
+	        	 photos.push($scope.activeHome.data.imageUrl);
+	        	 for (i = 0; i < response.data.length; i++) { 
+	        		    photos.push(response.data[i].url);
+	        		}
+	        	 $scope.photos = photos;
+	        	 console.log($scope.photos);
+	       });
+	}
+		
+	//	Cloudinary Upload Widget API call
+	$scope.uploadPhoto = function() {
 		console.log("Ready to upload your picture");
 		var results;
 		var errors;
@@ -97,17 +118,18 @@ app.controller('userController', function($scope, $location, $compile, userServi
 			console.log(response)
 			$scope.activeHome = response;
 			$scope.currentHomeUserId = HomeUserId;
+			$scope.loadNotes();
 			homeuserId = $scope.currentHomeUserId;
 			todoService.getTodos(HomeUserId)
 			.then(function(response){
 				$scope.todos = response.data;
 				console.log($scope.todos);
 			})
-			//$scope.loadNotes();
-			userService.getUser(authenticationService.currentUser().id)
-	        .then(function(response){
-	        	$scope.user = response;
-	        })
+			userService.getPhotos(HomeUserId)
+			.then(function(response){
+				$scope.photos = response.data;
+				console.log($scope.photos);
+			})
 		})
 	}
 	
@@ -200,11 +222,11 @@ app.controller('userController', function($scope, $location, $compile, userServi
        console.log(homeuserId);
        todoService.createTodo(todo,homeuserId)
   	   .then(function(response){
-  		   $scope.loadData(homeuserId);
+  		   $scope.loadTodos(homeuserId);
   	   })
      }
      
-     $scope.loadData = function(){
+     $scope.loadTodos = function(){
        console.log("Reloading Todo's");
        console.log(homeuserId);
   	   todoService.getTodos(homeuserId)
@@ -220,19 +242,18 @@ app.controller('userController', function($scope, $location, $compile, userServi
         console.log(homeuserId);
         todoService.removeTodo(todo,homeuserId)
         .then(function(response){
-            $scope.loadData(homeuserId);
+            $scope.loadTodos(homeuserId);
         });
-    }
+     }
 
      $scope.editTodo = function(todo){
         console.log("Request received to edit selected Task");
         console.log(homeuserId);
         todoService.editTodo(todo,homeuserId)
         .then(function(response){
-            $scope.loadData(homeuserId);
+            $scope.loadTodos(homeuserId);
         });
-    }
-     
+     }
      
      $scope.loadNotes = function(){
          console.log("Reloading Note's");
@@ -243,7 +264,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
             	 $scope.notes = response.data;
             	 console.log($scope.notes);
            });
-       }
+     }
 
      $scope.createNote = function(note) {
     	 console.log(note)
@@ -251,7 +272,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
     	 .then(function(response){
     		 console.log('Created Note')
     		 $scope.loadNotes();
-    		 
     	 })
      }
      
@@ -273,8 +293,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
     		 $scope.loadNotes();
     	 })
      }
-     
-     
      
      $scope.styleTooMany = function(tasks) {
        return (tasks > 3) ? "yellow" : "green";
