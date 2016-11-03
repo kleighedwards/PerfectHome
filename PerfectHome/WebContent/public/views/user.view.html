@@ -18,9 +18,11 @@
 		<label>New home: </label>
 		<div class=" input-group">
 			<span class="input-group-btn">
-				<button ng-click="addHome(newHome)" class="btn btn-primary">Add Home</button>
+				<button ng-click="addHome(activeHome)" class="btn btn-primary">Add Home</button>
 			</span>
-			<input id="autocomplete" type="textarea" class="form-control" ng-model="note.note" placeholder="Enter your address"/>
+			<input id="autocomplete" type="textarea" class="form-control" ng-model="newHome" placeholder="Enter your address"/>
+			<span class="input-group-btn">
+			<button style="margin-left: 50px; margin-right: 50px;" "ng-click="uploadImage()" class=" btn btn-primary">Add Photo</button></span>
 	 		<div>
 				<form ng-hide="true" id="my_image">
 				<img id="my_image" />

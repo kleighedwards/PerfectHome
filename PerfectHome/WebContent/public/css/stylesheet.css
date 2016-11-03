@@ -230,7 +230,7 @@ form.login a:hover {
 fieldset, label { margin: 0; padding: 0; }
 body{ margin: 20px; }
 
-***** Style Star Rating Widget ****
+/* ***** Style Star Rating Widget ****
 
 .rating {
   border: none;
@@ -267,7 +267,8 @@ body{ margin: 20px; }
 .rating > label:hover ~ input:checked ~ label, lighten current selection
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
  
- 
+  */
+  
   .green {
       color: white;
       background-color: green;
@@ -302,3 +303,13 @@ body{ margin: 20px; }
   }
   
   /* ====================================== */
+  
+.rating li {
+	display: inline-block;
+	list-style-type: none;
+}
+  
+.rating .filled {
+color: gold;
+}
+ 

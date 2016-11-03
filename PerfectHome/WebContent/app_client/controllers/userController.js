@@ -130,6 +130,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				$scope.photos = response.data;
 				console.log($scope.photos);
 			})
+
 		})
 	}
 	

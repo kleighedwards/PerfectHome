@@ -51,27 +51,30 @@ public class HomeDAO {
 	public User createHomeToPass(Home home, int id) {
 		HomeUser hu = new HomeUser();
 		User user = em.find(User.class, id);
-			
+
 		hu.setUser(user);
-		
+
 		Collection<Home> homes = index();
-		
+
 		for (Home h : homes) {
 			if (h.getZpId() == home.getZpId()) {
 				hu.setHome(h);
 			}
 		}
-		
+
 		if (hu.getHome() == null) {
+			if (home.getZillowImage() == null) {
+				home.setZillowImage("public/image/default.png");
+			}
 			em.persist(home);
-			em.flush();	
-			
+			em.flush();
+
 			Home managedHome = em.find(Home.class, home.getId());
 			hu.setHome(managedHome);
+			hu.setRating(1);
 		}
-		
-		
-		em.persist(user);		
+
+		em.persist(user);
 		em.persist(hu);
 
 		return user;
