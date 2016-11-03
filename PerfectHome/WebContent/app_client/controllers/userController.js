@@ -13,6 +13,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	$scope.photos = [];
 	$scope.notes = [];
 	$scope.rating;
+	$scope.newHome = null;
 	var homeuserId;
 	
 	$scope.myInterval = 3000;
@@ -102,12 +103,17 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	
 	$scope.addHome = function(home){
 		console.log(home)
+		if (home === null) {
+			return;
+		}
 		userService.addHome(authenticationService.currentUser().id, home)
 		.then(function(){
 			userService.getUser(authenticationService.currentUser().id)
 			.then(function(response){
 				$scope.user =  response;
 				console.log($scope.user)
+				$scope.todos = [];
+				$scope.notes = [];
 			})
 		})
 	}
@@ -118,8 +124,8 @@ app.controller('userController', function($scope, $location, $compile, userServi
 			console.log(response)
 			$scope.activeHome = response;
 			$scope.currentHomeUserId = HomeUserId;
-			$scope.loadNotes();
 			homeuserId = $scope.currentHomeUserId;
+			$scope.loadNotes();
 			todoService.getTodos(HomeUserId)
 			.then(function(response){
 				$scope.todos = response.data;
@@ -197,6 +203,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
       			console.log(response)
       			$scope.zillowResult = response;
       			$scope.activeHome = response;
+      			$scope.newHome = response;
       			$scope.currentHomeUserId = null;
       			});
     }	
