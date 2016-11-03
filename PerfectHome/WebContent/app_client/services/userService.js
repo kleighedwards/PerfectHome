@@ -45,6 +45,17 @@ app.factory('userService', function($window, $http, authenticationService){
 			})
 	}
 	
+	userService.updateRating = function (rating, homeUserId){
+		return $http({
+			method: 'PUT' ,
+			url : 'api/homeuser/'+homeUserId+'/rating/'+rating,
+			headers : {
+				'Content-Type' : 'text/plain'
+			},
+		})
+		
+	}
+	
 	return userService;
 	
 	

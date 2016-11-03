@@ -324,3 +324,13 @@ body{ margin: 20px; }
   .inline{
       display: inline;
   }
+  
+.rating li {
+	display: inline-block;
+	list-style-type: none;
+}
+  
+.rating .filled {
+color: gold;
+}
+  
