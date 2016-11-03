@@ -68,6 +68,7 @@ public class HomeDAO {
 			
 			Home managedHome = em.find(Home.class, home.getId());
 			hu.setHome(managedHome);
+			hu.setRating(1);
 		}
 		
 		
