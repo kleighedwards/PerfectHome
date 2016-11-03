@@ -1,39 +1,5 @@
+
 <div>
-<style>
-  .green {
-      color: white;
-      background-color: green;
-      border-radius: 10px;
-      border: 1px solid black;
-      padding-left: 0.2em;
-      padding-right: 0.2em;
-  }
-
-  .yellow {
-      color: black;
-      background-color: yellow;
-      border-radius: 10px;
-      border: 1px solid black;
-      padding-left: 0.2em;
-      padding-right: 0.2em;
-  }
-
-  #table1, #th1, #td1 {
-      border: 1px solid black;
-      border-collapse: collapse;
-      width: 100%;
-      padding: 5px;
-      text-align: center;
-  }
-
-  #tr1:nth-child(odd) {
-      background-color: #f2f2f2;
-  }
-  .inline{
-      display: inline;
-  }
- </style>
-
 	<h4>Home ToDo List <span ng-class="styleTooMany((todos | todosFilter:false).length)">{{(todos | todosFilter:false).length}}</span></h4>
 	<div class="input-group">
 		<input type="text" class="form-control" ng-model="input.task" placeholder="Enter a new Todo" /> <span

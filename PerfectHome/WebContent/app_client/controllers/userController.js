@@ -103,7 +103,11 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				$scope.todos = response.data;
 				console.log($scope.todos);
 			})
-			$scope.loadNotes();
+			//$scope.loadNotes();
+			userService.getUser(authenticationService.currentUser().id)
+	        .then(function(response){
+	        	$scope.user = response;
+	        })
 		})
 	}
 	
