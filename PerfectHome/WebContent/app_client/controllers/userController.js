@@ -97,6 +97,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 						var newImage = {};
 						newImage.url = result[0].secure_url;
 						userService.createPhoto(newImage,homeuserId);
+//						$scope.loadPhotos();
 				    }
 	            });
 	}
@@ -132,7 +133,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				$scope.todos = response.data;
 				console.log($scope.todos);
 			})
-			todoService.getPhotos(HomeUserId)
+			userService.getPhotos(HomeUserId)
 		})
 	}
 	
@@ -191,7 +192,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
       street = street.replace(/ /g , '+');
       city = city.replace(/ /g , '+');
       var string = 'http://www.zillow.com/webservice/GetDeepSearchResults' +
-      '.htm?zws-id=X1-ZWz1fidpnpqc5n_5886x&address=' + number + '+' +
+      '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
       userService.getHomeZpid(string)
