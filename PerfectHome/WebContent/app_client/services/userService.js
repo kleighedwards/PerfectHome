@@ -23,6 +23,21 @@ app.factory('userService', function($window, $http, authenticationService){
 			})
 	}
 	
+	userService.createPhoto = function(newImage,homeuserId) {
+		console.log(newImage);
+		console.log(newImage);
+		console.log(homeuserId);
+		return $http({
+			method : 'POST',
+			url : 'api/homeuser/' + homeuserId + '/images',
+			headers : {
+				'Content-Type' : 'application/json',
+				'x-access-token' : authenticationService.getToken()
+			},
+			data : newImage
+		})
+	};
+	
 	userService.addHome = function (userId, home) {
 		console.log(home)
 		console.log(home.zillowId)

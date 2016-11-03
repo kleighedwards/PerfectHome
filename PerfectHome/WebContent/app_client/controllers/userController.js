@@ -50,6 +50,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	
     //	Cloudinary Upload Widget API call
 	$scope.uploadImage = function() {
+		console.log("Ready to upload your picture");
 		var results;
 		var errors;
 		$.cloudinary.init();
@@ -70,6 +71,10 @@ app.controller('userController', function($scope, $location, $compile, userServi
 						console.log(result[0].secure_url);
 						console.log(result[0].signature);
 						$("#my_image").attr("src",results.secure_url);
+						console.log("sending image to userService");
+						var newImage = {};
+						newImage.url = result[0].secure_url;
+						userService.createPhoto(newImage,homeuserId);
 				    }
 	            });
 	}
