@@ -97,6 +97,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 						var newImage = {};
 						newImage.url = result[0].secure_url;
 						userService.createPhoto(newImage,homeuserId);
+//						$scope.loadPhotos();
 				    }
 	            });
 	}
@@ -134,6 +135,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				$scope.todos = response.data;
 				console.log($scope.todos);
 			})
+			userService.getPhotos(HomeUserId)
 		})
 	}
 	
@@ -150,13 +152,8 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	
     function fillInAddress() {
         // Get the place details from the autocomplete object.
-        var place = $scope.autocomplete.getPlace();
-        // Parse address compenents out of place.
-        
-        console.log(place);
-        
+        var place = $scope.autocomplete.getPlace();     
         address = place.address_components;
-
         var addressNum = address[0].long_name;
         var street = address[1].long_name;
         var city = address[2].long_name;
@@ -192,7 +189,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
       street = street.replace(/ /g , '+');
       city = city.replace(/ /g , '+');
       var string = 'http://www.zillow.com/webservice/GetDeepSearchResults' +
-      '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
+      '.htm?zws-id=X1-ZWz1fif4yinrij_68qz7&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
       userService.getHomeZpid(string)

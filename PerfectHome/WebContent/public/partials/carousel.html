@@ -1,3 +1,4 @@
+
 <div id="displayBox" class="container">
     <div class="item">
         <a ng-repeat="photo in photos"  href="{{photo}}"><img src="{{photo}}" height="290px" width="380px"></a>
@@ -6,13 +7,16 @@
         
 </div>
 
+ 
+<!--  
+<div class="col-sm-6" ng-repeat="photo in photos">
 
-
-<div class="container">
-		<img src="{{photo}}" width="50%" height="auto">
-	<div class="item" ng-repeat="photo in photos">
-		<img src="{{photo}}" width="50%" height="auto">
-		<img src="{{photo}}" width="50%" height="auto">
+	<div class="thumbnail">
+		<img src="{{photo}}" class="img-responsive"
+			style="width: 100%" alt="Image" width="400" height="300">
 	</div>
-		<p>{{activeHome.data.street}}</p>
 </div>
+ 
+ 		<p>
+			<strong>{{activeHome.data.street}}</strong>
+		</p> -->
