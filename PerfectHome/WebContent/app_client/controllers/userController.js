@@ -76,7 +76,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
 		var errors;
 		$.cloudinary.init();
 		$.cloudinary.config({ cloud_name: 'dyllookxn', api_key: '392338393876672'});
-		cloudinary.openUploadWidget({ cloud_name: 'dyllookxn', upload_preset: 'perfectHome', form: '#my_image', cropping: 'server'}, 
+		cloudinary.openUploadWidget({ cloud_name: 'dyllookxn', upload_preset: 'perfectHome', form: '#my_image'}, 
 				function(error, result) 
 				{ 
 				    if (error != null) {
@@ -119,18 +119,9 @@ app.controller('userController', function($scope, $location, $compile, userServi
 			$scope.activeHome = response;
 			$scope.currentHomeUserId = HomeUserId;
 			$scope.loadNotes();
+			$scope.loadTodos();
+			$scope.loadPhotos();
 			homeuserId = $scope.currentHomeUserId;
-			todoService.getTodos(HomeUserId)
-			.then(function(response){
-				$scope.todos = response.data;
-				console.log($scope.todos);
-			})
-			userService.getPhotos(HomeUserId)
-			.then(function(response){
-				$scope.photos = response.data;
-				console.log($scope.photos);
-			})
-
 		})
 	}
 	
