@@ -1,3 +1,7 @@
-<div>
-	<img ng-repeat="photo in photos" class="img-responsive" src="{{photo}}">
-</div>	
+
+<div class="container">
+	<div class="item" ng-repeat="photo in photos">
+		<img src="{{photo}}" width="50%" height="auto">
+	</div>
+		<p>{{activeHome.data.street}}</p>
+</div>
