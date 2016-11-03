@@ -1,5 +1,8 @@
 package data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -315,7 +318,20 @@ public class HomeUserDAO {
 
 		editTodo.setTask(todo.getTask());
 		editTodo.setCompleted(todo.getCompleted());
-		editTodo.setDate(todo.getDate());
+		
+		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        String d = s.format(todo.getDate());
+        String day = Integer.parseInt(d.charAt(d.length()-2)+""+ d.charAt(d.length()-1))+1 + "";
+        d = d.substring(0, d.length()-2) + day;
+        Date date;
+		try {
+			date = s.parse(d);
+			editTodo.setDate(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+//		editTodo.setDate(todo.getDate());
 
 		em.persist(editTodo);
 		em.flush();
