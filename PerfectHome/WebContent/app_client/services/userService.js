@@ -40,8 +40,8 @@ app.factory('userService', function($window, $http, authenticationService){
 	
 	userService.addHome = function (userId, home) {
 		console.log(home)
-		console.log(home.zillowId)
-		var newHome = {'zpId' : home.zillowId, 'address' : home.street, 'zillowImage' : home.imageUrl}
+		console.log(home.data.zillowId)
+		var newHome = {'zpId' : home.data.zillowId, 'address' : home.data.street, 'zillowImage' : home.data.imageUrl}
 		console.log(newHome)
 		return $http({
 			method: 'POST' ,
