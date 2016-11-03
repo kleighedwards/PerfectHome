@@ -3,32 +3,32 @@
 
 <div class="container-fluid">
 	<div class="row text-center">
-		<div class="col-sm-3 well well-sm">
+		<div class="col-sm-4 well well-sm">
 			<div ng-include="'public/partials/userToDo.html'"></div>
 		</div>
-		<div ng-include="'public/partials/carousel.html'" class="col-sm-9"></div>
+		<div ng-include="'public/partials/carousel.html'" class="col-sm-8"></div>
 	</div>
 	<hr>
-<div class="row text-center">
+	<div class="row text-center">
 <!-- 		<div id="locationField" class="col-xs-12">
 			<label>New home: </label> <input id="autocomplete" placeholder="Enter your address" type="text" width="80%"></input>
 			<button ng-click="addHome(newHome)">Add home</button>
 		</div> -->
 	
-	<label>New home: </label>
-	<div class=" input-group">
-	<span class="input-group-btn">
-		<button ng-click="addHome(newHome)" class="btn btn-primary">Add Home</button>
-	</span>
-	<input id="autocomplete" type="textarea" class="form-control" ng-model="note.note" placeholder="Enter your address"/>
-	<span class="input-group-btn">
-		<button style="margin-left: 50px; margin-right: 50px;" "ng-click="uploadImage()" class=" btn btn-primary">Add Photo</button></span>
- <div>
-<form ng-hide="true" id="my_image">
-	<img id="my_image" />
-</form>
- </div>
-</div>
+		<label>New home: </label>
+		<div class=" input-group">
+			<span class="input-group-btn">
+				<button ng-click="addHome(newHome)" class="btn btn-primary">Add Home</button>
+			</span>
+			<input id="autocomplete" type="textarea" class="form-control" ng-model="note.note" placeholder="Enter your address"/>
+			<span class="input-group-btn">
+			<button style="margin-left: 50px; margin-right: 50px;" "ng-click="uploadImage()" class=" btn btn-primary">Add Photo</button></span>
+	 		<div>
+				<form ng-hide="true" id="my_image">
+				<img id="my_image" />
+				</form>
+			</div>
+		</div>
 	</div>
 	
 	
@@ -58,5 +58,6 @@
 			</div>
 		</div>
 	</div>
-
 	<hr>
+</div>
+

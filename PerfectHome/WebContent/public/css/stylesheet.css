@@ -291,3 +291,36 @@ body{ margin: 20px; }
 .rating > label:hover ~ input:checked ~ label, lighten current selection
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
  
+ 
+  .green {
+      color: white;
+      background-color: green;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+  }
+
+  .yellow {
+      color: black;
+      background-color: yellow;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+  }
+
+  #table1, #th1, #td1 {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      padding: 2px;
+      text-align: center;
+  }
+
+  #tr1:nth-child(odd) {
+      background-color: #f2f2f2;
+  }
+  .inline{
+      display: inline;
+  }
