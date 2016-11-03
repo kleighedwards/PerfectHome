@@ -63,7 +63,7 @@ public class HomeDAO {
 		}
 		
 		if (hu.getHome() == null) {
-			home.setZillowImage(null);
+			home.setZillowImage("public/image/default.png");
 			em.persist(home);
 			em.flush();	
 			
