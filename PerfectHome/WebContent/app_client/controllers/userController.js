@@ -126,13 +126,14 @@ app.controller('userController', function($scope, $location, $compile, userServi
 			$scope.currentHomeUserId = HomeUserId;
 			homeuserId = $scope.currentHomeUserId;
 			$scope.loadNotes();
+			$scope.loadTodos();
 			$scope.loadPhotos();
+			$scope.loadNotes();
 			todoService.getTodos(HomeUserId)
 			.then(function(response){
 				$scope.todos = response.data;
 				console.log($scope.todos);
 			})
-			todoService.getPhotos(HomeUserId)
 		})
 	}
 	
@@ -191,7 +192,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
       street = street.replace(/ /g , '+');
       city = city.replace(/ /g , '+');
       var string = 'http://www.zillow.com/webservice/GetDeepSearchResults' +
-      '.htm?zws-id=X1-ZWz1fidpnpqc5n_5886x&address=' + number + '+' +
+      '.htm?zws-id=X1-ZWz1fhzcpm7ymj_4zss3&address=' + number + '+' +
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
       userService.getHomeZpid(string)
