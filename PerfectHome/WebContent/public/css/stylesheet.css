@@ -109,19 +109,6 @@ footer {
 	padding: 25px;
 }
 
-.carousel-inner img {
-	width: 100%; /* Set width to 100% */
-	min-height: 600px;
-	max-height: 600px;
-}
-
-/* Hide the carousel text when the screen is less than 600 pixels wide */
-@media ( max-width : 600px) {
-	.carousel-caption {
-		display: none;
-	}
-}
-
 #login-dp {
 	min-width: 250px;
 	padding: 14px 14px 0;
@@ -142,17 +129,6 @@ footer {
 
 #login-dp .form-group {
 	margin-bottom: 10px;
-}
-
-@media ( max-width :768px) {
-	#login-dp {
-		background-color: inherit;
-		color: #fff;
-	}
-	#login-dp .bottom {
-		background-color: inherit;
-		border-top: 0 none;
-	}
 }
 
 .wrap {
@@ -254,7 +230,7 @@ form.login a:hover {
 fieldset, label { margin: 0; padding: 0; }
 body{ margin: 20px; }
 
-***** Style Star Rating Widget ****
+/* ***** Style Star Rating Widget ****
 
 .rating {
   border: none;
@@ -291,7 +267,8 @@ body{ margin: 20px; }
 .rating > label:hover ~ input:checked ~ label, lighten current selection
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
  
- 
+  */
+  
   .green {
       color: white;
       background-color: green;
@@ -325,6 +302,8 @@ body{ margin: 20px; }
       display: inline;
   }
   
+  /* ====================================== */
+  
 .rating li {
 	display: inline-block;
 	list-style-type: none;
@@ -333,4 +312,4 @@ body{ margin: 20px; }
 .rating .filled {
 color: gold;
 }
-  
+ 

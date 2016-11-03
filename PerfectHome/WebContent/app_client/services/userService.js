@@ -38,6 +38,17 @@ app.factory('userService', function($window, $http, authenticationService){
 		})
 	};
 	
+	userService.getPhotos = function(homeuserId) {
+		console.log(homeuserId);
+		return $http({
+			method : 'GET',
+			url : 'api/homeuser/' + homeuserId + '/images',
+			headers : {
+				'x-access-token' : authenticationService.getToken()
+			}
+		})
+	};
+	
 	userService.addHome = function (userId, home) {
 		console.log(home)
 		console.log(home.data.zillowId)
