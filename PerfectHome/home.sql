@@ -142,8 +142,8 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'homeuser';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homedb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (1, 'testUser', 'password', 'John', 'Doe');
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (2, 'anotherUser', 'password', 'Jane', 'Doe');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (1, 'testUser', '$2a$10$gm9aUuSW4RE2nFQZ5a64C.TEzmKBrBFlPfnkGJkcqWzd/DJtbfO3i', 'John', 'Doe');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (2, 'anotherUser', '$2a$10$uJDc8JrDMf.RfKdtI2Jabu.zYQMbUae4mWq31SaXM8ygZc9JsG8eC', 'Jane', 'Doe');
 
 COMMIT;
 
