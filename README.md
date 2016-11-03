@@ -1,6 +1,6 @@
-# Skill Distillery Week 16 Project
+# Skill Distillery Week 16 Project - Perfect Home
 
-## Perfect Home - Creating a Full-Stack Web Application with JPA, REST, and Angular
+## Creating a Full-Stack Web Application with JPA, REST, and Angular
 
 ## Rod Hammond, Elijah Ginter, Kristen Edwards, and Toland Gooch
 
@@ -37,7 +37,7 @@
     - Before the user has uploaded any images, the program will display whatever images Zillow has available as the default.
     - If Zillow does not have any images of the property available, the program will select its own default image.
   - Rate each home (on a scale of 1 - 5)
-    - The user may also update these rating if their feelings change.
+    - The user may also update these ratings if their feelings change.
 - If a user decides a home just isn’t for them, they are free to delete the property from their list.
 
 ### Stumbling Blocks
@@ -50,3 +50,11 @@
 - We would like to refactor a fair bit of our AngularJS code. All of our data for the application was accessed in some way through the user. This made it difficult for certain components of the application to talk to each other and update when appropriate.
 
 ### Access on AWS
+
+- Rod Hammond: www.rodhammond.info:8080/PerfectHome
+
+- Elijah Ginter: www.elijahginter.com:8080/PerfectHome
+
+- Kristen Edwards: www.kristenedwards.info:8080/PerfectHome
+
+- Toland Gooch: www.tolandgooch.com:8080/PerfectHome
