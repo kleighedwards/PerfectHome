@@ -8,27 +8,27 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	
 	$scope.user = {};
 	$scope.activeHome = {};
-	$scope.currentHomeUserId = null;
 	$scope.todos = [];
 	$scope.photos = [];
 	$scope.notes = [];
 	$scope.rating;
 	$scope.newHome = null;
 	var homeuserId;
+	var zillowId;
 	
-	$scope.myInterval = 3000;
+    $scope.myInterval = 3000;
+    $scope.noWrapSlides = false;
+    $scope.activeSlide = 0;
 
     if (authenticationService.isLoggedIn()){
         userService.getUser(authenticationService.currentUser().id)
         .then(function(response){
         	$scope.user = response;
         	console.log($scope.user);
-        	$scope.currentHomeUserId = $scope.user.data.homeUsers[0].id;
-        	homeuserId = $scope.currentHomeUserId;
-    	    console.log($scope.currentHomeUserId);
+        	homeuserId = $scope.user.data.homeUsers[0].id;
 	       	console.log(homeuserId);
 //            $scope.todos = $scope.user.data.homeUsers[0].todos;
-            console.log($scope.todos);
+            console.table($scope.todos);
             $scope.notes = $scope.user.data.homeUsers[0].notes;
             $scope.rating = $scope.user.data.homeUsers[0].rating;
             zillowService.getZillowInfo($scope.user.data.homeUsers[0].homeZpID)
@@ -41,14 +41,23 @@ app.controller('userController', function($scope, $location, $compile, userServi
         });
      }
     
-	$scope.remove = function(homeUserId) {
-		console.log(homeUserId)
-		userService.deleteHome(homeUserId)
+	$scope.remove = function(homeuserId) {
+		console.log(homeuserId)
+		userService.deleteHome(homeuserId)
 		.then(function(){
 			userService.getUser(authenticationService.currentUser().id)
 			.then(function(response){
 				$scope.user =  response;
-				console.log($scope.user)
+				console.table($scope.user)
+				 var i;
+				 for (i = $scope.user.data.homeUsers.length; i > 0; i--) { 
+					 if($scope.user.data.homeUsers[i] != null) {
+						 homeuserId = $scope.user.data.homeUsers[i].id;
+						 zillowId = $scope.user.data.homeUsers[i].homeZpID;
+						 break;
+					 }
+	        	 }
+				 $scope.click(zillowId,homeuserId);
 			})
 		})
 	}
@@ -58,15 +67,19 @@ app.controller('userController', function($scope, $location, $compile, userServi
 	    console.log(homeuserId);
 		   userService.getPhotos(homeuserId)
 	         .then(function(response){
-	        	 console.log(response);
-				 console.log($scope.activeHome.data.imageUrl);
+	        	 console.table(response);
+				 console.table($scope.activeHome.data.imageUrl);
+					if($scope.activeHome.data.imageUrl === null){
+						$scope.activeHome.data.imageUrl = 'public/image/default.png';
+						console.log($scope.activeHome);	
+					}
 	        	 var photos = [];
 	        	 photos.push($scope.activeHome.data.imageUrl);
 	        	 for (i = 0; i < response.data.length; i++) { 
 	        		    photos.push(response.data[i].url);
 	        		}
 	        	 $scope.photos = photos;
-	        	 console.log($scope.photos);
+	        	 console.table($scope.photos);
 	       });
 	}
 		
@@ -82,13 +95,13 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				{ 
 				    if (error != null) {
 				    	console.log(error, result);
-				    	console.log(error);
+				    	console.table(error);
 				    	errors = error;
 				    	console.log(errors.message);
 				    }
 				    else if (error === null) {
 						results = result[0];
-						console.log(results);
+						console.table(results);
 						console.log(result[0].url);
 						console.log(result[0].secure_url);
 						console.log(result[0].signature);
@@ -96,15 +109,23 @@ app.controller('userController', function($scope, $location, $compile, userServi
 						console.log("sending image to userService");
 						var newImage = {};
 						newImage.url = result[0].secure_url;
-						userService.createPhoto(newImage,homeuserId);
-//						$scope.loadPhotos();
+						userService.createPhoto(newImage,homeuserId)
+						.then(function(){							
+							$scope.loadPhotos();
+						});
 				    }
 	            });
 	}
 	
 	$scope.addHome = function(home){
-		console.log(home)
-		if (home === null) {
+		console.log(home);
+		if (home.data === "") {
+			$scope.lookupbox = null;
+			return;
+		}
+		if( (home === null)|| (home.data.zillowId === 0)){
+			alert ("Sorry, this address was not found by Zillow!");
+			$scope.lookupbox = null;
 			return;
 		}
 		userService.addHome(authenticationService.currentUser().id, home)
@@ -115,27 +136,35 @@ app.controller('userController', function($scope, $location, $compile, userServi
 				console.log($scope.user)
 				$scope.todos = [];
 				$scope.notes = [];
+				$scope.photos = [];
+				if(home.data.imageUrl === null){
+					console.log(home);	
+					home.data.imageUrl = 'public/image/default.png';
+				}
 			})
 		})
 	}
 	
-	$scope.click = function(zillowId, HomeUserId){
-		zillowService.getZillowInfo(zillowId)
+	$scope.click = function(zillowhomeUserId,homeUserId){
+		zillowService.getZillowInfo(zillowhomeUserId)
 		.then(function(response){
 			console.log(response)
 			$scope.activeHome = response;
-			$scope.currentHomeUserId = HomeUserId;
-			homeuserId = $scope.currentHomeUserId;
+			if($scope.activeHome.data.imageUrl === null){
+				$scope.activeHome.data.imageUrl = 'public/image/default.png';
+				console.log($scope.activeHome);	
+			}
+        	homeuserId = homeUserId;
+	       	console.log(homeuserId);
 			$scope.loadNotes();
 			$scope.loadTodos();
 			$scope.loadPhotos();
 			$scope.loadNotes();
-			todoService.getTodos(HomeUserId)
+			todoService.getTodos(homeuserId)
 			.then(function(response){
 				$scope.todos = response.data;
-				console.log($scope.todos);
+				console.table($scope.todos);
 			})
-			userService.getPhotos(HomeUserId)
 		})
 	}
 	
@@ -161,7 +190,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
         if (state.length > 2) {
         	state = address[5].short_name;
         }
-
         zillowSearchAddress = makeApiString(addressNum, street, city, state);
     }
     
@@ -189,7 +217,8 @@ app.controller('userController', function($scope, $location, $compile, userServi
       street = street.replace(/ /g , '+');
       city = city.replace(/ /g , '+');
       var string = 'http://www.zillow.com/webservice/GetDeepSearchResults' +
-      '.htm?zws-id=X1-ZWz1fif4yinrij_68qz7&address=' + number + '+' +
+      '.htm?zws-id=X1-ZWz1fidpnpqc5n_5886x&address=' + number + '+' +
+
       street + '&citystatezip='+ city +'%2C+'+ state;
       console.log(string);
       userService.getHomeZpid(string)
@@ -198,7 +227,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
       			$scope.zillowResult = response;
       			$scope.activeHome = response;
       			$scope.newHome = response;
-      			$scope.currentHomeUserId = null;
       			});
     }	
 	
@@ -215,7 +243,6 @@ app.controller('userController', function($scope, $location, $compile, userServi
           newTask.completed =  false;
           $scope.createTodo(newTask,homeuserId);
           task.task = undefined;
-          homeuserId = homeuserId;
         }
      }
      
@@ -235,7 +262,7 @@ app.controller('userController', function($scope, $location, $compile, userServi
            .then(function(response){
           	 console.log(response);
           	 $scope.todos = response.data;
-          	 console.log($scope.todos);
+          	 console.table($scope.todos);
          });
      }
      
@@ -264,12 +291,12 @@ app.controller('userController', function($scope, $location, $compile, userServi
              .then(function(response){
             	 console.log(response);
             	 $scope.notes = response.data;
-            	 console.log($scope.notes);
+            	 console.table($scope.notes);
            });
      }
 
      $scope.createNote = function(note) {
-    	 console.log(note)
+    	 console.table(note)
     	 noteService.createNote(note, homeuserId)
     	 .then(function(response){
     		 console.log('Created Note')
@@ -278,20 +305,19 @@ app.controller('userController', function($scope, $location, $compile, userServi
      }
      
      $scope.editNote = function(note) {
-    	 console.log(note)
+    	 console.table(note)
     	 noteService.editNote(note, homeuserId)
     	  .then(function(response){
-    		 console.log(response)
+    		 console.table(response)
     		 $scope.loadNotes();
     	 })
-              
      }
      
      $scope.removeNote = function(note) {
-    	 console.log(note)
+    	 console.table(note)
     	 noteService.removeNote(note, homeuserId)
     	 .then(function(response){
-    		 console.log(response)
+    		 console.table(response)
     		 $scope.loadNotes();
     	 })
      }

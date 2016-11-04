@@ -1,7 +1,7 @@
 
 <div class="col-sm-4" ng-repeat="homes in user.data.homeUsers">
 
-	<div class="thumbnail" ng-click="click(homes.homeZpID, $index+1)">
+	<div class="thumbnail" ng-click="click(homes.homeZpID, homes.id)">
 		<img src="{{homes.homePicture}}" class="img-responsive"
 			style="width: 100%" alt="Image" width="400" height="300">
 		<p>

@@ -12,15 +12,15 @@
 				</tr>
 			</thead>
 			<tbody ng-repeat="homes in user.data.homeUsers">
-				<td>{{homes.homeAddress}}</td>
-				<td>
+				<td align="left">{{homes.homeAddress}}</td>
+				<td align="left">
 
 					 <div ng-controller="RatingCtrl">	
 			 			<div ng-init="rating = star.rating + 1"></div>
 						<div class="star-rating" star-rating rating-value="homes.rating" data-max="5" on-rating-selected="rateFunction(rating); updateRating(rating, homes.id)"></div>
 					</div>
 				</td>
-				<td><button ng-click="remove(homes.id)">Delete Home</button></td>
+				<td align="left"><button ng-click="remove(homes.id)">Delete Home</button></td>
 			</tbody>
 		</table>
 	</div>

@@ -1,22 +1,15 @@
+<!-- REF: http://stackoverflow.com/questions/35772414/angular-ui-bootstrap-carousel-not-working/35772695 -->
+<!--      https://owlcation.com/stem/how-to-align-images-side-by-side -->
 
-<div id="displayBox" class="container">
-    <div class="item">
-        <a ng-repeat="photo in photos"  href="{{photo}}"><img src="{{photo}}" height="290px" width="380px"></a>
-        <p>{{activeHome.data.street}}</p>
+<div id="slides_control">
+    <div id="displayBox" class="container">
+        <uib-carousel class="item" interval="myInterval" active="activeSlide">
+            <uib-slide ng-repeat="photo in photos" index="$index">
+                <img ng-src="{{photo}}" style="margin:auto;">
+            </uib-slide>
+                <div class="carousel-caption">
+                    <h4>{{activeHome.data.street}}</h4>
+                </div>
+        </uib-carousel>
     </div>
-        
 </div>
-
- 
-<!--  
-<div class="col-sm-6" ng-repeat="photo in photos">
-
-	<div class="thumbnail">
-		<img src="{{photo}}" class="img-responsive"
-			style="width: 100%" alt="Image" width="400" height="300">
-	</div>
-</div>
- 
- 		<p>
-			<strong>{{activeHome.data.street}}</strong>
-		</p> -->

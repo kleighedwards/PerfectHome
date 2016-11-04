@@ -20,7 +20,7 @@
 			<span class="input-group-btn">
 				<button ng-click="addHome(newHome)" class="btn btn-primary">Add Home</button>
 			</span>
-			<input id="autocomplete" type="textarea" class="form-control" placeholder="Enter your address"/>
+			<input ng-model="lookupbox" name="autocomplete" id="autocomplete" type="textarea" class="form-control" placeholder="Enter your address"/>
 	 		<div>
 				<form ng-hide="true" id="my_image">
 				<img id="my_image" />
@@ -59,4 +59,3 @@
 	</div>
 	<hr>
 </div>
-
